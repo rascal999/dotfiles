@@ -11,6 +11,7 @@ function cdd()
 }
 
 alias ls='ls --color=auto'
-export LANG=en_GB.UTF-8
+alias remote='ssh user@remote -p80'
+LANG=utf8
 PS1="[$(uptime | sed 's/: /\n/g' | tail -1) \u@\h \W]\$ "
 export TERM=xterm

@@ -444,6 +444,8 @@ function! s:C_InitMenus ()
 	exe ihead.'executable\ to\ run<Tab>\\rme                <C-C>:call C_ExeToRun()<CR>'
 	exe ahead.'&make\ clean<Tab>\\rmc                            :call C_MakeClean()<CR>'
 	exe ihead.'&make\ clean<Tab>\\rmc                       <C-C>:call C_MakeClean()<CR>'
+	exe ahead.'&make\ check\\rmt                                 :call C_MakeCheck()<CR>'
+	exe ihead.'&make\ check\\rmt                            <C-C>:call C_MakeCheck()<CR>'
 	exe ahead.'cmd\.\ line\ ar&g\.\ for\ make<Tab>\\rma          :call C_MakeArguments()<CR>'
 	exe ihead.'cmd\.\ line\ ar&g\.\ for\ make<Tab>\\rma     <C-C>:call C_MakeArguments()<CR>'
 	"
@@ -1716,7 +1718,15 @@ function! C_MakeClean()
 		exe	":lchdir -"
 	endif
 endfunction    " ----------  end of function C_MakeClean ----------
-
+"
+"------------------------------------------------------------------------------
+"  C_MakeCheck : run 'make check'       {{{1
+"------------------------------------------------------------------------------
+function! C_MakeCheck()
+  " run make check
+  exe ":!make check"
+endfunction    " ----------  end of function C_MakeCheck ----------
+"
 "------------------------------------------------------------------------------
 "  C_MakeArguments : get make command line arguments       {{{1
 "------------------------------------------------------------------------------
@@ -2626,6 +2636,8 @@ function! s:CreateAdditionalMaps ()
 	imap <buffer>  <silent>  <LocalLeader>rcm   <C-C>:call C_ChooseMakefile()<CR>
 	map  <buffer>  <silent>  <LocalLeader>rmc        :call C_MakeClean()<CR>
 	imap <buffer>  <silent>  <LocalLeader>rmc   <C-C>:call C_MakeClean()<CR>
+	map  <buffer>  <silent>  <LocalLeader>rmt        :call C_MakeCheck()<CR>
+	imap <buffer>  <silent>  <LocalLeader>rmt   <C-C>:call C_MakeCheck()<CR>
 	map  <buffer>  <silent>  <LocalLeader>rme        :call C_ExeToRun()<CR>
 	imap <buffer>  <silent>  <LocalLeader>rme   <C-C>:call C_ExeToRun()<CR>
 	map  <buffer>  <silent>  <LocalLeader>rma        :call C_MakeArguments()<CR>
