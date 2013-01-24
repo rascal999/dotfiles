@@ -39,7 +39,7 @@ TEXT
 
 [
   {
-    "full_text" : "batt: ${battery_percent BAT1}%",
+    "full_text" : "Batt: ${battery_percent BAT1}%",
     "color" : "\#ffffff"
   },
   {
