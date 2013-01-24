@@ -18,7 +18,7 @@ short_units yes
 # The value is one of up, link or address, to check for the interface
 # being solely up, being up and having link or being up, having link
 # and an assigned IP address. 
-if_up_strictness address
+if_up_strictness link
 
 # Add spaces to keep things from moving about?  This only affects certain objects.
 # use_spacer should have an argument of left, right, or none
@@ -39,10 +39,9 @@ TEXT
 
 [
   {
-    "full_text" : "${exec uname -a}",
+    "full_text" : "batt: ${battery_percent BAT1}%",
     "color" : "\#ffffff"
   },
-
   {
     "full_text" : " ${exec $HOME/.i3/pacman_updates.sh}",
     "color" : "\#ffffff"
@@ -60,7 +59,7 @@ TEXT
   },
 
   {
-    "full_text" : "${cpu cpu1}% ${cpu cpu2}% ${cpu cpu3}% ${cpu cpu4}% ${cpu cpu5}% ${cpu cpu6}% ${cpu cpu7}% ${cpu cpu8}%",
+    "full_text" : "${cpu cpu1}% ${cpu cpu2}%",
     "color" : "\#ffffff"
   },
 
@@ -80,7 +79,7 @@ TEXT
   },
 
   {
-    "full_text" : "${time %s %U %R %a %b %d %Y}",
+    "full_text" : "${time %U %R %a %b %d %Y}",
     "color" : ${if_match ${time %k} > 0}${if_match ${time %k} < 8}"\#ff0000"${else}"\#ffffff"${endif}${else}"\#ffffff"${endif}
   }
 ],
