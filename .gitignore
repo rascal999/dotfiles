@@ -1,1 +1,5 @@
 .netrwhist
+.bash_history
+.zsh_history
+.mysql_history
+.ssh/*
