@@ -2517,6 +2517,7 @@ function! s:CreateAdditionalMaps ()
 	map  <buffer>  <silent>  <S-F9>       :call C_Arguments()<CR>
 	imap <buffer>  <silent>  <S-F9>  <C-C>:call C_Arguments()<CR>
 	"
+	map  <buffer>  <silent>    <F5>       :call C_Make()<CR>:call C_HlMessage()<CR>
 
 	" ---------- KEY MAPPINGS : MENU ENTRIES -------------------------------------
 	" ---------- comments menu  ------------------------------------------------
