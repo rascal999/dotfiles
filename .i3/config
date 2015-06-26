@@ -11,7 +11,7 @@
 
 # Exec custom things
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-exec xrandr --output HDMI1 --auto --output LVDS1 --off --output VGA1 --left-of HDMI1 && feh --bg-center images/960x530.jpg
+#exec xrandr --output HDMI1 --auto --output LVDS1 --off --output VGA1 --left-of HDMI1 && feh --bg-center images/960x530.jpg
 exec redshift -l 51:0 -t 3300:3300
 
 set $mod Mod4
@@ -43,6 +43,7 @@ bindsym $mod+t exec urxvt -bg black -fg white -e /usr/bin/tmux
 bindsym $mod+Shift+Return exec trickle -d 350 firefox
 bindsym $mod+Return exec firefox
 bindsym $mod+k exec keepassx
+bindsym $mod+p exec pidgin
 bindsym $mod+c exec chromium --proxy-server=socks://localhost:1337
 bindsym $mod+v exec vlc
 bindsym $mod+n exec urxvt -bg black -fg white -e /usr/bin/newsbeuter -r $HOME/.newsbeuter/urls
@@ -167,7 +168,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+p mode "resize"
+#bindsym $mod+p mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
