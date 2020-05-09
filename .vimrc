@@ -1,4 +1,3 @@
-execute pathogen#infect()
 syntax on
 filetype on
 set tabstop=3
@@ -15,4 +14,3 @@ nnoremap <silent> <C-t> :wincmd j<CR>
 nnoremap <silent> <C-c> :wincmd k<CR>
 nnoremap <silent> <F6> :bprevious<CR>
 nnoremap <unique> <leader><leader> :FufFile<CR>
-autocmd BufNewFile,BufRead *.py compiler nose
