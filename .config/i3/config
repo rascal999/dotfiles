@@ -39,8 +39,8 @@ hide_edge_borders both
 new_window 1pixel
 #border none
 
-bindsym $mod+space exec /run/current-system/sw/bin/firefox -P default-release
-bindsym $mod+Shift+Return exec /run/current-system/sw/bin/firefox -P burp
+bindsym $mod+space exec /run/current-system/sw/bin/firefox -P "Default User"
+bindsym $mod+Shift+Return exec /run/current-system/sw/bin/firefox -P "Burp"
 bindsym $mod+Shift+v exec /run/current-system/sw/bin/VirtualBox
 
 bindsym $mod+b exec $HOME/burp.sh
