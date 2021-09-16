@@ -39,34 +39,23 @@ hide_edge_borders both
 new_window 1pixel
 #border none
 
-#workspace 1 output eDP-1
-#workspace 1 output DP-1-2
-#workspace 8 output HDMI-0
+bindsym $mod+space exec /run/current-system/sw/bin/firefox -P default-release
+bindsym $mod+Shift+Return exec /run/current-system/sw/bin/firefox -P burp
+bindsym $mod+Shift+v exec /run/current-system/sw/bin/VirtualBox
 
-#bindsym $mod+Return exec /usr/bin/firefox -P default-release
-bindsym $mod+space exec /usr/bin/firefox -P default-release
-bindsym $mod+Shift+Return exec /usr/bin/firefox -P burp
-bindsym $mod+Shift+v exec /usr/bin/VirtualBox
-
-bindsym $mod+b exec /home/ttl/burp.sh
-bindsym $mod+o exec /usr/bin/obsidian
+bindsym $mod+b exec $HOME/burp.sh
+bindsym $mod+o exec /run/current-system/sw/bin/obsidian
 #bindsym $mod+c exec /usr/bin/chromium --disable-gpu-vsync=gpu
-bindsym $mod+c exec /usr/bin/chromium
-#bindsym $mod+d exec urxvt -bg black -fg white -e /home/ttl/diary/entry.sh
-bindsym $mod+e exec /usr/bin/dmenu_run
-bindsym $mod+g exec /usr/bin/gimp
-bindsym $mod+j exec /usr/bin/urxvt -bg black -fg white -e /usr/bin/tmux -c "/home/ttl/git/template-meeting-notes/helper.py && read"
-bindsym $mod+k exec /usr/bin/keepassxc
-bindsym $mod+m exec /usr/bin/xmind-2020
-#bindsym $mod+m exec /usr/bin/urxvt -bg black -fg white -e /usr/bin/tmux -c "/usr/bin/curl ifconfig.me && read"
-bindsym $mod+n exec /usr/bin/urxvt -bg black -fg white -e /usr/bin/newsbeuter -r $HOME/.newsbeuter/urls
-#bindsym $mod+p exec /usr/bin/urxvt -bg black -fg white -e /usr/bin/tmux -c "/usr/bin/ping -w4 8.8.8.8 && read"
-bindsym $mod+s exec /usr/bin/scrot
-bindsym $mod+t exec /usr/bin/urxvt -bg black -fg white -e /usr/bin/tmux
-bindsym $mod+v exec /usr/bin/vlc
-bindsym $mod+w exec GTK_THEME=Adwaita:light /usr/bin/libreoffice --writer
-bindsym $mod+x exec /usr/bin/xlock -mode blank
-bindsym $mod+z exec /usr/bin/zoom
+bindsym $mod+c exec /run/current-system/sw/bin/chromium
+bindsym $mod+e exec /run/current-system/sw/bin/dmenu_run
+bindsym $mod+g exec /run/current-system/sw/bin/gimp
+bindsym $mod+k exec /run/current-system/sw/bin/keepassxc
+bindsym $mod+s exec /run/current-system/sw/bin/scrot
+bindsym $mod+t exec /run/current-system/sw/bin/urxvt -bg black -fg white -e /run/current-system/sw/bin/tmux
+bindsym $mod+v exec /run/current-system/sw/bin/vlc
+bindsym $mod+w exec GTK_THEME=Adwaita:light /run/current-system/sw/bin/libreoffice --writer
+bindsym $mod+x exec /run/current-system/sw/bin/xlock -mode blank
+bindsym $mod+z exec /run/current-system/sw/bin/zoom
 
 # kill focused window
 #bindsym $mod+Shift+apostrophe kill
@@ -183,7 +172,7 @@ bindsym $mod+r mode "resize"
 bar {
     font pango:DejaVu Sans Mono, FontAwesome 12
     position bottom
-    status_command /usr/bin/i3status-rs /home/ttl/.config/i3/theme.toml
+    status_command /run/current-system/sw/bin/i3status-rs $HOME/.config/i3/theme.toml
     colors {
         separator #666666
         statusline #dddddd
