@@ -1,21 +1,23 @@
-function dockershell() {
+alias k="kubectl"
+alias d="docker"
+alias kga="kubectl get all"
+alias dpa="docker ps -a"
+alias st="wget http://ipv4.download.thinkbroadband.com/1GB.zip && rm 1GB.zip"
+
+d-shell() {
     docker run --rm -i -t --entrypoint=/bin/bash "$@"
 }
 
-function dockershellsh() {
+d-shellsh() {
     docker run --rm -i -t --entrypoint=/bin/sh "$@"
 }
 
-function dockershellhere() {
+d-shellhere() {
     dirname=${PWD##*/}
     docker run --rm -it --entrypoint=/bin/bash -v `pwd`:/${dirname} -w /${dirname} "$@"
 }
 
-function dockershellshhere() {
-    docker run --rm -it --entrypoint=/bin/sh -v `pwd`:/${dirname} -w /${dirname} "$@"
-}
-
-function dockerwindowshellhere() {
+d-windowshellhere() {
     dirname=${PWD##*/}
     docker -c 2019-box run --rm -it -v "C:${PWD}:C:/source" -w "C:/source" "$@"
 }
