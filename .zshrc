@@ -118,7 +118,7 @@ d-dvwa() {
 }
 
 d-vulnerablewordpress() {
-    docker run --rm --name vulnerablewordpress -d -p 80:80 -p 3306:3306 wpscan/vulnerablewordpress
+    docker run --rm --name vulnerablewordpress -d -p 80:80 -p 3306:3306 l505/vulnerablewordpress
 }
 
 d-vaas-cve-2014-6271() {
