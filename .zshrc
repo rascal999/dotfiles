@@ -1,8 +1,17 @@
-alias k="kubectl"
-alias d="docker"
-alias kga="kubectl get all"
-alias dpa="docker ps -a"
-alias st="wget http://ipv4.download.thinkbroadband.com/1GB.zip && rm 1GB.zip"
+alias a-k="kubectl"
+alias a-d="docker"
+alias a-kga="kubectl get all"
+alias a-dpa="docker ps -a"
+alias a-st="wget http://ipv4.download.thinkbroadband.com/1GB.zip -O /dev/null"
+alias a-pingg="ping 8.8.8.8 -c 1"
+alias a-sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
+alias a-ytmp3='youtube-dl --extract-audio --audio-format mp3 '
+
+a-google() {
+    u=`perl -MURI::Escape -wle 'print "https://google.com/search?q=".
+        uri_escape(join " ",  @ARGV)' $@`
+    /run/current-system/sw/bin/w3m -F $u
+}
 
 d-shell() {
     docker run --rm -i -t --entrypoint=/bin/bash "$@"
@@ -132,4 +141,37 @@ d-openvas() {
 
 d-beef() {
     docker run --rm -it --net=host -v $HOME/.msf4:/root/.msf4:Z -v /tmp/msf:/tmp/data:Z --name=beef phocean/beef
+}
+
+# extract
+function a-extract {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+ else
+    if [ -f $1 ] ; then
+        # NAME=${1%.*}
+        # mkdir $NAME && cd $NAME
+        case $1 in
+          *.tar.bz2)   tar xvjf ./$1    ;;
+          *.tar.gz)    tar xvzf ./$1    ;;
+          *.tar.xz)    tar xvJf ./$1    ;;
+          *.lzma)      unlzma ./$1      ;;
+          *.bz2)       bunzip2 ./$1     ;;
+          *.rar)       unrar x -ad ./$1 ;;
+          *.gz)        gunzip ./$1      ;;
+          *.tar)       tar xvf ./$1     ;;
+          *.tbz2)      tar xvjf ./$1    ;;
+          *.tgz)       tar xvzf ./$1    ;;
+          *.zip)       unzip ./$1       ;;
+          *.Z)         uncompress ./$1  ;;
+          *.7z)        7z x ./$1        ;;
+          *.xz)        unxz ./$1        ;;
+          *.exe)       cabextract ./$1  ;;
+          *)           echo "extract: '$1' - unknown archive method" ;;
+        esac
+    else
+        echo "$1 - file does not exist"
+    fi
+fi
 }
