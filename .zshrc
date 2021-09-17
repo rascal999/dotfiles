@@ -7,10 +7,8 @@ alias a-pingg="ping 8.8.8.8 -c 1"
 alias a-sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
 alias a-ytmp3='youtube-dl --extract-audio --audio-format mp3 '
 
-a-google() {
-    u=`perl -MURI::Escape -wle 'print "https://google.com/search?q=".
-        uri_escape(join " ",  @ARGV)' $@`
-    /run/current-system/sw/bin/w3m -F $u
+a-gg() {
+    googler --np "$@"
 }
 
 d-shell() {
