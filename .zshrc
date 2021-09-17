@@ -1,4 +1,3 @@
-# Created by newuser for 5.8
 function dockershell() {
     docker run --rm -i -t --entrypoint=/bin/bash "$@"
 }
@@ -21,72 +20,114 @@ function dockerwindowshellhere() {
     docker -c 2019-box run --rm -it -v "C:${PWD}:C:/source" -w "C:/source" "$@"
 }
 
-impacket() {
+# Tools
+d-impacket() {
     docker run --rm -it rflathers/impacket "$@"
 }
 
-smbservehere() {
+d-smbservehere() {
     local sharename
     [[ -z $1 ]] && sharename="SHARE" || sharename=$1
     docker run --rm -it -p 445:445 -v "${PWD}:/tmp/serve" rflathers/impacket smbserver.py -smb2support $sharename /tmp/serve
 }
 
-nginxhere() {
+d-nginxhere() {
     docker run --rm -it -p 80:80 -p 443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
 }
 
-webdavhere() {
+d-webdavhere() {
     docker run --rm -it -p 80:80 -v "${PWD}:/srv/data/share" rflathers/webdav
 }
 
-metasploit() {
+d-metasploit() {
     docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" metasploitframework/metasploit-framework ./msfconsole "$@"
 }
 
-metasploitports() {
+d-metasploitports() {
     docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -p 8443-8500:8443-8500 metasploitframework/metasploit-framework ./msfconsole "$@"
 }
 
-msfvenomhere() {
+d-msfvenomhere() {
     docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -v "${PWD}:/data" metasploitframework/metasploit-framework ./msfvenom "$@"
 }
 
-reqdump() {
+d-reqdump() {
     docker run --rm -it -p 80:3000 rflathers/reqdump
 }
 
-postfiledumphere() {
+d-postfiledumphere() {
     docker run --rm -it -p80:3000 -v "${PWD}:/data" rflathers/postfiledump
 }
 
-kali() {
+d-kali() {
     docker run -t -i kalilinux/kali-linux-docker /bin/bash
 }
 
-d4r-dirb() {
+d-dirb() {
     docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full dirb
 }
 
-d4r-dnschef() {
+d-dnschef() {
     docker run -it --rm -w /data -v $(pwd):/data --net=host booyaabes/kali-linux-full dnschef
 }
 
-d4r-hping3() {
+d-hping3() {
     docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full hping3
 }
 
-d4r-responder() {
+d-responder() {
     docker run -it --rm --net=host booyaabes/kali-linux-full responder
 }
 
-d4r-nikto() {
+d-nikto() {
     docker run -it --rm --net=host -w /data -v $(pwd):/data booyaabes/kali-linux-full nikto
 }
 
-d4r-nmap() {
+d-nmap() {
     docker run --rm --net=host --privileged booyaabes/kali-linux-full nmap
 }
 
-d4r-searchsploit() {
+d-searchsploit() {
     docker run --rm booyaabes/kali-linux-full searchsploit
+}
+
+d-securityshepherd(){
+    docker run -i -p 80:80 -p 443:443 ismisepaul/securityshepherd /bin/bash
+}
+
+# Educational docker images
+d-dvwa() {
+    docker run --rm -d -p 80:80 citizenstig/dvwa
+}
+
+d-vulnerablewordpress() {
+    docker run --rm --name vulnerablewordpress -d -p 80:80 -p 3306:3306 wpscan/vulnerablewordpress
+}
+
+d-vaas-cve-2014-6271() {
+    docker run --rm -d -p 8080:80 hmlio/vaas-cve-2014-6271
+}
+
+d-vaas-cve-2014-0160() {
+    docker run -d -p 8443:443 hmlio/vaas-cve-2014-0160
+}
+
+d-webgoat() {
+    docker run --rm -p 8080:8080 --name webgoat -it danmx/docker-owasp-webgoat
+}
+
+d-nowasp() {
+    docker run -d -p 80:80 citizenstig/nowasp
+}
+
+d-juice-shop() {
+    docker run --rm -p 3000:3000 bkimminich/juice-shop
+}
+
+d-openvas() {
+    docker run -d -p 443:443 --name openvas mikesplain/openvas:9
+}
+
+d-beef() {
+    docker run --rm -it --net=host -v $HOME/.msf4:/root/.msf4:Z -v /tmp/msf:/tmp/data:Z --name=beef phocean/beef
 }
