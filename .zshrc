@@ -58,3 +58,35 @@ reqdump() {
 postfiledumphere() {
     docker run --rm -it -p80:3000 -v "${PWD}:/data" rflathers/postfiledump
 }
+
+kali() {
+    docker run -t -i kalilinux/kali-linux-docker /bin/bash
+}
+
+d4r-dirb() {
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full dirb
+}
+
+d4r-dnschef() {
+    docker run -it --rm -w /data -v $(pwd):/data --net=host booyaabes/kali-linux-full dnschef
+}
+
+d4r-hping3() {
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full hping3
+}
+
+d4r-responder() {
+    docker run -it --rm --net=host booyaabes/kali-linux-full responder
+}
+
+d4r-nikto() {
+    docker run -it --rm --net=host -w /data -v $(pwd):/data booyaabes/kali-linux-full nikto
+}
+
+d4r-nmap() {
+    docker run --rm --net=host --privileged booyaabes/kali-linux-full nmap
+}
+
+d4r-searchsploit() {
+    docker run --rm booyaabes/kali-linux-full searchsploit
+}
