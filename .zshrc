@@ -30,6 +30,14 @@ d-windowshellhere() {
 }
 
 # Tools
+d-hetty() {
+    docker run -v $HOME/.hetty:/root/.hetty -p 8080:8080 dstotijn/hetty
+}
+
+d-sn1per() {
+    docker run -it xerosecurity/sn1per /bin/bash
+}
+
 d-impacket() {
     docker run --rm -it rflathers/impacket "$@"
 }
