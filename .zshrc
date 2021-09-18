@@ -114,19 +114,19 @@ d-securityshepherd(){
 
 # Educational docker images
 d-dvwa() {
-    docker run --rm -d -p 80:80 citizenstig/dvwa
+    docker run --rm -p 80:80 citizenstig/dvwa
 }
 
 d-vulnerablewordpress() {
-    docker run --rm --name vulnerablewordpress -d -p 80:80 -p 3306:3306 l505/vulnerablewordpress
+    docker run --rm --name vulnerablewordpress -p 80:80 -p 3306:3306 l505/vulnerablewordpress
 }
 
 d-vaas-cve-2014-6271() {
-    docker run --rm -d -p 8080:80 hmlio/vaas-cve-2014-6271
+    docker run --rm -p 8080:80 hmlio/vaas-cve-2014-6271
 }
 
 d-vaas-cve-2014-0160() {
-    docker run -d -p 8443:443 hmlio/vaas-cve-2014-0160
+    docker run -p 8443:443 hmlio/vaas-cve-2014-0160
 }
 
 d-webgoat() {
@@ -134,7 +134,7 @@ d-webgoat() {
 }
 
 d-nowasp() {
-    docker run -d -p 80:80 citizenstig/nowasp
+    docker run -p 80:80 citizenstig/nowasp
 }
 
 d-juice-shop() {
@@ -142,7 +142,7 @@ d-juice-shop() {
 }
 
 d-openvas() {
-    docker run -d -p 443:443 --name openvas mikesplain/openvas:9
+    docker run -p 443:443 --name openvas mikesplain/openvas:9
 }
 
 d-beef() {
