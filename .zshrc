@@ -1,7 +1,7 @@
 PROMPT='%{$fg[blue]%}%D{%y%m%f} %D{%H:%M:%S} '$PROMPT
 TIMESTAMP=`date +%Y%m%d_%H%M%S`
 
-alias a-ac="asciinema rec $HOME/asciinema/asciinema_$TIMESTAMP.log"
+alias a-r="asciinema rec $HOME/asciinema/asciinema_$TIMESTAMP.log"
 alias a-k="kubectl"
 alias a-d="docker"
 alias a-kga="kubectl get all"
