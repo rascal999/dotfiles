@@ -146,7 +146,7 @@ d-juice-shop() {
 }
 
 d-openvas() {
-    docker run -p 443:443 --name openvas mikesplain/openvas:9
+    docker run -p 443:443 --name openvas mikesplain/openvas
 }
 
 d-beef() {
