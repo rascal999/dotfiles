@@ -1,11 +1,7 @@
 PROMPT='%{$fg[blue]%}%D{%y%m%f} %D{%H:%M:%S} '$PROMPT
 TIMESTAMP=`date +%Y%m%d_%H%M%S`
-CALLER=`cat /proc/$PPID/cmdline | gawk -F '/' '{ print $NF }' | sed 's/\x0//g'`
 
-if [[ "$CALLER" == "tmux" ]]; then
-   asciinema rec $HOME/asciinema/asciinema_$TIMESTAMP.log
-fi
-
+alias a-ac="asciinema rec $HOME/asciinema/asciinema_$TIMESTAMP.log"
 alias a-k="kubectl"
 alias a-d="docker"
 alias a-kga="kubectl get all"
