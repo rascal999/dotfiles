@@ -1,7 +1,6 @@
 PROMPT='%{$fg[blue]%}%D{%y%m%f} %D{%H:%M:%S} '$PROMPT
-TIMESTAMP=`date +%Y%m%d_%H%M%S`
 
-alias a-r="asciinema rec $HOME/asciinema/asciinema_$TIMESTAMP.log"
+alias a-r="export TIMESTAMP=`date +%Y%m%d_%H%M%S` && asciinema rec $HOME/asciinema/asciinema_$TIMESTAMP.log"
 alias a-k="kubectl"
 alias a-d="docker"
 alias a-kga="kubectl get all"
@@ -35,15 +34,22 @@ d-windowshellhere() {
 
 # Tools
 d-hetty() {
-    docker run -v $HOME/.hetty:/root/.hetty -p 8080:8080 dstotijn/hetty
+    docker run --rm -v $HOME/.hetty:/root/.hetty -p 8080:8080 dstotijn/hetty
 }
 
 d-sn1per() {
-    docker run -it xerosecurity/sn1per /bin/bash
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    WORK_DIR=$HOME/sn1per/$TIMESTAMP
+    LOOT_DIR="/usr/share/sniper/loot/workspace"
+    mkdir -p $WORK_DIR
+    docker run --rm -v $WORK_DIR:$LOOT_DIR -it xerosecurity/sn1per /bin/bash
 }
 
 d-impacket() {
-    docker run --rm -it rflathers/impacket "$@"
+    mkdir -p $HOME/impacket
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    SCRIPT_LOG=$HOME/impacket/$TIMESTAMP.log
+    script $SCRIPT_LOG -c "docker run --rm -it rflathers/impacket \"$@\""
 }
 
 d-smbservehere() {
@@ -61,14 +67,17 @@ d-webdavhere() {
 }
 
 d-metasploit() {
+    mkdir -p $HOME/.msf4
     docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" metasploitframework/metasploit-framework ./msfconsole "$@"
 }
 
 d-metasploitports() {
+    mkdir -p $HOME/.msf4
     docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -p 8443-8500:8443-8500 metasploitframework/metasploit-framework ./msfconsole "$@"
 }
 
 d-msfvenomhere() {
+    mkdir -p $HOME/.msf4
     docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -v "${PWD}:/data" metasploitframework/metasploit-framework ./msfvenom "$@"
 }
 
@@ -105,18 +114,22 @@ d-nikto() {
 }
 
 d-nmap() {
-    docker run --rm --net=host --privileged booyaabes/kali-linux-full nmap
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    WORK_DIR=$HOME/nmap/$TIMESTAMP
+    LOOT_DIR="/mnt"
+    mkdir -p $WORK_DIR
+    docker run --rm -v $WORK_DIR:/mnt --net=host --privileged booyaabes/kali-linux-full nmap -oA /mnt/$TIMESTAMP "$@"
 }
 
 d-searchsploit() {
     docker run --rm booyaabes/kali-linux-full searchsploit
 }
 
+# Educational docker images
 d-securityshepherd(){
     docker run -i -p 80:80 -p 443:443 ismisepaul/securityshepherd /bin/bash
 }
 
-# Educational docker images
 d-dvwa() {
     docker run --rm -p 80:80 citizenstig/dvwa
 }
@@ -150,6 +163,7 @@ d-openvas() {
 }
 
 d-beef() {
+    mkdir -p $HOME/.msf4
     docker run --rm -it --net=host -v $HOME/.msf4:/root/.msf4:Z -v /tmp/msf:/tmp/data:Z --name=beef phocean/beef
 }
 
