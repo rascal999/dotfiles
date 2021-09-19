@@ -51,6 +51,14 @@ webscan() {
 ###
 ### Tools
 ###
+d-astra() {
+    docker run --rm -d --name astra-mongo mongo
+    cd $HOME/git/pentest-tools/Astra
+    docker build -t astra .
+    docker run --rm -d -it --link astra-mongo:mongo -p 8094:8094 astra
+    firefox http://localhost:8094
+}
+
 d-openvas() {
     docker run -p 443:443 --name openvas mikesplain/openvas
 }
