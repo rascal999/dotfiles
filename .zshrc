@@ -33,6 +33,15 @@ d-windowshellhere() {
 }
 
 # Tools
+d-feroxbuster() {
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    WORK_DIR=$HOME/feroxbuster/$TIMESTAMP
+    LOOT_DIR="/mnt"
+    LOOT_FILE="/mnt/feroxbuster.log"
+    mkdir -p $WORK_DIR
+    docker run --rm -v $WORK_DIR:$LOOT_DIR --net=host --init -it epi052/feroxbuster -u "$@" -x js,html -o $LOOT_FILE
+}
+
 d-hetty() {
     docker run --rm -v $HOME/.hetty:/root/.hetty -p 8080:8080 dstotijn/hetty
 }
