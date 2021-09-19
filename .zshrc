@@ -44,6 +44,14 @@ webscan() {
 }
 
 # Tools
+#d-eyewitness() {
+#}
+
+d-cyberchef() {
+    docker run --rm -d -p 8000:8000 mpepping/cyberchef
+    firefox http://localhost:8000
+}
+
 d-feroxbuster() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     WORK_DIR=$HOME/tool-output/feroxbuster/$TIMESTAMP
