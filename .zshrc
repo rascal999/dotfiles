@@ -35,7 +35,7 @@ d-windowshellhere() {
 
 # Lazy boy
 webscan() {
-   d-sniper sniper -t "$@"
+   d-sniper -c "sniper -t \"$@\""
    d-nikto "$@"
    d-feroxbuster-slow "$@"
    # spiderfoot
@@ -65,7 +65,7 @@ d-sniper() {
     WORK_DIR=$HOME/tool-output/sn1per/$TIMESTAMP
     LOOT_DIR="/usr/share/sniper/loot/workspace"
     mkdir -p $WORK_DIR
-    docker run --rm -v $WORK_DIR:$LOOT_DIR -it xerosecurity/sn1per /bin/bash
+    docker run --rm -v $WORK_DIR:$LOOT_DIR -it xerosecurity/sn1per /bin/bash "$@"
 }
 
 d-impacket() {
