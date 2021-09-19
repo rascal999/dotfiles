@@ -46,7 +46,8 @@ webscan() {
 # Tools
 d-eyewitness() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
-    docker run --rm -it -v $PWD:/tmp/EyeWitness eyewitness -f "$@" -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
+    #docker run --entrypoint /bin/bash --rm -it -v $PWD:/tmp/EyeWitness eyewitness #-f $@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
+    docker run --rm -it -v $PWD:/tmp/EyeWitness eyewitness -f /tmp/EyeWitness/$@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
 }
 
 d-cyberchef() {
