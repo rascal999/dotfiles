@@ -10,6 +10,7 @@ alias a-pingg="ping 8.8.8.8 -c 1"
 alias a-sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
 alias a-ytmp3='youtube-dl --extract-audio --audio-format mp3 '
 
+# Misc
 a-gg() {
     googler --np "$@"
 }
@@ -32,10 +33,19 @@ d-windowshellhere() {
     docker -c 2019-box run --rm -it -v "C:${PWD}:C:/source" -w "C:/source" "$@"
 }
 
+# Lazy boy
+webscan() {
+   d-sniper sniper -t "$@"
+   d-nikto "$@"
+   d-feroxbuster-slow "$@"
+   # spiderfoot
+   # crawlab
+}
+
 # Tools
 d-feroxbuster() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
-    WORK_DIR=$HOME/feroxbuster/$TIMESTAMP
+    WORK_DIR=$HOME/tool-output/feroxbuster/$TIMESTAMP
     LOOT_DIR="/mnt"
     LOOT_FILE="/mnt/feroxbuster.log"
     mkdir -p $WORK_DIR
@@ -50,18 +60,18 @@ d-hetty() {
     docker run --rm -v $HOME/.hetty:/root/.hetty -p 8080:8080 dstotijn/hetty
 }
 
-d-sn1per() {
+d-sniper() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
-    WORK_DIR=$HOME/sn1per/$TIMESTAMP
+    WORK_DIR=$HOME/tool-output/sn1per/$TIMESTAMP
     LOOT_DIR="/usr/share/sniper/loot/workspace"
     mkdir -p $WORK_DIR
     docker run --rm -v $WORK_DIR:$LOOT_DIR -it xerosecurity/sn1per /bin/bash
 }
 
 d-impacket() {
-    mkdir -p $HOME/impacket
+    mkdir -p $HOME/tool-output/impacket
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
-    SCRIPT_LOG=$HOME/impacket/$TIMESTAMP.log
+    SCRIPT_LOG=$HOME/tool-output/impacket/$TIMESTAMP.log
     script $SCRIPT_LOG -c "docker run --rm -it rflathers/impacket \"$@\""
 }
 
@@ -123,12 +133,16 @@ d-responder() {
 }
 
 d-nikto() {
-    docker run -it --rm --net=host -w /data -v $(pwd):/data booyaabes/kali-linux-full nikto
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    WORK_DIR=$HOME/tool-output/nikto/$TIMESTAMP
+    LOOT_DIR="/data"
+    mkdir -p $WORK_DIR
+    docker run -it --rm --net=host -w $LOOT_DIR -v $WORK_DIR:$LOOT_DIR booyaabes/kali-linux-full nikto -h "$@" -o $LOOT_DIR/nikto.txt
 }
 
 d-nmap() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
-    WORK_DIR=$HOME/nmap/$TIMESTAMP
+    WORK_DIR=$HOME/tool-output/nmap/$TIMESTAMP
     LOOT_DIR="/mnt"
     mkdir -p $WORK_DIR
     docker run --rm -v $WORK_DIR:/mnt --net=host --privileged booyaabes/kali-linux-full nmap -oA /mnt/$TIMESTAMP "$@"
