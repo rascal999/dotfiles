@@ -11,7 +11,9 @@ alias a-sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
 alias a-ytmp3='youtube-dl --extract-audio --audio-format mp3 '
 alias ff='firefox '
 
-# Misc
+###
+### Misc
+###
 a-gg() {
     googler --np "$@"
 }
@@ -34,7 +36,9 @@ d-windowshellhere() {
     docker -c 2019-box run --rm -it -v "C:${PWD}:C:/source" -w "C:/source" "$@"
 }
 
-# Lazy boy
+###
+### Lazy boy
+###
 webscan() {
    d-sniper -c "sniper -t \"$@\""
    d-nikto "$@"
@@ -43,7 +47,18 @@ webscan() {
    # crawlab
 }
 
-# Tools
+###
+### Tools
+###
+d-openvas() {
+    docker run -p 443:443 --name openvas mikesplain/openvas
+}
+
+d-beef() {
+    mkdir -p $HOME/.msf4
+    docker run --rm -it --net=host -v $HOME/.msf4:/root/.msf4:Z -v /tmp/msf:/tmp/data:Z --name=beef phocean/beef
+}
+
 d-eyewitness() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     #docker run --entrypoint /bin/bash --rm -it -v $PWD:/tmp/EyeWitness eyewitness #-f $@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
@@ -164,7 +179,9 @@ d-searchsploit() {
     docker run --rm booyaabes/kali-linux-full searchsploit
 }
 
-# Educational docker images
+###
+### Educational docker images
+###
 d-securityshepherd(){
     docker run -i -p 80:80 -p 443:443 ismisepaul/securityshepherd /bin/bash
 }
@@ -195,15 +212,6 @@ d-nowasp() {
 
 d-juice-shop() {
     docker run --rm -p 3000:3000 bkimminich/juice-shop
-}
-
-d-openvas() {
-    docker run -p 443:443 --name openvas mikesplain/openvas
-}
-
-d-beef() {
-    mkdir -p $HOME/.msf4
-    docker run --rm -it --net=host -v $HOME/.msf4:/root/.msf4:Z -v /tmp/msf:/tmp/data:Z --name=beef phocean/beef
 }
 
 # extract
