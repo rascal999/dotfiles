@@ -44,8 +44,10 @@ webscan() {
 }
 
 # Tools
-#d-eyewitness() {
-#}
+d-eyewitness() {
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    docker run --rm -it -v $PWD:/tmp/EyeWitness eyewitness -f "$@" -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
+}
 
 d-cyberchef() {
     docker run --rm -d -p 8000:8000 mpepping/cyberchef
