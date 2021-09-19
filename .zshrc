@@ -39,7 +39,11 @@ d-feroxbuster() {
     LOOT_DIR="/mnt"
     LOOT_FILE="/mnt/feroxbuster.log"
     mkdir -p $WORK_DIR
-    docker run --rm -v $WORK_DIR:$LOOT_DIR --net=host --init -it epi052/feroxbuster -u "$@" -x js,html -o $LOOT_FILE
+    docker run --rm -v $WORK_DIR:$LOOT_DIR --net=host --init -it epi052/feroxbuster --auto-tune -k -r -u "$@" -x js,html -o $LOOT_FILE
+}
+
+d-feroxbuster-slow() {
+   d-feroxbuster "$@" -L 2 -t 2
 }
 
 d-hetty() {
