@@ -9,6 +9,7 @@ alias a-st="wget http://ipv4.download.thinkbroadband.com/1GB.zip -O /dev/null"
 alias a-pingg="ping 8.8.8.8 -c 1"
 alias a-sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
 alias a-ytmp3='youtube-dl --extract-audio --audio-format mp3 '
+alias ff='firefox '
 
 # Misc
 a-gg() {
