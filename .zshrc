@@ -43,6 +43,7 @@ webscan() {
    d-sniper -c "sniper -t \"$@\""
    d-nikto "$@"
    d-feroxbuster-slow "$@"
+   # arjun
    # spiderfoot
    # crawlab
 }
