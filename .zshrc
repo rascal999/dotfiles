@@ -214,6 +214,8 @@ d-lab-start() {
     d-webgoat
     d-nowasp
     d-juice-shop
+    d-hackazon
+    d-tiredful
 }
 
 d-lab-kill() {
@@ -275,6 +277,11 @@ d-juice-shop() {
 d-hackazon() {
     echo "screen -r hackazon"
     screen -S hackazon -adm docker run --rm --name hackazon -p 127.10.0.9:80:80 mutzel/all-in-one-hackazon:postinstall supervisord -n
+}
+
+d-tiredful() {
+    echo "screen -r tiredful"
+    screen -S tiredful -adm docker run --rm --name tiredful -p 127.10.0.10:80:8000 tuxotron/tiredful-api
 }
 
 # extract
