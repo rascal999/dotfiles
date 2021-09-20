@@ -40,14 +40,14 @@ d-windowshellhere() {
 ### Lazy boy
 ###
 webscan() {
-   d-sniper -c "sniper -t \"$@\""
-   d-nikto "$@"
-   d-feroxbuster-slow "$@"
-   # arjun
-   # spiderfoot
-   # crawlab
-   CONTENT="$@ completed"
-   twmnc -t webscan -c $CONTENT
+    d-sniper -c "sniper -t \"$@\""
+    d-nikto "$@"
+    d-feroxbuster-slow "$@"
+    # arjun
+    # spiderfoot
+    # crawlab
+    CONTENT="$@ completed"
+    twmnc -t webscan -c $CONTENT
 }
 
 ###
@@ -206,6 +206,15 @@ d-searchsploit() {
 ###
 ### Educational docker images
 ###
+d-bwapp() {
+    docker run --rm -d -p 127.10.0.1:80:80 raesene/bwapp
+    firefox http://127.10.0.1
+}
+
+d-altoro() {
+    docker run --rm -p 80:8080 eystsen/altoro
+}
+
 d-securityshepherd(){
     docker run -i -p 80:80 -p 443:443 ismisepaul/securityshepherd /bin/bash
 }
