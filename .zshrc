@@ -230,8 +230,8 @@ d-lab-kill() {
                altoro \
                dvwa \
                hackazon \
-               tiredful
-               xvwa
+               tiredful \
+               xvwa \
                security-ninjas
 }
 
