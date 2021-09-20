@@ -217,6 +217,7 @@ d-lab-start() {
     d-hackazon
     d-tiredful
     d-xvwa
+    d-security-ninjas
 }
 
 d-lab-kill() {
@@ -231,6 +232,7 @@ d-lab-kill() {
                hackazon \
                tiredful
                xvwa
+               security-ninjas
 }
 
 d-altoro() {
@@ -290,6 +292,11 @@ d-tiredful() {
 d-xvwa() {
     echo "screen -r xvwa"
     screen -S xvwa -adm docker run --rm --name xvwa -p 127.10.0.11:80:80 tuxotron/xvwa
+}
+
+d-security-ninjas() {
+    echo "screen -r security-ninjas"
+    screen -S security-ninjas -adm docker run --rm --name security-ninjas -p 127.10.0.12:80:80 opendns/security-ninjas
 }
 
 # extract
