@@ -88,10 +88,14 @@ d-feroxbuster() {
     LOOT_FILE="/mnt/feroxbuster.log"
     mkdir -p $WORK_DIR
     docker run --rm -v $WORK_DIR:$LOOT_DIR --net=host --init -it epi052/feroxbuster --auto-tune -k -r -u "$@" -x js,html -o $LOOT_FILE
+    CONTENT="$@ completed"
+    twmnc -t feroxbuster -c $CONTENT
 }
 
 d-feroxbuster-slow() {
-   d-feroxbuster "$@" -L 2 -t 2
+    d-feroxbuster "$@" -L 2 -t 2
+    CONTENT="$@ completed"
+    twmnc -t feroxbuster-slow -c $CONTENT
 }
 
 d-hetty() {
@@ -104,6 +108,8 @@ d-sniper() {
     LOOT_DIR="/usr/share/sniper/loot/workspace"
     mkdir -p $WORK_DIR
     docker run --rm -v $WORK_DIR:$LOOT_DIR -it xerosecurity/sn1per /bin/bash "$@"
+    CONTENT="$@ completed"
+    twmnc -t sniper -c $CONTENT
 }
 
 d-impacket() {
@@ -176,6 +182,8 @@ d-nikto() {
     LOOT_DIR="/data"
     mkdir -p $WORK_DIR
     docker run -it --rm --net=host -w $LOOT_DIR -v $WORK_DIR:$LOOT_DIR booyaabes/kali-linux-full nikto -h "$@" -o $LOOT_DIR/nikto.txt
+    CONTENT="$@ completed"
+    twmnc -t nikto -c $CONTENT
 }
 
 d-nmap() {
@@ -184,6 +192,8 @@ d-nmap() {
     LOOT_DIR="/mnt"
     mkdir -p $WORK_DIR
     docker run --rm -v $WORK_DIR:/mnt --net=host --privileged booyaabes/kali-linux-full nmap -oA /mnt/$TIMESTAMP "$@"
+    CONTENT="$@ completed"
+    twmnc -t nmap -c $CONTENT
 }
 
 d-searchsploit() {
