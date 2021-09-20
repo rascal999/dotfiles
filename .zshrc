@@ -72,7 +72,6 @@ d-beef() {
 
 d-eyewitness() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
-    #docker run --entrypoint /bin/bash --rm -it -v $PWD:/tmp/EyeWitness eyewitness #-f $@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
     docker run --rm -it -v $PWD:/tmp/EyeWitness eyewitness -f /tmp/EyeWitness/$@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
     CONTENT="$@ completed"
     twmnc -t EyeWitness -c $CONTENT
@@ -218,11 +217,20 @@ d-lab-start() {
 }
 
 d-lab-kill() {
-   docker stop vulnerablewordpress nowasp juice-shop webgoat vaas-cve-2014-6271 vaas-cve-2014-0160 altoro dvwa
+   docker stop vulnerablewordpress \
+               nowasp \
+               juice-shop \
+               webgoat \
+               vaas-cve-2014-6271 \
+               vaas-cve-2014-0160 \
+               altoro \
+               dvwa \
+               hackazon
 }
 
 d-altoro() {
-    screen -adm docker run --rm --name altoro -p 127.10.0.1:80:8080 eystsen/altoro
+    echo "screen -r altoro"
+    screen -S altoro -adm docker run --rm --name altoro -p 127.10.0.1:80:8080 eystsen/altoro
 }
 
 d-securityshepherd(){
@@ -230,31 +238,43 @@ d-securityshepherd(){
 }
 
 d-dvwa() {
-    screen -adm docker run --rm --name dvwa -p 127.10.0.2:80:80 citizenstig/dvwa
+    echo "screen -r dvwa"
+    screen -S dvwa -adm docker run --rm --name dvwa -p 127.10.0.2:80:80 citizenstig/dvwa
 }
 
 d-vulnerablewordpress() {
-    screen -adm docker run --rm --name vulnerablewordpress -p 127.10.0.3:80:80 -p 3306:3306 l505/vulnerablewordpress
+    echo "screen -r vulnerablewordpress"
+    screen -S vulnerablewordpress -adm docker run --rm --name vulnerablewordpress -p 127.10.0.3:80:80 -p 3306:3306 l505/vulnerablewordpress
 }
 
 d-vaas-cve-2014-6271() {
-    screen -adm docker run --rm --name vaas-cve-2014-6271 -p 127.10.0.4:8080:80 hmlio/vaas-cve-2014-6271
+    echo "screen -r vaas-cve-2014-6271"
+    screen -S vaas-cve-2014-6271 -adm docker run --rm --name vaas-cve-2014-6271 -p 127.10.0.4:8080:80 hmlio/vaas-cve-2014-6271
 }
 
 d-vaas-cve-2014-0160() {
-    screen -adm docker run --rm --name vaas-cve-2014-0160 -p 127.10.0.5:8443:443 hmlio/vaas-cve-2014-0160
+    echo "screen -r vaas-cve-2014-0160"
+    screen -S vaas-cve-2014-0160 -adm docker run --rm --name vaas-cve-2014-0160 -p 127.10.0.5:8443:443 hmlio/vaas-cve-2014-0160
 }
 
 d-webgoat() {
-    screen -adm docker run --rm --name webgoat -p 127.10.0.6:8080:8080 --name webgoat -it danmx/docker-owasp-webgoat
+    echo "screen -r webgoat"
+    screen -S webgoat -adm docker run --rm --name webgoat -p 127.10.0.6:8080:8080 --name webgoat -it danmx/docker-owasp-webgoat
 }
 
 d-nowasp() {
-    screen -adm docker run --rm --name nowasp -p 127.10.0.7:80:80 citizenstig/nowasp
+    echo "screen -r nowasp"
+    screen -S nowasp -adm docker run --rm --name nowasp -p 127.10.0.7:80:80 citizenstig/nowasp
 }
 
 d-juice-shop() {
-    screen -adm docker run --rm --name juice-shop -p 127.10.0.8:3000:3000 bkimminich/juice-shop
+    echo "screen -r juice-shop"
+    screen -S juice-shop -adm docker run --rm --name juice-shop -p 127.10.0.8:3000:3000 bkimminich/juice-shop
+}
+
+d-hackazon() {
+    echo "screen -r hackazon"
+    screen -S hackazon -adm docker run --rm --name hackazon -p 127.10.0.9:80:80 mutzel/all-in-one-hackazon:postinstall supervisord -n
 }
 
 # extract
