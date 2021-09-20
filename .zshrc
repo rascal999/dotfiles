@@ -46,6 +46,8 @@ webscan() {
    # arjun
    # spiderfoot
    # crawlab
+   CONTENT="$@ completed"
+   twmnc -t webscan -c $CONTENT
 }
 
 ###
