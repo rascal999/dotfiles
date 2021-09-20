@@ -217,12 +217,12 @@ d-lab-start() {
     d-juice-shop
 }
 
-#d-lab-kill() {
-#    
-#}
+d-lab-kill() {
+   docker stop vulnerablewordpress nowasp juice-shop webgoat vaas-cve-2014-6271 vaas-cve-2014-0160 altoro dvwa
+}
 
 d-altoro() {
-    docker run --rm -p 127.10.0.1:80:8080 eystsen/altoro
+    screen -adm docker run --rm --name altoro -p 127.10.0.1:80:8080 eystsen/altoro
 }
 
 d-securityshepherd(){
@@ -230,31 +230,31 @@ d-securityshepherd(){
 }
 
 d-dvwa() {
-    docker run --rm -p 127.10.0.2:80:80 citizenstig/dvwa
+    screen -adm docker run --rm --name dvwa -p 127.10.0.2:80:80 citizenstig/dvwa
 }
 
 d-vulnerablewordpress() {
-    docker run --rm --name vulnerablewordpress -p 127.10.0.3:80:80 -p 3306:3306 l505/vulnerablewordpress
+    screen -adm docker run --rm --name vulnerablewordpress -p 127.10.0.3:80:80 -p 3306:3306 l505/vulnerablewordpress
 }
 
 d-vaas-cve-2014-6271() {
-    docker run --rm -p 127.10.0.4:8080:80 hmlio/vaas-cve-2014-6271
+    screen -adm docker run --rm --name vaas-cve-2014-6271 -p 127.10.0.4:8080:80 hmlio/vaas-cve-2014-6271
 }
 
 d-vaas-cve-2014-0160() {
-    docker run --rm -p 127.10.0.5:8443:443 hmlio/vaas-cve-2014-0160
+    screen -adm docker run --rm --name vaas-cve-2014-0160 -p 127.10.0.5:8443:443 hmlio/vaas-cve-2014-0160
 }
 
 d-webgoat() {
-    docker run --rm -p 127.10.0.6:8080:8080 --name webgoat -it danmx/docker-owasp-webgoat
+    screen -adm docker run --rm --name webgoat -p 127.10.0.6:8080:8080 --name webgoat -it danmx/docker-owasp-webgoat
 }
 
 d-nowasp() {
-    docker run --rm -p 127.10.0.7:80:80 citizenstig/nowasp
+    screen -adm docker run --rm --name nowasp -p 127.10.0.7:80:80 citizenstig/nowasp
 }
 
 d-juice-shop() {
-    docker run --rm -p 127.10.0.8:3000:3000 bkimminich/juice-shop
+    screen -adm docker run --rm --name juice-shop -p 127.10.0.8:3000:3000 bkimminich/juice-shop
 }
 
 # extract
