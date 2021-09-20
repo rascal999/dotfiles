@@ -74,6 +74,9 @@ d-eyewitness() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     #docker run --entrypoint /bin/bash --rm -it -v $PWD:/tmp/EyeWitness eyewitness #-f $@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
     docker run --rm -it -v $PWD:/tmp/EyeWitness eyewitness -f /tmp/EyeWitness/$@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
+    CONTENT="$@ completed"
+    twmnc -t EyeWitness -c $CONTENT
+    firefox file:///$PWD/eyewitness_$TIMESTAMP/report.html
 }
 
 d-cyberchef() {
