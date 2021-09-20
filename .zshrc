@@ -216,6 +216,7 @@ d-lab-start() {
     d-juice-shop
     d-hackazon
     d-tiredful
+    d-xvwa
 }
 
 d-lab-kill() {
@@ -227,7 +228,9 @@ d-lab-kill() {
                vaas-cve-2014-0160 \
                altoro \
                dvwa \
-               hackazon
+               hackazon \
+               tiredful
+               xvwa
 }
 
 d-altoro() {
@@ -282,6 +285,11 @@ d-hackazon() {
 d-tiredful() {
     echo "screen -r tiredful"
     screen -S tiredful -adm docker run --rm --name tiredful -p 127.10.0.10:80:8000 tuxotron/tiredful-api
+}
+
+d-xvwa() {
+    echo "screen -r xvwa"
+    screen -S xvwa -adm docker run --rm --name xvwa -p 127.10.0.11:80:80 tuxotron/xvwa
 }
 
 # extract
