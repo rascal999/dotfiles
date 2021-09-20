@@ -206,13 +206,23 @@ d-searchsploit() {
 ###
 ### Educational docker images
 ###
-d-bwapp() {
-    docker run --rm -d -p 127.10.0.1:80:80 raesene/bwapp
-    firefox http://127.10.0.1
+d-lab-start() {
+    d-altoro
+    d-dvwa
+    d-vulnerablewordpress
+    d-vaas-cve-2014-6271
+    d-vaas-cve-2014-0160
+    d-webgoat
+    d-nowasp
+    d-juice-shop
 }
 
+#d-lab-kill() {
+#    
+#}
+
 d-altoro() {
-    docker run --rm -p 80:8080 eystsen/altoro
+    docker run --rm -p 127.10.0.1:80:8080 eystsen/altoro
 }
 
 d-securityshepherd(){
@@ -220,31 +230,31 @@ d-securityshepherd(){
 }
 
 d-dvwa() {
-    docker run --rm -p 80:80 citizenstig/dvwa
+    docker run --rm -p 127.10.0.2:80:80 citizenstig/dvwa
 }
 
 d-vulnerablewordpress() {
-    docker run --rm --name vulnerablewordpress -p 80:80 -p 3306:3306 l505/vulnerablewordpress
+    docker run --rm --name vulnerablewordpress -p 127.10.0.3:80:80 -p 3306:3306 l505/vulnerablewordpress
 }
 
 d-vaas-cve-2014-6271() {
-    docker run --rm -p 8080:80 hmlio/vaas-cve-2014-6271
+    docker run --rm -p 127.10.0.4:8080:80 hmlio/vaas-cve-2014-6271
 }
 
 d-vaas-cve-2014-0160() {
-    docker run -p 8443:443 hmlio/vaas-cve-2014-0160
+    docker run --rm -p 127.10.0.5:8443:443 hmlio/vaas-cve-2014-0160
 }
 
 d-webgoat() {
-    docker run --rm -p 8080:8080 --name webgoat -it danmx/docker-owasp-webgoat
+    docker run --rm -p 127.10.0.6:8080:8080 --name webgoat -it danmx/docker-owasp-webgoat
 }
 
 d-nowasp() {
-    docker run -p 80:80 citizenstig/nowasp
+    docker run --rm -p 127.10.0.7:80:80 citizenstig/nowasp
 }
 
 d-juice-shop() {
-    docker run --rm -p 3000:3000 bkimminich/juice-shop
+    docker run --rm -p 127.10.0.8:3000:3000 bkimminich/juice-shop
 }
 
 # extract
