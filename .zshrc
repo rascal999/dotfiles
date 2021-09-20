@@ -149,7 +149,7 @@ d-postfiledumphere() {
 }
 
 d-kali() {
-    docker run -it --rm kalilinux/kali-rolling /bin/bash
+    docker run -it --rm booyaabes/kali-linux-full /bin/bash
 }
 
 d-dirb() {
