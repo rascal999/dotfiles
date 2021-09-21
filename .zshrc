@@ -355,7 +355,7 @@ ds-appwrite() {
 
 ds-appwrite-kill() {
     docker stack rm appwrite
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -369,7 +369,7 @@ ds-bibliogram() {
 
 ds-bibliogram-kill() {
     docker stack rm bibliogram
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -383,7 +383,7 @@ ds-bookstack() {
 
 ds-bookstack-kill() {
     docker stack rm bookstack
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -397,7 +397,7 @@ ds-botpress() {
 
 ds-botpress-kill() {
     docker stack rm botpress
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -411,7 +411,7 @@ ds-calibre() {
 
 ds-calibre-kill() {
     docker stack rm calibre
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -425,7 +425,7 @@ ds-chatwoot() {
 
 ds-chatwoot-kill() {
     docker stack rm chatwoot
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -439,7 +439,7 @@ ds-commento() {
 
 ds-commento-kill() {
     docker stack rm commento
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -453,7 +453,7 @@ ds-crater() {
 
 ds-crater-kill() {
     docker stack rm crater
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -467,7 +467,7 @@ ds-cryptpad() {
 
 ds-cryptpad-kill() {
     docker stack rm cryptpad
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -481,7 +481,7 @@ ds-directus() {
 
 ds-directus-kill() {
     docker stack rm directus
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -495,7 +495,7 @@ ds-discourse() {
 
 ds-discourse-kill() {
     docker stack rm discourse
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -509,7 +509,7 @@ ds-dolibarr() {
 
 ds-dolibarr-kill() {
     docker stack rm dolibarr
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -523,7 +523,7 @@ ds-drawio() {
 
 ds-drawio-kill() {
     docker stack rm drawio
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -537,7 +537,7 @@ ds-element() {
 
 ds-element-kill() {
     docker stack rm element
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -551,7 +551,7 @@ ds-ethercalc() {
 
 ds-ethercalc-kill() {
     docker stack rm ethercalc
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -565,7 +565,7 @@ ds-etherpad() {
 
 ds-etherpad-kill() {
     docker stack rm etherpad
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -579,7 +579,7 @@ ds-ethibox() {
 
 ds-ethibox-kill() {
     docker stack rm ethibox
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -593,7 +593,7 @@ ds-fathom() {
 
 ds-fathom-kill() {
     docker stack rm fathom
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -607,7 +607,7 @@ ds-firefly() {
 
 ds-firefly-kill() {
     docker stack rm firefly
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -621,7 +621,7 @@ ds-flarum() {
 
 ds-flarum-kill() {
     docker stack rm flarum
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -635,7 +635,7 @@ ds-framadate() {
 
 ds-framadate-kill() {
     docker stack rm framadate
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -649,7 +649,7 @@ ds-freshrss() {
 
 ds-freshrss-kill() {
     docker stack rm freshrss
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -663,7 +663,7 @@ ds-ghost() {
 
 ds-ghost-kill() {
     docker stack rm ghost
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -677,7 +677,7 @@ ds-gitlab() {
 
 ds-gitlab-kill() {
     docker stack rm gitlab
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -691,7 +691,7 @@ ds-gogs() {
 
 ds-gogs-kill() {
     docker stack rm gogs
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -705,7 +705,7 @@ ds-grafana() {
 
 ds-grafana-kill() {
     docker stack rm grafana
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -719,7 +719,7 @@ ds-grav() {
 
 ds-grav-kill() {
     docker stack rm grav
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -733,7 +733,7 @@ ds-habitica() {
 
 ds-habitica-kill() {
     docker stack rm habitica
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -747,7 +747,7 @@ ds-hasura() {
 
 ds-hasura-kill() {
     docker stack rm hasura
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -761,7 +761,7 @@ ds-hedgedoc() {
 
 ds-hedgedoc-kill() {
     docker stack rm hedgedoc
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -775,7 +775,7 @@ ds-huginn() {
 
 ds-huginn-kill() {
     docker stack rm huginn
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -789,7 +789,7 @@ ds-invoiceninja() {
 
 ds-invoiceninja-kill() {
     docker stack rm invoiceninja
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -803,7 +803,7 @@ ds-jenkins() {
 
 ds-jenkins-kill() {
     docker stack rm jenkins
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -817,7 +817,7 @@ ds-jitsi() {
 
 ds-jitsi-kill() {
     docker stack rm jitsi
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -831,7 +831,7 @@ ds-kanboard() {
 
 ds-kanboard-kill() {
     docker stack rm kanboard
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -845,7 +845,7 @@ ds-listmonk() {
 
 ds-listmonk-kill() {
     docker stack rm listmonk
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -859,7 +859,7 @@ ds-magento() {
 
 ds-magento-kill() {
     docker stack rm magento
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -873,7 +873,7 @@ ds-mailserver() {
 
 ds-mailserver-kill() {
     docker stack rm mailserver
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -887,7 +887,7 @@ ds-mailtrain() {
 
 ds-mailtrain-kill() {
     docker stack rm mailtrain
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -901,7 +901,7 @@ ds-mastodon() {
 
 ds-mastodon-kill() {
     docker stack rm mastodon
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -915,7 +915,7 @@ ds-matomo() {
 
 ds-matomo-kill() {
     docker stack rm matomo
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -929,7 +929,7 @@ ds-mattermost() {
 
 ds-mattermost-kill() {
     docker stack rm mattermost
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -943,7 +943,7 @@ ds-matterwiki() {
 
 ds-matterwiki-kill() {
     docker stack rm matterwiki
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -957,7 +957,7 @@ ds-mautic() {
 
 ds-mautic-kill() {
     docker stack rm mautic
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -971,7 +971,7 @@ ds-mediawiki() {
 
 ds-mediawiki-kill() {
     docker stack rm mediawiki
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -985,7 +985,7 @@ ds-metabase() {
 
 ds-metabase-kill() {
     docker stack rm metabase
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -999,7 +999,7 @@ ds-minio() {
 
 ds-minio-kill() {
     docker stack rm minio
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1013,7 +1013,7 @@ ds-mobilizon() {
 
 ds-mobilizon-kill() {
     docker stack rm mobilizon
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1027,7 +1027,7 @@ ds-monitoring() {
 
 ds-monitoring-kill() {
     docker stack rm monitoring
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1041,7 +1041,7 @@ ds-n8n() {
 
 ds-n8n-kill() {
     docker stack rm n8n
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1055,7 +1055,7 @@ ds-nextcloud() {
 
 ds-nextcloud-kill() {
     docker stack rm nextcloud
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1069,7 +1069,7 @@ ds-nitter() {
 
 ds-nitter-kill() {
     docker stack rm nitter
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1083,7 +1083,7 @@ ds-nocodb() {
 
 ds-nocodb-kill() {
     docker stack rm nocodb
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1097,7 +1097,7 @@ ds-odoo() {
 
 ds-odoo-kill() {
     docker stack rm odoo
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1111,7 +1111,7 @@ ds-passbolt() {
 
 ds-passbolt-kill() {
     docker stack rm passbolt
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1125,7 +1125,7 @@ ds-peertube() {
 
 ds-peertube-kill() {
     docker stack rm peertube
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1139,7 +1139,7 @@ ds-phpbb() {
 
 ds-phpbb-kill() {
     docker stack rm phpbb
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1153,7 +1153,7 @@ ds-pinafore() {
 
 ds-pinafore-kill() {
     docker stack rm pinafore
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1167,7 +1167,7 @@ ds-pixelfed() {
 
 ds-pixelfed-kill() {
     docker stack rm pixelfed
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1181,7 +1181,7 @@ ds-plume() {
 
 ds-plume-kill() {
     docker stack rm plume
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1195,7 +1195,7 @@ ds-polr() {
 
 ds-polr-kill() {
     docker stack rm polr
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1209,7 +1209,7 @@ ds-portainer() {
 
 ds-portainer-kill() {
     docker stack rm portainer
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1223,7 +1223,7 @@ ds-posthog() {
 
 ds-posthog-kill() {
     docker stack rm posthog
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1237,7 +1237,7 @@ ds-prestashop() {
 
 ds-prestashop-kill() {
     docker stack rm prestashop
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1251,7 +1251,7 @@ ds-pydio() {
 
 ds-pydio-kill() {
     docker stack rm pydio
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1265,7 +1265,7 @@ ds-pytition() {
 
 ds-pytition-kill() {
     docker stack rm pytition
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1279,7 +1279,7 @@ ds-rainloop() {
 
 ds-rainloop-kill() {
     docker stack rm rainloop
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1293,7 +1293,7 @@ ds-redmine() {
 
 ds-redmine-kill() {
     docker stack rm redmine
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1307,7 +1307,7 @@ ds-registry() {
 
 ds-registry-kill() {
     docker stack rm registry
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1321,7 +1321,7 @@ ds-rocketchat() {
 
 ds-rocketchat-kill() {
     docker stack rm rocketchat
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1335,7 +1335,7 @@ ds-rsshub() {
 
 ds-rsshub-kill() {
     docker stack rm rsshub
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1349,7 +1349,7 @@ ds-scrumblr() {
 
 ds-scrumblr-kill() {
     docker stack rm scrumblr
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1363,7 +1363,7 @@ ds-searx() {
 
 ds-searx-kill() {
     docker stack rm searx
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1377,7 +1377,7 @@ ds-suitecrm() {
 
 ds-suitecrm-kill() {
     docker stack rm suitecrm
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1391,7 +1391,7 @@ ds-taiga() {
 
 ds-taiga-kill() {
     docker stack rm taiga
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1405,7 +1405,7 @@ ds-talk() {
 
 ds-talk-kill() {
     docker stack rm talk
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1419,7 +1419,7 @@ ds-traefik() {
 
 ds-traefik-kill() {
     docker stack rm traefik
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1433,7 +1433,7 @@ ds-umami() {
 
 ds-umami-kill() {
     docker stack rm umami
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1447,7 +1447,7 @@ ds-uptime-kuma() {
 
 ds-uptime-kuma-kill() {
     docker stack rm uptime-kuma
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1461,7 +1461,7 @@ ds-waiting() {
 
 ds-waiting-kill() {
     docker stack rm waiting
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1475,7 +1475,7 @@ ds-wallabag() {
 
 ds-wallabag-kill() {
     docker stack rm wallabag
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1489,7 +1489,7 @@ ds-wekan() {
 
 ds-wekan-kill() {
     docker stack rm wekan
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1503,7 +1503,7 @@ ds-whoogle-search() {
 
 ds-whoogle-search-kill() {
     docker stack rm whoogle-search
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1517,7 +1517,7 @@ ds-wikijs() {
 
 ds-wikijs-kill() {
     docker stack rm wikijs
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1531,7 +1531,7 @@ ds-wordpress() {
 
 ds-wordpress-kill() {
     docker stack rm wordpress
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1545,7 +1545,7 @@ ds-writefreely() {
 
 ds-writefreely-kill() {
     docker stack rm writefreely
-    sleep 3
+    sleep 6
     docker volume prune
 }
 
@@ -1559,6 +1559,6 @@ ds-zammad() {
 
 ds-zammad-kill() {
     docker stack rm zammad
-    sleep 3
+    sleep 6
     docker volume prune
 }
