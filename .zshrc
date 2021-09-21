@@ -61,7 +61,7 @@ d-astra() {
     cd $HOME/git/pentest-tools/Astra
     docker build -t astra .
     docker run --rm -d -it --link astra-mongo:mongo -p 8094:8094 astra
-    firefox http://localhost:8094
+    firefox http://localhost:8094 &
 }
 
 d-openvas() {
@@ -78,12 +78,12 @@ d-eyewitness() {
     docker run --rm -it -v $PWD:/tmp/EyeWitness eyewitness -f /tmp/EyeWitness/$@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
     CONTENT="$@ completed"
     twmnc -t EyeWitness -c $CONTENT
-    firefox file:///$PWD/eyewitness_$TIMESTAMP/report.html
+    firefox file:///$PWD/eyewitness_$TIMESTAMP/report.html &
 }
 
 d-cyberchef() {
     docker run --rm -d -p 8000:8000 mpepping/cyberchef
-    firefox http://localhost:8000
+    firefox http://localhost:8000 &
 }
 
 d-feroxbuster() {
