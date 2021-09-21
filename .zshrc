@@ -349,7 +349,7 @@ ds-net-traefik() {
 ds-appwrite() {
     ds-net-traefik
     DOMAIN=appwrite.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/appwrite.yml appwrite
-    firefox https://appwrite.ds
+    firefox https://appwrite.ds &
     watch docker stack ps appwrite
 }
 
@@ -363,7 +363,7 @@ ds-appwrite-kill() {
 ds-bibliogram() {
     ds-net-traefik
     DOMAIN=bibliogram.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/bibliogram.yml bibliogram
-    firefox https://bibliogram.ds
+    firefox https://bibliogram.ds &
     watch docker stack ps bibliogram
 }
 
@@ -377,7 +377,7 @@ ds-bibliogram-kill() {
 ds-bookstack() {
     ds-net-traefik
     DOMAIN=bookstack.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/bookstack.yml bookstack
-    firefox https://bookstack.ds
+    firefox https://bookstack.ds &
     watch docker stack ps bookstack
 }
 
@@ -391,7 +391,7 @@ ds-bookstack-kill() {
 ds-botpress() {
     ds-net-traefik
     DOMAIN=botpress.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/botpress.yml botpress
-    firefox https://botpress.ds
+    firefox https://botpress.ds &
     watch docker stack ps botpress
 }
 
@@ -405,7 +405,7 @@ ds-botpress-kill() {
 ds-calibre() {
     ds-net-traefik
     DOMAIN=calibre.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/calibre.yml calibre
-    firefox https://calibre.ds
+    firefox https://calibre.ds &
     watch docker stack ps calibre
 }
 
@@ -419,7 +419,7 @@ ds-calibre-kill() {
 ds-chatwoot() {
     ds-net-traefik
     DOMAIN=chatwoot.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/chatwoot.yml chatwoot
-    firefox https://chatwoot.ds
+    firefox https://chatwoot.ds &
     watch docker stack ps chatwoot
 }
 
@@ -433,7 +433,7 @@ ds-chatwoot-kill() {
 ds-commento() {
     ds-net-traefik
     DOMAIN=commento.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/commento.yml commento
-    firefox https://commento.ds
+    firefox https://commento.ds &
     watch docker stack ps commento
 }
 
@@ -447,7 +447,7 @@ ds-commento-kill() {
 ds-crater() {
     ds-net-traefik
     DOMAIN=crater.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/crater.yml crater
-    firefox https://crater.ds
+    firefox https://crater.ds &
     watch docker stack ps crater
 }
 
@@ -461,7 +461,7 @@ ds-crater-kill() {
 ds-cryptpad() {
     ds-net-traefik
     DOMAIN=cryptpad.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/cryptpad.yml cryptpad
-    firefox https://cryptpad.ds
+    firefox https://cryptpad.ds &
     watch docker stack ps cryptpad
 }
 
@@ -475,7 +475,7 @@ ds-cryptpad-kill() {
 ds-directus() {
     ds-net-traefik
     DOMAIN=directus.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/directus.yml directus
-    firefox https://directus.ds
+    firefox https://directus.ds &
     watch docker stack ps directus
 }
 
@@ -489,7 +489,7 @@ ds-directus-kill() {
 ds-discourse() {
     ds-net-traefik
     DOMAIN=discourse.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/discourse.yml discourse
-    firefox https://discourse.ds
+    firefox https://discourse.ds &
     watch docker stack ps discourse
 }
 
@@ -503,7 +503,7 @@ ds-discourse-kill() {
 ds-dolibarr() {
     ds-net-traefik
     DOMAIN=dolibarr.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/dolibarr.yml dolibarr
-    firefox https://dolibarr.ds
+    firefox https://dolibarr.ds &
     watch docker stack ps dolibarr
 }
 
@@ -517,7 +517,7 @@ ds-dolibarr-kill() {
 ds-drawio() {
     ds-net-traefik
     DOMAIN=drawio.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/drawio.yml drawio
-    firefox https://drawio.ds
+    firefox https://drawio.ds &
     watch docker stack ps drawio
 }
 
@@ -531,7 +531,7 @@ ds-drawio-kill() {
 ds-element() {
     ds-net-traefik
     DOMAIN=element.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/element.yml element
-    firefox https://element.ds
+    firefox https://element.ds &
     watch docker stack ps element
 }
 
@@ -545,7 +545,7 @@ ds-element-kill() {
 ds-ethercalc() {
     ds-net-traefik
     DOMAIN=ethercalc.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/ethercalc.yml ethercalc
-    firefox https://ethercalc.ds
+    firefox https://ethercalc.ds &
     watch docker stack ps ethercalc
 }
 
@@ -559,7 +559,7 @@ ds-ethercalc-kill() {
 ds-etherpad() {
     ds-net-traefik
     DOMAIN=etherpad.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/etherpad.yml etherpad
-    firefox https://etherpad.ds
+    firefox https://etherpad.ds &
     watch docker stack ps etherpad
 }
 
@@ -573,7 +573,7 @@ ds-etherpad-kill() {
 ds-ethibox() {
     ds-net-traefik
     DOMAIN=ethibox.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/ethibox.yml ethibox
-    firefox https://ethibox.ds
+    firefox https://ethibox.ds &
     watch docker stack ps ethibox
 }
 
@@ -587,7 +587,7 @@ ds-ethibox-kill() {
 ds-fathom() {
     ds-net-traefik
     DOMAIN=fathom.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/fathom.yml fathom
-    firefox https://fathom.ds
+    firefox https://fathom.ds &
     watch docker stack ps fathom
 }
 
@@ -601,7 +601,7 @@ ds-fathom-kill() {
 ds-firefly() {
     ds-net-traefik
     DOMAIN=firefly.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/firefly.yml firefly
-    firefox https://firefly.ds
+    firefox https://firefly.ds &
     watch docker stack ps firefly
 }
 
@@ -615,7 +615,7 @@ ds-firefly-kill() {
 ds-flarum() {
     ds-net-traefik
     DOMAIN=flarum.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/flarum.yml flarum
-    firefox https://flarum.ds
+    firefox https://flarum.ds &
     watch docker stack ps flarum
 }
 
@@ -629,7 +629,7 @@ ds-flarum-kill() {
 ds-framadate() {
     ds-net-traefik
     DOMAIN=framadate.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/framadate.yml framadate
-    firefox https://framadate.ds
+    firefox https://framadate.ds &
     watch docker stack ps framadate
 }
 
@@ -643,7 +643,7 @@ ds-framadate-kill() {
 ds-freshrss() {
     ds-net-traefik
     DOMAIN=freshrss.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/freshrss.yml freshrss
-    firefox https://freshrss.ds
+    firefox https://freshrss.ds &
     watch docker stack ps freshrss
 }
 
@@ -657,7 +657,7 @@ ds-freshrss-kill() {
 ds-ghost() {
     ds-net-traefik
     DOMAIN=ghost.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/ghost.yml ghost
-    firefox https://ghost.ds
+    firefox https://ghost.ds &
     watch docker stack ps ghost
 }
 
@@ -671,7 +671,7 @@ ds-ghost-kill() {
 ds-gitlab() {
     ds-net-traefik
     DOMAIN=gitlab.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/gitlab.yml gitlab
-    firefox https://gitlab.ds
+    firefox https://gitlab.ds &
     watch docker stack ps gitlab
 }
 
@@ -685,7 +685,7 @@ ds-gitlab-kill() {
 ds-gogs() {
     ds-net-traefik
     DOMAIN=gogs.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/gogs.yml gogs
-    firefox https://gogs.ds
+    firefox https://gogs.ds &
     watch docker stack ps gogs
 }
 
@@ -699,7 +699,7 @@ ds-gogs-kill() {
 ds-grafana() {
     ds-net-traefik
     DOMAIN=grafana.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/grafana.yml grafana
-    firefox https://grafana.ds
+    firefox https://grafana.ds &
     watch docker stack ps grafana
 }
 
@@ -713,7 +713,7 @@ ds-grafana-kill() {
 ds-grav() {
     ds-net-traefik
     DOMAIN=grav.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/grav.yml grav
-    firefox https://grav.ds
+    firefox https://grav.ds &
     watch docker stack ps grav
 }
 
@@ -727,7 +727,7 @@ ds-grav-kill() {
 ds-habitica() {
     ds-net-traefik
     DOMAIN=habitica.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/habitica.yml habitica
-    firefox https://habitica.ds
+    firefox https://habitica.ds &
     watch docker stack ps habitica
 }
 
@@ -741,7 +741,7 @@ ds-habitica-kill() {
 ds-hasura() {
     ds-net-traefik
     DOMAIN=hasura.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/hasura.yml hasura
-    firefox https://hasura.ds
+    firefox https://hasura.ds &
     watch docker stack ps hasura
 }
 
@@ -755,7 +755,7 @@ ds-hasura-kill() {
 ds-hedgedoc() {
     ds-net-traefik
     DOMAIN=hedgedoc.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/hedgedoc.yml hedgedoc
-    firefox https://hedgedoc.ds
+    firefox https://hedgedoc.ds &
     watch docker stack ps hedgedoc
 }
 
@@ -769,7 +769,7 @@ ds-hedgedoc-kill() {
 ds-huginn() {
     ds-net-traefik
     DOMAIN=huginn.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/huginn.yml huginn
-    firefox https://huginn.ds
+    firefox https://huginn.ds &
     watch docker stack ps huginn
 }
 
@@ -783,7 +783,7 @@ ds-huginn-kill() {
 ds-invoiceninja() {
     ds-net-traefik
     DOMAIN=invoiceninja.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/invoiceninja.yml invoiceninja
-    firefox https://invoiceninja.ds
+    firefox https://invoiceninja.ds &
     watch docker stack ps invoiceninja
 }
 
@@ -797,7 +797,7 @@ ds-invoiceninja-kill() {
 ds-jenkins() {
     ds-net-traefik
     DOMAIN=jenkins.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/jenkins.yml jenkins
-    firefox https://jenkins.ds
+    firefox https://jenkins.ds &
     watch docker stack ps jenkins
 }
 
@@ -811,7 +811,7 @@ ds-jenkins-kill() {
 ds-jitsi() {
     ds-net-traefik
     DOMAIN=jitsi.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/jitsi.yml jitsi
-    firefox https://jitsi.ds
+    firefox https://jitsi.ds &
     watch docker stack ps jitsi
 }
 
@@ -825,7 +825,7 @@ ds-jitsi-kill() {
 ds-kanboard() {
     ds-net-traefik
     DOMAIN=kanboard.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/kanboard.yml kanboard
-    firefox https://kanboard.ds
+    firefox https://kanboard.ds &
     watch docker stack ps kanboard
 }
 
@@ -839,7 +839,7 @@ ds-kanboard-kill() {
 ds-listmonk() {
     ds-net-traefik
     DOMAIN=listmonk.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/listmonk.yml listmonk
-    firefox https://listmonk.ds
+    firefox https://listmonk.ds &
     watch docker stack ps listmonk
 }
 
@@ -853,7 +853,7 @@ ds-listmonk-kill() {
 ds-magento() {
     ds-net-traefik
     DOMAIN=magento.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/magento.yml magento
-    firefox https://magento.ds
+    firefox https://magento.ds &
     watch docker stack ps magento
 }
 
@@ -867,7 +867,7 @@ ds-magento-kill() {
 ds-mailserver() {
     ds-net-traefik
     DOMAIN=mailserver.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/mailserver.yml mailserver
-    firefox https://mailserver.ds
+    firefox https://mailserver.ds &
     watch docker stack ps mailserver
 }
 
@@ -881,7 +881,7 @@ ds-mailserver-kill() {
 ds-mailtrain() {
     ds-net-traefik
     DOMAIN=mailtrain.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/mailtrain.yml mailtrain
-    firefox https://mailtrain.ds
+    firefox https://mailtrain.ds &
     watch docker stack ps mailtrain
 }
 
@@ -895,7 +895,7 @@ ds-mailtrain-kill() {
 ds-mastodon() {
     ds-net-traefik
     DOMAIN=mastodon.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/mastodon.yml mastodon
-    firefox https://mastodon.ds
+    firefox https://mastodon.ds &
     watch docker stack ps mastodon
 }
 
@@ -909,7 +909,7 @@ ds-mastodon-kill() {
 ds-matomo() {
     ds-net-traefik
     DOMAIN=matomo.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/matomo.yml matomo
-    firefox https://matomo.ds
+    firefox https://matomo.ds &
     watch docker stack ps matomo
 }
 
@@ -923,7 +923,7 @@ ds-matomo-kill() {
 ds-mattermost() {
     ds-net-traefik
     DOMAIN=mattermost.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/mattermost.yml mattermost
-    firefox https://mattermost.ds
+    firefox https://mattermost.ds &
     watch docker stack ps mattermost
 }
 
@@ -937,7 +937,7 @@ ds-mattermost-kill() {
 ds-matterwiki() {
     ds-net-traefik
     DOMAIN=matterwiki.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/matterwiki.yml matterwiki
-    firefox https://matterwiki.ds
+    firefox https://matterwiki.ds &
     watch docker stack ps matterwiki
 }
 
@@ -951,7 +951,7 @@ ds-matterwiki-kill() {
 ds-mautic() {
     ds-net-traefik
     DOMAIN=mautic.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/mautic.yml mautic
-    firefox https://mautic.ds
+    firefox https://mautic.ds &
     watch docker stack ps mautic
 }
 
@@ -965,7 +965,7 @@ ds-mautic-kill() {
 ds-mediawiki() {
     ds-net-traefik
     DOMAIN=mediawiki.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/mediawiki.yml mediawiki
-    firefox https://mediawiki.ds
+    firefox https://mediawiki.ds &
     watch docker stack ps mediawiki
 }
 
@@ -979,7 +979,7 @@ ds-mediawiki-kill() {
 ds-metabase() {
     ds-net-traefik
     DOMAIN=metabase.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/metabase.yml metabase
-    firefox https://metabase.ds
+    firefox https://metabase.ds &
     watch docker stack ps metabase
 }
 
@@ -993,7 +993,7 @@ ds-metabase-kill() {
 ds-minio() {
     ds-net-traefik
     DOMAIN=minio.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/minio.yml minio
-    firefox https://minio.ds
+    firefox https://minio.ds &
     watch docker stack ps minio
 }
 
@@ -1007,7 +1007,7 @@ ds-minio-kill() {
 ds-mobilizon() {
     ds-net-traefik
     DOMAIN=mobilizon.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/mobilizon.yml mobilizon
-    firefox https://mobilizon.ds
+    firefox https://mobilizon.ds &
     watch docker stack ps mobilizon
 }
 
@@ -1021,7 +1021,7 @@ ds-mobilizon-kill() {
 ds-monitoring() {
     ds-net-traefik
     DOMAIN=monitoring.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/monitoring.yml monitoring
-    firefox https://monitoring.ds
+    firefox https://monitoring.ds &
     watch docker stack ps monitoring
 }
 
@@ -1035,7 +1035,7 @@ ds-monitoring-kill() {
 ds-n8n() {
     ds-net-traefik
     DOMAIN=n8n.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/n8n.yml n8n
-    firefox https://n8n.ds
+    firefox https://n8n.ds &
     watch docker stack ps n8n
 }
 
@@ -1049,7 +1049,7 @@ ds-n8n-kill() {
 ds-nextcloud() {
     ds-net-traefik
     DOMAIN=nextcloud.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/nextcloud.yml nextcloud
-    firefox https://nextcloud.ds
+    firefox https://nextcloud.ds &
     watch docker stack ps nextcloud
 }
 
@@ -1063,7 +1063,7 @@ ds-nextcloud-kill() {
 ds-nitter() {
     ds-net-traefik
     DOMAIN=nitter.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/nitter.yml nitter
-    firefox https://nitter.ds
+    firefox https://nitter.ds &
     watch docker stack ps nitter
 }
 
@@ -1077,7 +1077,7 @@ ds-nitter-kill() {
 ds-nocodb() {
     ds-net-traefik
     DOMAIN=nocodb.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/nocodb.yml nocodb
-    firefox https://nocodb.ds
+    firefox https://nocodb.ds &
     watch docker stack ps nocodb
 }
 
@@ -1091,7 +1091,7 @@ ds-nocodb-kill() {
 ds-odoo() {
     ds-net-traefik
     DOMAIN=odoo.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/odoo.yml odoo
-    firefox https://odoo.ds
+    firefox https://odoo.ds &
     watch docker stack ps odoo
 }
 
@@ -1105,7 +1105,7 @@ ds-odoo-kill() {
 ds-passbolt() {
     ds-net-traefik
     DOMAIN=passbolt.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/passbolt.yml passbolt
-    firefox https://passbolt.ds
+    firefox https://passbolt.ds &
     watch docker stack ps passbolt
 }
 
@@ -1119,7 +1119,7 @@ ds-passbolt-kill() {
 ds-peertube() {
     ds-net-traefik
     DOMAIN=peertube.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/peertube.yml peertube
-    firefox https://peertube.ds
+    firefox https://peertube.ds &
     watch docker stack ps peertube
 }
 
@@ -1133,7 +1133,7 @@ ds-peertube-kill() {
 ds-phpbb() {
     ds-net-traefik
     DOMAIN=phpbb.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/phpbb.yml phpbb
-    firefox https://phpbb.ds
+    firefox https://phpbb.ds &
     watch docker stack ps phpbb
 }
 
@@ -1147,7 +1147,7 @@ ds-phpbb-kill() {
 ds-pinafore() {
     ds-net-traefik
     DOMAIN=pinafore.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/pinafore.yml pinafore
-    firefox https://pinafore.ds
+    firefox https://pinafore.ds &
     watch docker stack ps pinafore
 }
 
@@ -1161,7 +1161,7 @@ ds-pinafore-kill() {
 ds-pixelfed() {
     ds-net-traefik
     DOMAIN=pixelfed.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/pixelfed.yml pixelfed
-    firefox https://pixelfed.ds
+    firefox https://pixelfed.ds &
     watch docker stack ps pixelfed
 }
 
@@ -1175,7 +1175,7 @@ ds-pixelfed-kill() {
 ds-plume() {
     ds-net-traefik
     DOMAIN=plume.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/plume.yml plume
-    firefox https://plume.ds
+    firefox https://plume.ds &
     watch docker stack ps plume
 }
 
@@ -1189,7 +1189,7 @@ ds-plume-kill() {
 ds-polr() {
     ds-net-traefik
     DOMAIN=polr.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/polr.yml polr
-    firefox https://polr.ds
+    firefox https://polr.ds &
     watch docker stack ps polr
 }
 
@@ -1203,7 +1203,7 @@ ds-polr-kill() {
 ds-portainer() {
     ds-net-traefik
     DOMAIN=portainer.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/portainer.yml portainer
-    firefox https://portainer.ds
+    firefox https://portainer.ds &
     watch docker stack ps portainer
 }
 
@@ -1217,7 +1217,7 @@ ds-portainer-kill() {
 ds-posthog() {
     ds-net-traefik
     DOMAIN=posthog.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/posthog.yml posthog
-    firefox https://posthog.ds
+    firefox https://posthog.ds &
     watch docker stack ps posthog
 }
 
@@ -1231,7 +1231,7 @@ ds-posthog-kill() {
 ds-prestashop() {
     ds-net-traefik
     DOMAIN=prestashop.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/prestashop.yml prestashop
-    firefox https://prestashop.ds
+    firefox https://prestashop.ds &
     watch docker stack ps prestashop
 }
 
@@ -1245,7 +1245,7 @@ ds-prestashop-kill() {
 ds-pydio() {
     ds-net-traefik
     DOMAIN=pydio.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/pydio.yml pydio
-    firefox https://pydio.ds
+    firefox https://pydio.ds &
     watch docker stack ps pydio
 }
 
@@ -1259,7 +1259,7 @@ ds-pydio-kill() {
 ds-pytition() {
     ds-net-traefik
     DOMAIN=pytition.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/pytition.yml pytition
-    firefox https://pytition.ds
+    firefox https://pytition.ds &
     watch docker stack ps pytition
 }
 
@@ -1273,7 +1273,7 @@ ds-pytition-kill() {
 ds-rainloop() {
     ds-net-traefik
     DOMAIN=rainloop.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/rainloop.yml rainloop
-    firefox https://rainloop.ds
+    firefox https://rainloop.ds &
     watch docker stack ps rainloop
 }
 
@@ -1287,7 +1287,7 @@ ds-rainloop-kill() {
 ds-redmine() {
     ds-net-traefik
     DOMAIN=redmine.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/redmine.yml redmine
-    firefox https://redmine.ds
+    firefox https://redmine.ds &
     watch docker stack ps redmine
 }
 
@@ -1301,7 +1301,7 @@ ds-redmine-kill() {
 ds-registry() {
     ds-net-traefik
     DOMAIN=registry.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/registry.yml registry
-    firefox https://registry.ds
+    firefox https://registry.ds &
     watch docker stack ps registry
 }
 
@@ -1315,7 +1315,7 @@ ds-registry-kill() {
 ds-rocketchat() {
     ds-net-traefik
     DOMAIN=rocketchat.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/rocketchat.yml rocketchat
-    firefox https://rocketchat.ds
+    firefox https://rocketchat.ds &
     watch docker stack ps rocketchat
 }
 
@@ -1329,7 +1329,7 @@ ds-rocketchat-kill() {
 ds-rsshub() {
     ds-net-traefik
     DOMAIN=rsshub.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/rsshub.yml rsshub
-    firefox https://rsshub.ds
+    firefox https://rsshub.ds &
     watch docker stack ps rsshub
 }
 
@@ -1343,7 +1343,7 @@ ds-rsshub-kill() {
 ds-scrumblr() {
     ds-net-traefik
     DOMAIN=scrumblr.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/scrumblr.yml scrumblr
-    firefox https://scrumblr.ds
+    firefox https://scrumblr.ds &
     watch docker stack ps scrumblr
 }
 
@@ -1357,7 +1357,7 @@ ds-scrumblr-kill() {
 ds-searx() {
     ds-net-traefik
     DOMAIN=searx.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/searx.yml searx
-    firefox https://searx.ds
+    firefox https://searx.ds &
     watch docker stack ps searx
 }
 
@@ -1371,7 +1371,7 @@ ds-searx-kill() {
 ds-suitecrm() {
     ds-net-traefik
     DOMAIN=suitecrm.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/suitecrm.yml suitecrm
-    firefox https://suitecrm.ds
+    firefox https://suitecrm.ds &
     watch docker stack ps suitecrm
 }
 
@@ -1385,7 +1385,7 @@ ds-suitecrm-kill() {
 ds-taiga() {
     ds-net-traefik
     DOMAIN=taiga.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/taiga.yml taiga
-    firefox https://taiga.ds
+    firefox https://taiga.ds &
     watch docker stack ps taiga
 }
 
@@ -1399,7 +1399,7 @@ ds-taiga-kill() {
 ds-talk() {
     ds-net-traefik
     DOMAIN=talk.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/talk.yml talk
-    firefox https://talk.ds
+    firefox https://talk.ds &
     watch docker stack ps talk
 }
 
@@ -1413,7 +1413,7 @@ ds-talk-kill() {
 ds-traefik() {
     ds-net-traefik
     DOMAIN=traefik.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/traefik.yml traefik
-    firefox https://traefik.ds
+    firefox https://traefik.ds &
     watch docker stack ps traefik
 }
 
@@ -1427,7 +1427,7 @@ ds-traefik-kill() {
 ds-umami() {
     ds-net-traefik
     DOMAIN=umami.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/umami.yml umami
-    firefox https://umami.ds
+    firefox https://umami.ds &
     watch docker stack ps umami
 }
 
@@ -1441,7 +1441,7 @@ ds-umami-kill() {
 ds-uptime-kuma() {
     ds-net-traefik
     DOMAIN=uptime-kuma.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/uptime-kuma.yml uptime-kuma
-    firefox https://uptime-kuma.ds
+    firefox https://uptime-kuma.ds &
     watch docker stack ps uptime-kuma
 }
 
@@ -1455,7 +1455,7 @@ ds-uptime-kuma-kill() {
 ds-waiting() {
     ds-net-traefik
     DOMAIN=waiting.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/waiting.yml waiting
-    firefox https://waiting.ds
+    firefox https://waiting.ds &
     watch docker stack ps waiting
 }
 
@@ -1469,7 +1469,7 @@ ds-waiting-kill() {
 ds-wallabag() {
     ds-net-traefik
     DOMAIN=wallabag.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/wallabag.yml wallabag
-    firefox https://wallabag.ds
+    firefox https://wallabag.ds &
     watch docker stack ps wallabag
 }
 
@@ -1483,7 +1483,7 @@ ds-wallabag-kill() {
 ds-wekan() {
     ds-net-traefik
     DOMAIN=wekan.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/wekan.yml wekan
-    firefox https://wekan.ds
+    firefox https://wekan.ds &
     watch docker stack ps wekan
 }
 
@@ -1497,7 +1497,7 @@ ds-wekan-kill() {
 ds-whoogle-search() {
     ds-net-traefik
     DOMAIN=whoogle-search.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/whoogle-search.yml whoogle-search
-    firefox https://whoogle-search.ds
+    firefox https://whoogle-search.ds &
     watch docker stack ps whoogle-search
 }
 
@@ -1511,7 +1511,7 @@ ds-whoogle-search-kill() {
 ds-wikijs() {
     ds-net-traefik
     DOMAIN=wikijs.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/wikijs.yml wikijs
-    firefox https://wikijs.ds
+    firefox https://wikijs.ds &
     watch docker stack ps wikijs
 }
 
@@ -1525,7 +1525,7 @@ ds-wikijs-kill() {
 ds-wordpress() {
     ds-net-traefik
     DOMAIN=wordpress.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/wordpress.yml wordpress
-    firefox https://wordpress.ds
+    firefox https://wordpress.ds &
     watch docker stack ps wordpress
 }
 
@@ -1539,7 +1539,7 @@ ds-wordpress-kill() {
 ds-writefreely() {
     ds-net-traefik
     DOMAIN=writefreely.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/writefreely.yml writefreely
-    firefox https://writefreely.ds
+    firefox https://writefreely.ds &
     watch docker stack ps writefreely
 }
 
@@ -1553,7 +1553,7 @@ ds-writefreely-kill() {
 ds-zammad() {
     ds-net-traefik
     DOMAIN=zammad.ds docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/zammad.yml zammad
-    firefox https://zammad.ds
+    firefox https://zammad.ds &
     watch docker stack ps zammad
 }
 
