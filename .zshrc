@@ -335,7 +335,11 @@ function a-extract {
 fi
 }
 
-# awesome-stacks
+###
+###
+### awesome-stacks
+###
+###
 ds-net-traefik() {
     docker network create --driver=overlay traefik-net
     docker stack deploy -c /home/user/git/misc/awesome-stacks/stacks/traefik.yml traefik
@@ -351,6 +355,7 @@ ds-appwrite() {
 
 ds-appwrite-kill() {
     docker stack rm appwrite
+    docker volume prune
 }
 
 # bibliogram
@@ -363,6 +368,7 @@ ds-bibliogram() {
 
 ds-bibliogram-kill() {
     docker stack rm bibliogram
+    docker volume prune
 }
 
 # bookstack
@@ -375,6 +381,7 @@ ds-bookstack() {
 
 ds-bookstack-kill() {
     docker stack rm bookstack
+    docker volume prune
 }
 
 # botpress
@@ -387,6 +394,7 @@ ds-botpress() {
 
 ds-botpress-kill() {
     docker stack rm botpress
+    docker volume prune
 }
 
 # calibre
@@ -399,6 +407,7 @@ ds-calibre() {
 
 ds-calibre-kill() {
     docker stack rm calibre
+    docker volume prune
 }
 
 # chatwoot
@@ -411,6 +420,7 @@ ds-chatwoot() {
 
 ds-chatwoot-kill() {
     docker stack rm chatwoot
+    docker volume prune
 }
 
 # commento
@@ -423,6 +433,7 @@ ds-commento() {
 
 ds-commento-kill() {
     docker stack rm commento
+    docker volume prune
 }
 
 # crater
@@ -435,6 +446,7 @@ ds-crater() {
 
 ds-crater-kill() {
     docker stack rm crater
+    docker volume prune
 }
 
 # cryptpad
@@ -447,6 +459,7 @@ ds-cryptpad() {
 
 ds-cryptpad-kill() {
     docker stack rm cryptpad
+    docker volume prune
 }
 
 # directus
@@ -459,6 +472,7 @@ ds-directus() {
 
 ds-directus-kill() {
     docker stack rm directus
+    docker volume prune
 }
 
 # discourse
@@ -471,6 +485,7 @@ ds-discourse() {
 
 ds-discourse-kill() {
     docker stack rm discourse
+    docker volume prune
 }
 
 # dolibarr
@@ -483,6 +498,7 @@ ds-dolibarr() {
 
 ds-dolibarr-kill() {
     docker stack rm dolibarr
+    docker volume prune
 }
 
 # drawio
@@ -495,6 +511,7 @@ ds-drawio() {
 
 ds-drawio-kill() {
     docker stack rm drawio
+    docker volume prune
 }
 
 # element
@@ -507,6 +524,7 @@ ds-element() {
 
 ds-element-kill() {
     docker stack rm element
+    docker volume prune
 }
 
 # ethercalc
@@ -519,6 +537,7 @@ ds-ethercalc() {
 
 ds-ethercalc-kill() {
     docker stack rm ethercalc
+    docker volume prune
 }
 
 # etherpad
@@ -531,6 +550,7 @@ ds-etherpad() {
 
 ds-etherpad-kill() {
     docker stack rm etherpad
+    docker volume prune
 }
 
 # ethibox
@@ -543,6 +563,7 @@ ds-ethibox() {
 
 ds-ethibox-kill() {
     docker stack rm ethibox
+    docker volume prune
 }
 
 # fathom
@@ -555,6 +576,7 @@ ds-fathom() {
 
 ds-fathom-kill() {
     docker stack rm fathom
+    docker volume prune
 }
 
 # firefly
@@ -567,6 +589,7 @@ ds-firefly() {
 
 ds-firefly-kill() {
     docker stack rm firefly
+    docker volume prune
 }
 
 # flarum
@@ -579,6 +602,7 @@ ds-flarum() {
 
 ds-flarum-kill() {
     docker stack rm flarum
+    docker volume prune
 }
 
 # framadate
@@ -591,6 +615,7 @@ ds-framadate() {
 
 ds-framadate-kill() {
     docker stack rm framadate
+    docker volume prune
 }
 
 # freshrss
@@ -603,6 +628,7 @@ ds-freshrss() {
 
 ds-freshrss-kill() {
     docker stack rm freshrss
+    docker volume prune
 }
 
 # ghost
@@ -615,6 +641,7 @@ ds-ghost() {
 
 ds-ghost-kill() {
     docker stack rm ghost
+    docker volume prune
 }
 
 # gitlab
@@ -627,6 +654,7 @@ ds-gitlab() {
 
 ds-gitlab-kill() {
     docker stack rm gitlab
+    docker volume prune
 }
 
 # gogs
@@ -639,6 +667,7 @@ ds-gogs() {
 
 ds-gogs-kill() {
     docker stack rm gogs
+    docker volume prune
 }
 
 # grafana
@@ -651,6 +680,7 @@ ds-grafana() {
 
 ds-grafana-kill() {
     docker stack rm grafana
+    docker volume prune
 }
 
 # grav
@@ -663,6 +693,7 @@ ds-grav() {
 
 ds-grav-kill() {
     docker stack rm grav
+    docker volume prune
 }
 
 # habitica
@@ -675,6 +706,7 @@ ds-habitica() {
 
 ds-habitica-kill() {
     docker stack rm habitica
+    docker volume prune
 }
 
 # hasura
@@ -687,6 +719,7 @@ ds-hasura() {
 
 ds-hasura-kill() {
     docker stack rm hasura
+    docker volume prune
 }
 
 # hedgedoc
@@ -699,6 +732,7 @@ ds-hedgedoc() {
 
 ds-hedgedoc-kill() {
     docker stack rm hedgedoc
+    docker volume prune
 }
 
 # huginn
@@ -711,6 +745,7 @@ ds-huginn() {
 
 ds-huginn-kill() {
     docker stack rm huginn
+    docker volume prune
 }
 
 # invoiceninja
@@ -723,6 +758,7 @@ ds-invoiceninja() {
 
 ds-invoiceninja-kill() {
     docker stack rm invoiceninja
+    docker volume prune
 }
 
 # jenkins
@@ -735,6 +771,7 @@ ds-jenkins() {
 
 ds-jenkins-kill() {
     docker stack rm jenkins
+    docker volume prune
 }
 
 # jitsi
@@ -747,6 +784,7 @@ ds-jitsi() {
 
 ds-jitsi-kill() {
     docker stack rm jitsi
+    docker volume prune
 }
 
 # kanboard
@@ -759,6 +797,7 @@ ds-kanboard() {
 
 ds-kanboard-kill() {
     docker stack rm kanboard
+    docker volume prune
 }
 
 # listmonk
@@ -771,6 +810,7 @@ ds-listmonk() {
 
 ds-listmonk-kill() {
     docker stack rm listmonk
+    docker volume prune
 }
 
 # magento
@@ -783,6 +823,7 @@ ds-magento() {
 
 ds-magento-kill() {
     docker stack rm magento
+    docker volume prune
 }
 
 # mailserver
@@ -795,6 +836,7 @@ ds-mailserver() {
 
 ds-mailserver-kill() {
     docker stack rm mailserver
+    docker volume prune
 }
 
 # mailtrain
@@ -807,6 +849,7 @@ ds-mailtrain() {
 
 ds-mailtrain-kill() {
     docker stack rm mailtrain
+    docker volume prune
 }
 
 # mastodon
@@ -819,6 +862,7 @@ ds-mastodon() {
 
 ds-mastodon-kill() {
     docker stack rm mastodon
+    docker volume prune
 }
 
 # matomo
@@ -831,6 +875,7 @@ ds-matomo() {
 
 ds-matomo-kill() {
     docker stack rm matomo
+    docker volume prune
 }
 
 # mattermost
@@ -843,6 +888,7 @@ ds-mattermost() {
 
 ds-mattermost-kill() {
     docker stack rm mattermost
+    docker volume prune
 }
 
 # matterwiki
@@ -855,6 +901,7 @@ ds-matterwiki() {
 
 ds-matterwiki-kill() {
     docker stack rm matterwiki
+    docker volume prune
 }
 
 # mautic
@@ -867,6 +914,7 @@ ds-mautic() {
 
 ds-mautic-kill() {
     docker stack rm mautic
+    docker volume prune
 }
 
 # mediawiki
@@ -879,6 +927,7 @@ ds-mediawiki() {
 
 ds-mediawiki-kill() {
     docker stack rm mediawiki
+    docker volume prune
 }
 
 # metabase
@@ -891,6 +940,7 @@ ds-metabase() {
 
 ds-metabase-kill() {
     docker stack rm metabase
+    docker volume prune
 }
 
 # minio
@@ -903,6 +953,7 @@ ds-minio() {
 
 ds-minio-kill() {
     docker stack rm minio
+    docker volume prune
 }
 
 # mobilizon
@@ -915,6 +966,7 @@ ds-mobilizon() {
 
 ds-mobilizon-kill() {
     docker stack rm mobilizon
+    docker volume prune
 }
 
 # monitoring
@@ -927,6 +979,7 @@ ds-monitoring() {
 
 ds-monitoring-kill() {
     docker stack rm monitoring
+    docker volume prune
 }
 
 # n8n
@@ -939,6 +992,7 @@ ds-n8n() {
 
 ds-n8n-kill() {
     docker stack rm n8n
+    docker volume prune
 }
 
 # nextcloud
@@ -951,6 +1005,7 @@ ds-nextcloud() {
 
 ds-nextcloud-kill() {
     docker stack rm nextcloud
+    docker volume prune
 }
 
 # nitter
@@ -963,6 +1018,7 @@ ds-nitter() {
 
 ds-nitter-kill() {
     docker stack rm nitter
+    docker volume prune
 }
 
 # nocodb
@@ -975,6 +1031,7 @@ ds-nocodb() {
 
 ds-nocodb-kill() {
     docker stack rm nocodb
+    docker volume prune
 }
 
 # odoo
@@ -987,6 +1044,7 @@ ds-odoo() {
 
 ds-odoo-kill() {
     docker stack rm odoo
+    docker volume prune
 }
 
 # passbolt
@@ -999,6 +1057,7 @@ ds-passbolt() {
 
 ds-passbolt-kill() {
     docker stack rm passbolt
+    docker volume prune
 }
 
 # peertube
@@ -1011,6 +1070,7 @@ ds-peertube() {
 
 ds-peertube-kill() {
     docker stack rm peertube
+    docker volume prune
 }
 
 # phpbb
@@ -1023,6 +1083,7 @@ ds-phpbb() {
 
 ds-phpbb-kill() {
     docker stack rm phpbb
+    docker volume prune
 }
 
 # pinafore
@@ -1035,6 +1096,7 @@ ds-pinafore() {
 
 ds-pinafore-kill() {
     docker stack rm pinafore
+    docker volume prune
 }
 
 # pixelfed
@@ -1047,6 +1109,7 @@ ds-pixelfed() {
 
 ds-pixelfed-kill() {
     docker stack rm pixelfed
+    docker volume prune
 }
 
 # plume
@@ -1059,6 +1122,7 @@ ds-plume() {
 
 ds-plume-kill() {
     docker stack rm plume
+    docker volume prune
 }
 
 # polr
@@ -1071,6 +1135,7 @@ ds-polr() {
 
 ds-polr-kill() {
     docker stack rm polr
+    docker volume prune
 }
 
 # portainer
@@ -1083,6 +1148,7 @@ ds-portainer() {
 
 ds-portainer-kill() {
     docker stack rm portainer
+    docker volume prune
 }
 
 # posthog
@@ -1095,6 +1161,7 @@ ds-posthog() {
 
 ds-posthog-kill() {
     docker stack rm posthog
+    docker volume prune
 }
 
 # prestashop
@@ -1107,6 +1174,7 @@ ds-prestashop() {
 
 ds-prestashop-kill() {
     docker stack rm prestashop
+    docker volume prune
 }
 
 # pydio
@@ -1119,6 +1187,7 @@ ds-pydio() {
 
 ds-pydio-kill() {
     docker stack rm pydio
+    docker volume prune
 }
 
 # pytition
@@ -1131,6 +1200,7 @@ ds-pytition() {
 
 ds-pytition-kill() {
     docker stack rm pytition
+    docker volume prune
 }
 
 # rainloop
@@ -1143,6 +1213,7 @@ ds-rainloop() {
 
 ds-rainloop-kill() {
     docker stack rm rainloop
+    docker volume prune
 }
 
 # redmine
@@ -1155,6 +1226,7 @@ ds-redmine() {
 
 ds-redmine-kill() {
     docker stack rm redmine
+    docker volume prune
 }
 
 # registry
@@ -1167,6 +1239,7 @@ ds-registry() {
 
 ds-registry-kill() {
     docker stack rm registry
+    docker volume prune
 }
 
 # rocketchat
@@ -1179,6 +1252,7 @@ ds-rocketchat() {
 
 ds-rocketchat-kill() {
     docker stack rm rocketchat
+    docker volume prune
 }
 
 # rsshub
@@ -1191,6 +1265,7 @@ ds-rsshub() {
 
 ds-rsshub-kill() {
     docker stack rm rsshub
+    docker volume prune
 }
 
 # scrumblr
@@ -1203,6 +1278,7 @@ ds-scrumblr() {
 
 ds-scrumblr-kill() {
     docker stack rm scrumblr
+    docker volume prune
 }
 
 # searx
@@ -1215,6 +1291,7 @@ ds-searx() {
 
 ds-searx-kill() {
     docker stack rm searx
+    docker volume prune
 }
 
 # suitecrm
@@ -1227,6 +1304,7 @@ ds-suitecrm() {
 
 ds-suitecrm-kill() {
     docker stack rm suitecrm
+    docker volume prune
 }
 
 # taiga
@@ -1239,6 +1317,7 @@ ds-taiga() {
 
 ds-taiga-kill() {
     docker stack rm taiga
+    docker volume prune
 }
 
 # talk
@@ -1251,6 +1330,7 @@ ds-talk() {
 
 ds-talk-kill() {
     docker stack rm talk
+    docker volume prune
 }
 
 # traefik
@@ -1263,6 +1343,7 @@ ds-traefik() {
 
 ds-traefik-kill() {
     docker stack rm traefik
+    docker volume prune
 }
 
 # umami
@@ -1275,6 +1356,7 @@ ds-umami() {
 
 ds-umami-kill() {
     docker stack rm umami
+    docker volume prune
 }
 
 # uptime-kuma
@@ -1287,6 +1369,7 @@ ds-uptime-kuma() {
 
 ds-uptime-kuma-kill() {
     docker stack rm uptime-kuma
+    docker volume prune
 }
 
 # waiting
@@ -1299,6 +1382,7 @@ ds-waiting() {
 
 ds-waiting-kill() {
     docker stack rm waiting
+    docker volume prune
 }
 
 # wallabag
@@ -1311,6 +1395,7 @@ ds-wallabag() {
 
 ds-wallabag-kill() {
     docker stack rm wallabag
+    docker volume prune
 }
 
 # wekan
@@ -1323,6 +1408,7 @@ ds-wekan() {
 
 ds-wekan-kill() {
     docker stack rm wekan
+    docker volume prune
 }
 
 # whoogle-search
@@ -1335,6 +1421,7 @@ ds-whoogle-search() {
 
 ds-whoogle-search-kill() {
     docker stack rm whoogle-search
+    docker volume prune
 }
 
 # wikijs
@@ -1347,6 +1434,7 @@ ds-wikijs() {
 
 ds-wikijs-kill() {
     docker stack rm wikijs
+    docker volume prune
 }
 
 # wordpress
@@ -1359,6 +1447,7 @@ ds-wordpress() {
 
 ds-wordpress-kill() {
     docker stack rm wordpress
+    docker volume prune
 }
 
 # writefreely
@@ -1371,6 +1460,7 @@ ds-writefreely() {
 
 ds-writefreely-kill() {
     docker stack rm writefreely
+    docker volume prune
 }
 
 # zammad
@@ -1383,4 +1473,5 @@ ds-zammad() {
 
 ds-zammad-kill() {
     docker stack rm zammad
+    docker volume prune
 }
