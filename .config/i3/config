@@ -51,6 +51,7 @@ bindsym $mod+e exec /run/current-system/sw/bin/dmenu_run
 bindsym $mod+g exec /run/current-system/sw/bin/gimp
 bindsym $mod+k exec /run/current-system/sw/bin/keepassxc
 bindsym $mod+n exec /run/current-system/sw/bin/urxvt -bg black -fg white -e /run/current-system/sw/bin/tmux /run/current-system/sw/bin/bash
+bindsym $mod+p exec /run/current-system/sw/bin/thunderbird
 bindsym $mod+s exec /run/current-system/sw/bin/scrot
 bindsym $mod+t exec /run/current-system/sw/bin/urxvt -bg black -fg white -e /run/current-system/sw/bin/tmux
 bindsym $mod+v exec /run/current-system/sw/bin/vlc
