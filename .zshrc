@@ -36,7 +36,8 @@ d-windowshellhere() {
 }
 
 d-filebrowserhere() {
-    docker run --rm --name filebrowser -v ${PWD}:/srv -p 80:80 filebrowser/filebrowser
+    screen -S filebrowser -adm docker run --rm --name filebrowser -v ${PWD}:/srv -p 80:80 filebrowser/filebrowser
+    firefox http://127.0.0.1/ &
 }
 
 ###
@@ -131,7 +132,8 @@ d-smbservehere() {
 }
 
 d-nginxhere() {
-    docker run --rm -it -p 80:80 -p 443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
+    screen -S nginxhere -adm docker run --rm -it -p 80:80 -p 443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
+    firefox http://127.0.0.1 &
 }
 
 d-webdavhere() {
