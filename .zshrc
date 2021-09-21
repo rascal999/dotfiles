@@ -32,8 +32,11 @@ d-shellhere() {
 }
 
 d-windowshellhere() {
-    dirname=${PWD##*/}
     docker -c 2019-box run --rm -it -v "C:${PWD}:C:/source" -w "C:/source" "$@"
+}
+
+d-filebrowserhere() {
+    docker run --rm --name filebrowser -v ${PWD}:/srv -p 80:80 filebrowser/filebrowser
 }
 
 ###
