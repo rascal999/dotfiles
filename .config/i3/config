@@ -174,7 +174,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    font pango:DejaVu Sans Mono, FontAwesome 12
+    font pango:DejaVu Sans Mono, FontAwesome 16
     position bottom
     status_command /run/current-system/sw/bin/i3status-rs $HOME/.config/i3/theme.toml
     colors {
