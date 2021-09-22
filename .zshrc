@@ -41,7 +41,7 @@ d-filebrowserhere() {
 }
 
 a-ngrok-nginx() {
-    docker run --rm --name ngrok-nginx -d -p 1080:80 -p 443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
+    docker run --rm --name ngrok-nginx -d -p 1080:80 -p 8443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
     ngrok http 1080
     docker stop ngrok-nginxhere
 }
