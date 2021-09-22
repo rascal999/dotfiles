@@ -35,18 +35,21 @@ d-windowshellhere() {
     docker -c 2019-box run --rm -it -v "C:${PWD}:C:/source" -w "C:/source" "$@"
 }
 
-d-filebrowserhere-silent() {
-    screen -S filebrowser -adm docker run --rm --name filebrowser -v ${PWD}:/srv -p 1080:80 filebrowser/filebrowser
-}
-
 d-filebrowserhere() {
     screen -S filebrowser -adm docker run --rm --name filebrowser -v ${PWD}:/srv -p 1080:80 filebrowser/filebrowser
     firefox http://127.0.0.1:1080/ &
 }
 
-a-ngrok() {
-    d-filebrowserhere-silent
+a-ngrok-nginx() {
+    docker run --rm --name ngrok-nginx -d -p 1080:80 -p 443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
     ngrok http 1080
+    docker stop ngrok-nginxhere
+}
+
+a-ngrok-filebrowser() {
+    docker run --rm --name ngrok-filebrowser -v ${PWD}:/srv -p 1080:80 filebrowser/filebrowser
+    ngrok http 1080
+    docker stop ngrok-filebrowser
 }
 
 ###
