@@ -48,6 +48,7 @@ bindsym $mod+b exec $HOME/burp.sh
 bindsym $mod+o exec /run/current-system/sw/bin/obsidian
 #bindsym $mod+c exec /usr/bin/chromium --disable-gpu-vsync=gpu
 bindsym $mod+c exec /run/current-system/sw/bin/chromium
+bindsym $mod+d exec /run/current-system/sw/bin/dbeaver
 bindsym $mod+e exec /run/current-system/sw/bin/dmenu_run
 bindsym $mod+g exec /run/current-system/sw/bin/gimp
 bindsym $mod+k exec /run/current-system/sw/bin/keepassxc
