@@ -36,7 +36,7 @@ d-windowshellhere() {
 }
 
 d-filebrowserhere() {
-    screen -S filebrowser -adm docker run --rm --name filebrowser -v ${PWD}:/srv -p 1080:80 filebrowser/filebrowser
+    screen -S filebrowser -adm docker run --rm --name filebrowser -p 1080:80 -v ${PWD}:/srv filebrowser/filebrowser
     firefox http://127.0.0.1:1080/ &
 }
 
@@ -48,7 +48,7 @@ a-ngrok-nginx() {
 }
 
 a-ngrok-filebrowser() {
-    docker run --rm --name ngrok-filebrowser -v ${PWD}:/srv -p 1080:80 filebrowser/filebrowser
+    docker run --rm --name ngrok-filebrowser -d -p 1080:80 -v ${PWD}:/srv filebrowser/filebrowser
     ngrok http 1080
     echo "Stopping filebrowser docker instance.."
     docker stop ngrok-filebrowser
