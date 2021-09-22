@@ -14,11 +14,6 @@ alias ff='firefox '
 ###
 ### Misc
 ###
-a-ngrok() {
-    d-filebrowserhere
-    ngrok http 1080
-}
-
 a-gg() {
     googler --np "$@"
 }
@@ -40,9 +35,18 @@ d-windowshellhere() {
     docker -c 2019-box run --rm -it -v "C:${PWD}:C:/source" -w "C:/source" "$@"
 }
 
+d-filebrowserhere-silent() {
+    screen -S filebrowser -adm docker run --rm --name filebrowser -v ${PWD}:/srv -p 1080:80 filebrowser/filebrowser
+}
+
 d-filebrowserhere() {
     screen -S filebrowser -adm docker run --rm --name filebrowser -v ${PWD}:/srv -p 1080:80 filebrowser/filebrowser
     firefox http://127.0.0.1:1080/ &
+}
+
+a-ngrok() {
+    d-filebrowserhere-silent
+    ngrok http 1080
 }
 
 ###
