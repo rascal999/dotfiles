@@ -57,6 +57,10 @@ webscan() {
 ###
 ### Tools
 ###
+d-stego-toolkit() {
+    docker run --rm -it --name stego-toolkit -v ${PWD}:/data dominicbreuker/stego-toolkit /bin/bash "$@"
+}
+
 d-bettercap() {
     docker run --rm -it --name bettercap --net=host bettercap/bettercap
 }
