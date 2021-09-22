@@ -36,8 +36,8 @@ d-windowshellhere() {
 }
 
 d-filebrowserhere() {
-    screen -S filebrowser -adm docker run --rm --name filebrowser -v ${PWD}:/srv -p 80:80 filebrowser/filebrowser
-    firefox http://127.0.0.1/ &
+    screen -S filebrowser -adm docker run --rm --name filebrowser -v ${PWD}:/srv -p 1080:80 filebrowser/filebrowser
+    firefox http://127.0.0.1:1080/ &
 }
 
 ###
@@ -144,12 +144,12 @@ d-smbservehere() {
 }
 
 d-nginxhere() {
-    screen -S nginxhere -adm docker run --rm -it -p 80:80 -p 443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
+    screen -S nginxhere -adm docker run --rm -it -p 1080:80 -p 443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
     firefox http://127.0.0.1 &
 }
 
 d-webdavhere() {
-    docker run --rm -it -p 80:80 -v "${PWD}:/srv/data/share" rflathers/webdav
+    docker run --rm -it -p 1080:80 -v "${PWD}:/srv/data/share" rflathers/webdav
 }
 
 d-metasploit() {
@@ -168,11 +168,11 @@ d-msfvenomhere() {
 }
 
 d-reqdump() {
-    docker run --rm -it -p 80:3000 rflathers/reqdump
+    docker run --rm -it -p 1080:3000 rflathers/reqdump
 }
 
 d-postfiledumphere() {
-    docker run --rm -it -p80:3000 -v "${PWD}:/data" rflathers/postfiledump
+    docker run --rm -it -p 1080:3000 -v "${PWD}:/data" rflathers/postfiledump
 }
 
 d-kali() {
@@ -258,7 +258,7 @@ d-altoro() {
 }
 
 d-securityshepherd(){
-    docker run -i -p 80:80 -p 443:443 ismisepaul/securityshepherd /bin/bash
+    docker run -i -p 1080:80 -p 8443:443 ismisepaul/securityshepherd /bin/bash
 }
 
 d-dvwa() {
