@@ -57,6 +57,10 @@ webscan() {
 ###
 ### Tools
 ###
+d-bettercap() {
+    docker run --rm -it --name bettercap --net=host bettercap/bettercap
+}
+
 d-ciphey() {
     docker run -it --rm --name ciphey -v ${PWD}:/home/nonroot/workdir remnux/ciphey "$@"
 }
