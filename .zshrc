@@ -14,6 +14,11 @@ alias ff='firefox '
 ###
 ### Misc
 ###
+a-ngrok() {
+    d-filebrowserhere
+    ngrok http 1080
+}
+
 a-gg() {
     googler --np "$@"
 }
