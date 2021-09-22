@@ -57,6 +57,10 @@ webscan() {
 ###
 ### Tools
 ###
+d-ciphey() {
+    docker run -it --rm --name ciphey -v ${PWD}:/home/nonroot/workdir remnux/ciphey "$@"
+}
+
 d-astra() {
     docker run --rm -d --name astra-mongo mongo
     cd $HOME/git/pentest-tools/Astra
