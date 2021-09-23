@@ -79,8 +79,8 @@ webscan() {
 ### Tools
 ###
 d-thelounge() {
+    screen -S thelounge -adm docker run --rm -it --name thelounge -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -p 9000:9000 -v $HOME/.config/thelounge:/config ghcr.io/linuxserver/thelounge
     firefox http://localhost:9000 &
-    docker run --rm -it --name thelounge -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -p 9000:9000 -v $HOME/.config/thelounge:/config ghcr.io/linuxserver/thelounge
 }
 
 d-stego-toolkit() {
