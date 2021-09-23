@@ -275,7 +275,7 @@ d-lab-kill() {
 
 d-altoro() {
     echo "screen -r altoro"
-    screen -S altoro -adm docker run --rm --name altoro -p 127.10.0.1:80:8080 eystsen/altoro
+    screen -S altoro -adm docker run --rm --name altoro -p 127.10.0.1:1080:8080 eystsen/altoro
 }
 
 d-securityshepherd(){
@@ -284,17 +284,17 @@ d-securityshepherd(){
 
 d-dvwa() {
     echo "screen -r dvwa"
-    screen -S dvwa -adm docker run --rm --name dvwa -p 127.10.0.2:80:80 citizenstig/dvwa
+    screen -S dvwa -adm docker run --rm --name dvwa -p 127.10.0.2:1080:80 citizenstig/dvwa
 }
 
 d-vulnerablewordpress() {
     echo "screen -r vulnerablewordpress"
-    screen -S vulnerablewordpress -adm docker run --rm --name vulnerablewordpress -p 127.10.0.3:80:80 -p 3306:3306 l505/vulnerablewordpress
+    screen -S vulnerablewordpress -adm docker run --rm --name vulnerablewordpress -p 127.10.0.3:1080:80 -p 3306:3306 l505/vulnerablewordpress
 }
 
 d-vaas-cve-2014-6271() {
     echo "screen -r vaas-cve-2014-6271"
-    screen -S vaas-cve-2014-6271 -adm docker run --rm --name vaas-cve-2014-6271 -p 127.10.0.4:8080:80 hmlio/vaas-cve-2014-6271
+    screen -S vaas-cve-2014-6271 -adm docker run --rm --name vaas-cve-2014-6271 -p 127.10.0.4:1080:80 hmlio/vaas-cve-2014-6271
 }
 
 d-vaas-cve-2014-0160() {
@@ -304,37 +304,37 @@ d-vaas-cve-2014-0160() {
 
 d-webgoat() {
     echo "screen -r webgoat"
-    screen -S webgoat -adm docker run --rm --name webgoat -p 127.10.0.6:8080:8080 --name webgoat -it danmx/docker-owasp-webgoat
+    screen -S webgoat -adm docker run --rm --name webgoat -p 127.10.0.6:1080:8080 --name webgoat -it danmx/docker-owasp-webgoat
 }
 
 d-nowasp() {
     echo "screen -r nowasp"
-    screen -S nowasp -adm docker run --rm --name nowasp -p 127.10.0.7:80:80 citizenstig/nowasp
+    screen -S nowasp -adm docker run --rm --name nowasp -p 127.10.0.7:1080:80 citizenstig/nowasp
 }
 
 d-juice-shop() {
     echo "screen -r juice-shop"
-    screen -S juice-shop -adm docker run --rm --name juice-shop -p 127.10.0.8:3000:3000 bkimminich/juice-shop
+    screen -S juice-shop -adm docker run --rm --name juice-shop -p 127.10.0.8:1080:3000 bkimminich/juice-shop
 }
 
 d-hackazon() {
     echo "screen -r hackazon"
-    screen -S hackazon -adm docker run --rm --name hackazon -p 127.10.0.9:80:80 mutzel/all-in-one-hackazon:postinstall supervisord -n
+    screen -S hackazon -adm docker run --rm --name hackazon -p 127.10.0.9:1080:80 mutzel/all-in-one-hackazon:postinstall supervisord -n
 }
 
 d-tiredful() {
     echo "screen -r tiredful"
-    screen -S tiredful -adm docker run --rm --name tiredful -p 127.10.0.10:80:8000 tuxotron/tiredful-api
+    screen -S tiredful -adm docker run --rm --name tiredful -p 127.10.0.10:1080:8000 tuxotron/tiredful-api
 }
 
 d-xvwa() {
     echo "screen -r xvwa"
-    screen -S xvwa -adm docker run --rm --name xvwa -p 127.10.0.11:80:80 tuxotron/xvwa
+    screen -S xvwa -adm docker run --rm --name xvwa -p 127.10.0.11:1080:80 tuxotron/xvwa
 }
 
 d-security-ninjas() {
     echo "screen -r security-ninjas"
-    screen -S security-ninjas -adm docker run --rm --name security-ninjas -p 127.10.0.12:80:80 opendns/security-ninjas
+    screen -S security-ninjas -adm docker run --rm --name security-ninjas -p 127.10.0.12:1080:80 opendns/security-ninjas
 }
 
 # extract
