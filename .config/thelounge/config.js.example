@@ -245,7 +245,7 @@ module.exports = {
 		tls: true,
 		rejectUnauthorized: true,
 		nick: "rascal999",
-		username: "rascal99",
+		username: "rascal999",
 		realname: "Aidan",
 		join: "##linux",
 	},
