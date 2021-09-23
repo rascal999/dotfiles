@@ -247,7 +247,7 @@ module.exports = {
 		nick: "rascal999",
 		username: "rascal999",
 		realname: "Aidan",
-		join: "##linux",
+		join: "#linux",
 	},
 
 	// ### `lockNetwork`
