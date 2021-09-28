@@ -8,12 +8,12 @@ fi
 [[ -s "$HOME/.grc.zsh" ]] && source $HOME/.grc.zsh
 
 alias a-r="export TIMESTAMP=`date +%Y%m%d_%H%M%S` && asciinema rec $HOME/asciinema/asciinema_$TIMESTAMP.log"
-alias a-k="kubectl"
-alias a-d="docker"
-alias a-kga="kubectl get all"
-alias a-dpa="docker ps -a"
+alias a-k="grc kubectl"
+alias a-d="grc docker"
+alias a-kga="grc kubectl get all"
+alias a-dpa="grc docker ps -a"
 alias a-st="wget http://ipv4.download.thinkbroadband.com/1GB.zip -O /dev/null"
-alias a-pingg="ping 8.8.8.8 -c 1"
+alias a-pingg="grc ping 8.8.8.8 -c 1"
 alias a-sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
 alias a-ytmp3='youtube-dl --extract-audio --audio-format mp3 '
 alias ff='firefox '
@@ -36,6 +36,12 @@ d-shellsh() {
 d-shellhere() {
     dirname=${PWD##*/}
     docker run --rm -it --entrypoint=/bin/bash -v `pwd`:/${dirname} -w /${dirname} "$@"
+}
+
+d-shellperm() {
+    echo -n "Instance name? "
+    read INSTANCE
+    docker run --name $INSTANCE -i -t --entrypoint=/bin/bash "$@"
 }
 
 d-windowshellhere() {
