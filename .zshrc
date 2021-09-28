@@ -7,6 +7,9 @@ fi
 
 [[ -s "$HOME/.grc.zsh" ]] && source $HOME/.grc.zsh
 
+alias dig="grc dig"
+alias id="grc id"
+alias ps="grc ps"
 alias a-r="export TIMESTAMP=`date +%Y%m%d_%H%M%S` && asciinema rec $HOME/asciinema/asciinema_$TIMESTAMP.log"
 alias a-k="grc kubectl"
 alias a-d="grc docker"
