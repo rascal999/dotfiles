@@ -38,10 +38,15 @@ d-shellhere() {
     docker run --rm -it --entrypoint=/bin/bash -v `pwd`:/${dirname} -w /${dirname} "$@"
 }
 
-d-shellperm() {
+d-shellnamed() {
     echo -n "Instance name? "
     read INSTANCE
     docker run --name $INSTANCE -i -t --entrypoint=/bin/bash "$@"
+}
+
+d-shellresume() {
+    docker start "$@"
+    docker exec -it "$@" /bin/bash
 }
 
 d-windowshellhere() {
