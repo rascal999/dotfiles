@@ -41,6 +41,14 @@ d-shellhere() {
     docker run --rm -it --entrypoint=/bin/bash -v `pwd`:/${dirname} -w /${dirname} "$@"
 }
 
+d-shellexpose() {
+    if [[ "$#" -ne "2" ]]; then
+        echo "d-shellexpose <image> <port>"
+        return 1 
+    fi
+    docker run --rm -i -t -p $2:$2 --entrypoint=/bin/bash "$1"
+}
+
 d-shellnamed() {
     echo -n "Instance name? "
     read INSTANCE
@@ -95,7 +103,7 @@ webscan() {
 d-myth() {
     if [[ "$#" -ne "2" ]]; then
         echo "d-myth <file> <solv>"
-        break
+        return 1
     fi
 
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
