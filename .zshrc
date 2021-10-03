@@ -38,15 +38,16 @@ d-shellsh() {
 
 d-shellhere() {
     dirname=${PWD##*/}
-    docker run --rm -it --entrypoint=/bin/bash -v `pwd`:/${dirname} -w /${dirname} "$@"
+    docker run --rm -it --entrypoint=/bin/bash -v ${PWD}:/${dirname} -w /${dirname} "$@"
 }
 
-d-shellexpose() {
+d-shellhereport() {
     if [[ "$#" -ne "2" ]]; then
-        echo "d-shellexpose <image> <port>"
+        echo "d-shellhereport <image> <port>"
         return 1 
     fi
-    docker run --rm -i -t -p $2:$2 --entrypoint=/bin/bash "$1"
+    dirname=${PWD##*/}
+    docker run --rm -it -v ${PWD}:/${dirname} -p $2:$2 --entrypoint=/bin/bash "$1"
 }
 
 d-shellnamed() {
