@@ -92,6 +92,18 @@ webscan() {
 ###
 ### Tools
 ###
+d-myth() {
+    if [[ "$#" -ne "2" ]]; then
+        echo "d-myth <file> <solv>"
+        break
+    fi
+
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    WORK_DIR=$HOME/tool-output/myth/$TIMESTAMP
+    mkdir -p $WORK_DIR 2>/dev/null
+    docker run -it --rm -v ${PWD}:/home/mythril/sol mythril/myth a sol/$1 --solv $2 > $WORK_DIR/${TIMESTAMP}_myth 
+}
+
 d-thelounge() {
     screen -S thelounge -adm docker run --rm -it --name thelounge -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -p 127.11.0.1:9000:9000 -v $HOME/.config/thelounge:/config ghcr.io/linuxserver/thelounge
     firefox http://127.11.0.1:9000 &; disown
@@ -144,7 +156,7 @@ d-feroxbuster() {
     WORK_DIR=$HOME/tool-output/feroxbuster/$TIMESTAMP
     LOOT_DIR="/mnt"
     LOOT_FILE="/mnt/feroxbuster.log"
-    mkdir -p $WORK_DIR
+    mkdir -p $WORK_DIR 2>/dev/null
     docker run --rm -v $WORK_DIR:$LOOT_DIR --net=host --init -it epi052/feroxbuster --auto-tune -k -r -u "$@" -x js,html -o $LOOT_FILE
     CONTENT="$@ completed"
     twmnc -t feroxbuster -c $CONTENT
@@ -164,7 +176,7 @@ d-sniper() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     WORK_DIR=$HOME/tool-output/sn1per/$TIMESTAMP
     LOOT_DIR="/usr/share/sniper/loot/workspace"
-    mkdir -p $WORK_DIR
+    mkdir -p $WORK_DIR 2>/dev/null
     docker run --rm -v $WORK_DIR:$LOOT_DIR -it xerosecurity/sn1per /bin/bash "$@"
     CONTENT="$@ completed"
     twmnc -t sniper -c $CONTENT
@@ -239,7 +251,7 @@ d-nikto() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     WORK_DIR=$HOME/tool-output/nikto/$TIMESTAMP
     LOOT_DIR="/data"
-    mkdir -p $WORK_DIR
+    mkdir -p $WORK_DIR 2>/dev/null
     docker run -it --rm --net=host -w $LOOT_DIR -v $WORK_DIR:$LOOT_DIR booyaabes/kali-linux-full nikto -h "$@" -o $LOOT_DIR/nikto.txt
     CONTENT="$@ completed"
     twmnc -t nikto -c $CONTENT
@@ -249,7 +261,7 @@ d-nmap() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     WORK_DIR=$HOME/tool-output/nmap/$TIMESTAMP
     LOOT_DIR="/mnt"
-    mkdir -p $WORK_DIR
+    mkdir -p $WORK_DIR 2>/dev/null
     docker run --rm -v $WORK_DIR:/mnt --net=host --privileged booyaabes/kali-linux-full nmap -oA /mnt/$TIMESTAMP "$@"
     CONTENT="$@ completed"
     twmnc -t nmap -c $CONTENT
