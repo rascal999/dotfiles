@@ -1,7 +1,7 @@
 syntax on
 filetype on
-set tabstop=3
-set shiftwidth=3
+set tabstop=4
+set shiftwidth=4
 set expandtab
 set magic
 let g:makegreen_stay_on_file = 1
