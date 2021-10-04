@@ -111,6 +111,8 @@ d-myth() {
     WORK_DIR=$HOME/tool-output/myth/$TIMESTAMP
     mkdir -p $WORK_DIR 2>/dev/null
     docker run -it --rm -v ${PWD}:/home/mythril/sol mythril/myth a sol/$1 --solv $2 > $WORK_DIR/${TIMESTAMP}_myth 
+    CONTENT="$@ completed"
+    twmnc -t nmap -c $CONTENT
 }
 
 d-thelounge() {
