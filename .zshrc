@@ -101,6 +101,10 @@ webscan() {
 ###
 ### Tools
 ###
+d-eth-security-toolbox() {
+    docker run -it --rm -v ${PWD}:/share trailofbits/eth-security-toolbox
+}
+
 d-myth() {
     if [[ "$#" -ne "2" ]]; then
         echo "d-myth <file> <solv>"
