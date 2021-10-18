@@ -56,6 +56,13 @@ d-shellnamed() {
     docker run --name $INSTANCE -i -t --entrypoint=/bin/bash "$@"
 }
 
+d-shellnamedhere() {
+    dirname=${PWD##*/}
+    echo -n "Instance name? "
+    read INSTANCE
+    docker run --name $INSTANCE -it --entrypoint=/bin/bash -v ${PWD}:/${dirname} -w /${dirname} "$@"
+}
+
 d-shellresume() {
     docker start "$@"
     docker exec -it "$@" /bin/bash
