@@ -12,7 +12,7 @@
 # Exec custom things
 #exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 #exec redshift -l 51:0 -t 3300:3300
-exec /run/current-system/sw/bin/xrandr --output DP-1 --auto --output HDMI-0 --auto --right-of DP-1
+exec /run/current-system/sw/bin/xrandr --output DP-0 --auto --output HDMI-0 --auto --right-of DP-0
 exec /run/current-system/sw/bin/twmnd &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
 #exec xrandr --output eDP-1 --auto
