@@ -1,0 +1,1 @@
+on-notify=exec /run/current-system/sw/bin/mpv /home/user/sounds/WAV_Calm.wav
