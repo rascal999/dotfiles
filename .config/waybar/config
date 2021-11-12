@@ -1,158 +1,202 @@
 {
-    // "layer": "top", // Waybar at top layer
+//  "layer": "top", // Waybar at top layer
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "sway/language", "battery", "battery#bat2", "clock", "tray"],
-    // Modules configuration
-    // "sway/workspaces": {
-    //     "disable-scroll": true,
-    //     "all-outputs": true,
-    //     "format": "{name}: {icon}",
-    //     "format-icons": {
-    //         "1": "",
-    //         "2": "",
-    //         "3": "",
-    //         "4": "",
-    //         "5": "",
-    //         "urgent": "",
-    //         "focused": "",
-    //         "default": ""
-    //     }
-    // },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
+//  "width": 1280, // Waybar width
+
+//  Choose the order of the modules
+    "modules-left": [
+        "sway/workspaces",
+        "custom/disk_root",
+        "sway/mode"
+    ],
+
+//  "modules-center": [
+//      "clock#1",
+//      "clock#2",
+//      "custom/jalalidate"
+//  ],
+
+    "modules-right": [
+        "custom/weather",
+//      "temperature",
+        "cpu",
+//      "memory",
+        "network",
+//      "backlight",
+//      "pulseaudio",
+        "battery",
+        "custom/wkblayout",
+        "idle_inhibitor",
+        "clock#1",
+//      "clock#2",
+        "custom/jalalidate",
+        "tray"],
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}",
         "format-icons": {
-            "locked": "",
-            "unlocked": ""
+            "urgent": "<span color='#e85c5c'></span>",
+            "focused": "<span color='#8af0f0'></span>",
+            "default": "<span color='#b8b8b8'></span>"
         }
     },
+    
     "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+        "format": "{}" 
     },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-    },
-    "clock": {
-        // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{}% "
-    },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
+    
     "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", ""]
+//      "device": "acpi_video1",
+        "format": "{icon} {percent}%",
+        "format-icons": ["🔅", "🔆"]
     },
+
     "battery": {
         "states": {
             // "good": 95,
-            "warning": 30,
-            "critical": 15
+            "warning": 20,
+            "critical": 10
         },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
+        "format": "<span color='#e88939'>{icon}</span> {capacity}%",
+        
+        "format-charging": "<span color='#e88939'> </span> {capacity}% ({time})",
+        "format-plugged":  "<span color='#e88939'>{icon}  </span> {capacity}%",
+//      "format-good": "", // An empty format will hide the module
+        "format-discharging": "<span color='#e88939'>{icon}</span> {capacity}% ({time})",
         "format-icons": ["", "", "", "", ""]
     },
-    "battery#bat2": {
-        "bat": "BAT2"
+
+    "clock#1": {
+        "interval": 60,
+        "format": "<span color='#cde9f0'>{:%H:%M %F}</span>",
+        "tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
+        // "format-alt": "{:%Y-%m-%d}"
     },
+
+    "clock#2": {
+        "interval": 18000,
+        "format": "{:%F} 📅",
+        "tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
+        // "format-alt": "{:%Y-%m-%d}"
+    },
+
+    "cpu": {
+        "interval": 5,
+        "format": "<span color='#eb8a60'> {usage}% ({load})</span>", // Icon: microchip
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+/*
+    "cpu": {
+        "format": "🏭 {usage}%",
+        "tooltip": false
+    },
+*/
+    "idle_inhibitor": {
+        "format": "<span color='#589df6'>{icon}</span>",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
+        "on-click-right": "swaylock -eFfki ~/Pictures/lockscreen.jpeg"
+    },
+/*
+    "memory": {
+        "format": "💾 {used:0.1f}G",
+        "tooltip": false
+    },
+*/
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-wifi": "<span color='#589df6'></span> <span color='gray'>{signalStrength}%</span>" ,
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
         "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-disconnected": " ",
+        "format-alt": "<span color='gray'>{essid}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
+        "interval": 60,
+        "tooltip-format": "{ifname}  {ipaddr}"
     },
+
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
+//      "scroll-step": 1, // %, can be a float
+        "format": "{icon} {volume}% {format_source}",
+        "format-muted": "🔇 {format_source}",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
+        "format-bluetooth-muted": "🔇 {format_source}",
+
+        "format-source": " {volume}%",
         "format-source-muted": "",
+
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
+            "headphones": "",
+            "handsfree": "",
             "headset": "",
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": ["🔈", "🔉", "🔊"]
         },
-        "on-click": "pavucontrol"
+        "on-click": "ponymix -N -t sink toggle",
+        "on-click-right": "ponymix -N -t source toggle"
     },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+/*
+    "temperature": {
+//      "thermal-zone": 2,
+//      "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+//      "format-critical": "{temperatureC}°C {icon}",
+        "format": "<span color='#e88939'>{icon}</span> {temperatureC}°C",
+        "format-icons": ["", "", ""],
+        "tooltip": false
+    },
+*/
+    "tray": {
+        "icon-size": 18,
+        "spacing": 5
+    },
+
+    "custom/disk_home": {
+        "format": "<span color='#11eec2'> {} </span>",
+        "interval": 3600,
+        "exec": "df -h --output=avail $HOME | tail -1 | tr -d ' '",
+        "tooltip": "false"
+    },
+
+    "custom/disk_root": {
+        "format": "<span color='#a1b5e9'> {} </span>",
+        "interval": 3600,
+        "exec": "df -h --output=avail / | tail -1 | tr -d ' '",
+        "tooltip": "false"
+    },
+
+    // Persian calendar
+    "custom/jalalidate": { 
+        "format": "<span color='#cde9f0'>{}</span>",
+        "interval": 18000,
+//      "exec": "sb-jalalidate"
+        "exec": "pcal -t",
+        "tooltip": "false"
+    },
+
+    "custom/weather": {
+        "format": "<span color='#22dfda'>{}</span>",
+        "interval": 18000,
+        "exec": "sb-forecast",
+        //ansiweather -l shiraz,IR -u metric -s true -f 1 -a false | cut -d' ' -f2,8-
+        "exec-if": "ping openweathermap.org -c1",
+        "tooltip": "false"
+    },
+
+    "custom/wkblayout": {
+        "format": "<span color='#11eec2'>🖋</span> {}",
+        "exec": "swaymsg -mrt subscribe '[\"input\"]' | jq -r --unbuffered \"select(.change == \\\"xkb_layout\\\") | .input | select(.type == \\\"keyboard\\\") | .xkb_active_layout_name | .[0:2]\"",
+        "tooltip": "false"
     }
+
 }
