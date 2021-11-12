@@ -145,7 +145,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 # reload the configuration file
 bindsym $mod+Shift+j reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+p restart
+bindsym $mod+Shift+p sway reload
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+period exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -180,7 +180,7 @@ bindsym $mod+r mode "resize"
 bar {
     font pango:DejaVu Sans Mono, FontAwesome 16
     position bottom
-    status_command /run/current-system/sw/bin/i3status-rs $HOME/.config/i3/theme.toml
+    status_command /run/current-system/sw/bin/i3status-rs $HOME/.config/sway/theme.toml
     colors {
         separator #666666
         statusline #dddddd
