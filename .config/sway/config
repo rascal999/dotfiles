@@ -12,10 +12,13 @@
 # Exec custom things
 #exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 #exec redshift -l 51:0 -t 3300:3300
-exec /run/current-system/sw/bin/xrandr --output DP-0 --auto --output HDMI-0 --auto --right-of DP-0
 exec /run/current-system/sw/bin/twmnd &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
 #exec xrandr --output eDP-1 --auto
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+   xkb_layout dvorak
+}
 
 # In office
 #set $mod Mod4
@@ -37,7 +40,7 @@ floating_modifier $mod
 # Look
 hide_edge_borders both
 
-new_window 1pixel
+default_border 1pixel
 #border none
 
 bindsym $mod+space exec /run/current-system/sw/bin/firefox -P "Default User"
