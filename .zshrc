@@ -7,6 +7,9 @@ fi
 
 [[ -s "$HOME/.grc.zsh" ]] && source $HOME/.grc.zsh
 
+xmodmap -e "keycode 81=Prior KP_9"
+xmodmap -e "keycode 89=Next KP_3"
+
 alias dig="grc dig"
 alias id="grc id"
 alias ps="grc ps"
