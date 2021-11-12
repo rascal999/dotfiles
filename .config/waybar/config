@@ -11,23 +11,23 @@
         "sway/mode"
     ],
 
-//  "modules-center": [
+    "modules-center": [
+        "battery"
 //      "clock#1",
 //      "clock#2",
 //      "custom/jalalidate"
-//  ],
+    ],
 
     "modules-right": [
         "custom/weather",
-//      "temperature",
+        "temperature",
         "cpu",
 //      "memory",
         "network",
 //      "backlight",
 //      "pulseaudio",
-        "battery",
         "custom/wkblayout",
-        "idle_inhibitor",
+//      "idle_inhibitor",
         "clock#1",
 //      "clock#2",
         "custom/jalalidate",
@@ -71,7 +71,7 @@
 
     "clock#1": {
         "interval": 60,
-        "format": "<span color='#cde9f0'>{:%H:%M %F}</span>",
+        "format": "<span color='#cde9f0'>{:%F %H:%M}</span>",
         "tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
         // "format-alt": "{:%Y-%m-%d}"
     },
