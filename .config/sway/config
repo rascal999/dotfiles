@@ -40,7 +40,7 @@ floating_modifier $mod
 # Look
 hide_edge_borders both
 
-default_border 1pixel
+default_border pixel 1
 #border none
 
 bindsym $mod+space exec /run/current-system/sw/bin/firefox -P "Default User"
