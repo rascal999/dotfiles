@@ -180,7 +180,7 @@ bindsym $mod+r mode "resize"
 bar {
     font pango:DejaVu Sans Mono, FontAwesome 16
     position bottom
-    status_command /run/current-system/sw/bin/waybar $HOME/.config/sway/theme.toml
+    status_command /run/current-system/sw/bin/waybar
     colors {
         separator #666666
         statusline #dddddd
