@@ -16,7 +16,7 @@ exec /run/current-system/sw/bin/mako &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
 #exec xrandr --output eDP-1 --auto
 
-input "1:1:AT_Translated_Set_2_keyboard" {
+input * {
    xkb_layout dvorak
 }
 
