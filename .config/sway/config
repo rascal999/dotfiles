@@ -42,6 +42,8 @@ hide_edge_borders both
 
 default_border pixel 1
 #border none
+bindsym F2 exec /run/current-system/sw/bin/light -U 5
+bindsym F3 exec /run/current-system/sw/bin/light -A 5
 
 bindsym $mod+space exec /run/current-system/sw/bin/firefox -P "Default User"
 bindsym $mod+Shift+Return exec /run/current-system/sw/bin/firefox -P "Burp"
@@ -51,13 +53,10 @@ bindsym $mod+b exec $HOME/burp.sh
 bindsym $mod+o exec /run/current-system/sw/bin/obsidian
 #bindsym $mod+c exec /usr/bin/chromium --disable-gpu-vsync=gpu
 bindsym $mod+c exec /run/current-system/sw/bin/chromium
-#bindsym $mod+d exec /run/current-system/sw/bin/dbeaver
-bindsym $mod+d exec /run/current-system/sw/bin/light -U 5
+bindsym $mod+d exec /run/current-system/sw/bin/dbeaver
 bindsym $mod+e exec /run/current-system/sw/bin/dmenu_run
 bindsym $mod+f exec /run/current-system/sw/bin/signal-desktop
 bindsym $mod+g exec /run/current-system/sw/bin/gimp
-bindsym $mod+i exec /run/current-system/sw/bin/light -A 5
-bindsym F3 exec /run/current-system/sw/bin/light -A 5
 bindsym $mod+k exec /run/current-system/sw/bin/keepassxc
 bindsym $mod+m exec /run/current-system/sw/bin/evolution
 bindsym $mod+n exec /run/current-system/sw/bin/urxvt -bg black -fg white -e /run/current-system/sw/bin/tmux /run/current-system/sw/bin/bash
