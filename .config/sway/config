@@ -10,18 +10,18 @@
 # Please see http://swaywm.org/docs/userguide.html for a complete reference!
 
 # Exec custom things
-#exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-#exec redshift -l 51:0 -t 3300:3300
 exec /run/current-system/sw/bin/mako &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
-#exec xrandr --output eDP-1 --auto
 
 input * {
    xkb_layout dvorak
 }
 
-# In office
-#set $mod Mod4
+# Screens
+#output eDP-1 disable
+output DP-1 pos 0 0
+output HDMI-A-1 pos 3440 0
+
 # At home
 set $mod Mod1
 
