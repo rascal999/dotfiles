@@ -17,11 +17,6 @@ input * {
    xkb_layout dvorak
 }
 
-# Screens
-#output eDP-1 disable
-output DP-1 pos 0 0
-output HDMI-A-1 pos 3440 0
-
 # At home
 set $mod Mod1
 
@@ -48,6 +43,8 @@ bindsym F3 exec /run/current-system/sw/bin/light -A 5
 bindsym $mod+space exec /run/current-system/sw/bin/firefox -P "Default User"
 bindsym $mod+Shift+Return exec /run/current-system/sw/bin/firefox -P "Burp"
 bindsym $mod+Shift+v exec /run/current-system/sw/bin/VirtualBox
+bindsym $mod+Shift+w exec $HOME/git/nixos-bootstrap/scripts/display-work.sh
+bindsym $mod+Shift+m exec $HOME/git/nixos-bootstrap/scripts/display-mobile.sh
 
 bindsym $mod+b exec $HOME/burp.sh
 bindsym $mod+o exec /run/current-system/sw/bin/obsidian
