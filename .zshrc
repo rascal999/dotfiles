@@ -71,6 +71,11 @@ d-shellresume() {
     docker exec -it "$@" /bin/bash
 }
 
+d-shellresumehost() {
+    docker start "$@"
+    docker exec --network host -it "$@" /bin/bash
+}
+
 d-windowshellhere() {
     docker -c 2019-box run --rm -it -v "C:${PWD}:C:/source" -w "C:/source" "$@"
 }
