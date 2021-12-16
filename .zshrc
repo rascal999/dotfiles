@@ -28,12 +28,16 @@ alias ff='firefox '
 ### Dunst
 ###
 dunst-handle() {
-    ACTION=$(dunstify --action="default,Open" "$1")
-    case "$ACTION" in
-    "default")
-        firefox "$2"
-        ;;
-    esac
+    if [[ "$#" -eq "2" ]]; then
+        ACTION=$(dunstify --action="default,Open" "$1")
+        case "$ACTION" in
+        "default")
+            firefox "$2"
+            ;;
+        esac
+    else
+        dunstify "$1"
+    fi
 }
 
 ###
@@ -53,7 +57,7 @@ d-shellsh() {
 
 d-shellhere() {
     dirname=${PWD##*/}
-    docker run --rm -it --entrypoint=/bin/bash -v ${PWD}:/${dirname} -w /${dirname} "$@"
+    docker run --rm -it --entrypoint=/bin/bash -v $(pwd):/${dirname} -w /${dirname} "$@"
 }
 
 d-shellhereport() {
@@ -62,7 +66,7 @@ d-shellhereport() {
         return 1 
     fi
     dirname=${PWD##*/}
-    docker run --rm -it -v ${PWD}:/${dirname} -p $2:$2 --entrypoint=/bin/bash "$1"
+    docker run --rm -it -v $(pwd):/${dirname} -p $2:$2 --entrypoint=/bin/bash "$1"
 }
 
 d-shellnamed() {
@@ -75,7 +79,7 @@ d-shellnamedhere() {
     dirname=${PWD##*/}
     echo -n "Instance name? "
     read INSTANCE
-    docker run --network host --name $INSTANCE -it --entrypoint=/bin/bash -v ${PWD}:/${dirname} -w /${dirname} "$@"
+    docker run --network host --name $INSTANCE -it --entrypoint=/bin/bash -v $(pwd):/${dirname} -w /${dirname} "$@"
 }
 
 d-shellresume() {
@@ -84,23 +88,23 @@ d-shellresume() {
 }
 
 d-windowshellhere() {
-    docker -c 2019-box run --rm -it -v "C:${PWD}:C:/source" -w "C:/source" "$@"
+    docker -c 2019-box run --rm -it -v "C:$(pwd):C:/source" -w "C:/source" "$@"
 }
 
 d-filebrowserhere() {
-    screen -S filebrowser -adm docker run --rm --name filebrowser -p 1080:80 -v ${PWD}:/srv filebrowser/filebrowser
+    screen -S filebrowser -adm docker run --rm --name filebrowser -p 1080:80 -v $(pwd):/srv filebrowser/filebrowser
     firefox http://127.0.0.1:1080/ &; disown
 }
 
 a-ngrok-nginx() {
-    docker run --rm --name ngrok-nginx -d -p 1080:80 -p 8443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
+    docker run --rm --name ngrok-nginx -d -p 1080:80 -p 8443:443 -v "$(pwd):/srv/data" rflathers/nginxserve
     ngrok http 1080
     echo "Stopping nginx docker instance.."
     docker stop ngrok-nginx
 }
 
 a-ngrok-filebrowser() {
-    docker run --rm --name ngrok-filebrowser -d -p 1080:80 -v ${PWD}:/srv filebrowser/filebrowser
+    docker run --rm --name ngrok-filebrowser -d -p 1080:80 -v $(pwd):/srv filebrowser/filebrowser
     ngrok http 1080
     echo "Stopping filebrowser docker instance.."
     docker stop ngrok-filebrowser
@@ -118,11 +122,7 @@ a-cloudmapper-gather() {
         -p 8000:8000 -it cloudmapper /bin/bash -c \
             "ACCOUNT_ID=\`/usr/bin/aws sts get-caller-identity | jq -r '.Account'\`;  \
             python cloudmapper.py configure add-account --config-file config.json --name client --id \$ACCOUNT_ID ; \
-            python cloudmapper.py collect --account client ; \
-            python cloudmapper.py report --account client ; \
-            python cloudmapper.py prepare --account client ; \
-            python cloudmapper.py webserver --public & \
-            /bin/bash"
+            python cloudmapper.py collect --account client"
 }
 
 a-cloudmapper-serve() {
@@ -141,9 +141,13 @@ a-cloudmapper-serve() {
             python cloudmapper.py prepare --account client ;"
 
     # Serve results
-    docker run --rm -v "${1}-cloudmapper-web:/var/lib/nginx/html" -d \
-        -p 8101:80 dceoy/nginx-autoindex && \
-    dunst-handle "CloudMapper report ready" "http://localhost:8101/?t=`date +%s`"
+    if docker run --rm -v "${1}-cloudmapper-web:/var/lib/nginx/html" -d \
+        -p 8101:80 dceoy/nginx-autoindex; then
+        dunst-handle "CloudMapper report ready" "http://localhost:8101/account-data/report.html?t=`date +%s`" &; disown
+        dunst-handle "CloudMapper prepare ready" "http://localhost:8101/?t=`date +%s`" &; disown
+    else
+        dunst-handle "Error launching CloudMapper reports" &; disown
+    fi
 }
 
 a-cloudmapper() {
@@ -159,7 +163,7 @@ a-cloudmapper() {
             case $yn in
                 [Yy]* ) a-cloudmapper-serve $@; break;;
                 [Nn]* ) a-cloudmapper-gather $@; a-cloudmapper-serve $@; break;;
-                * ) break;;
+                * ) a-cloudmapper-serve $@; break;;
             esac
         done
     else
@@ -189,7 +193,7 @@ a-scout-serve() {
 
     docker run --rm -v "${1}-scout:/var/lib/nginx/html" -d -p 8100:80 \
         dceoy/nginx-autoindex && \
-    dunst-handle "Scout report ready" "http://localhost:8100/?t=`date +%s`"
+    dunst-handle "Scout report ready" "http://localhost:8100/?t=`date +%s`" &; disown
 }
 
 a-scout() {
@@ -214,6 +218,21 @@ a-scout() {
     fi
 }
 
+a-aws-security-viz(){
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-aws-security-viz <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    if docker run -d --rm -p 8102:8102 -v ${1}-aws-viz:/aws-security-viz \
+        --name sec-viz sec-viz /usr/local/bundle/bin/aws_security_viz \
+        -a $2 -s $3 --renderer navigator --serve 8102; then
+        dunst-handle "aws-security-viz report ready" "http://localhost:8102/navigator.html#aws-security-viz.png" &; disown
+    else
+        dunst-handle "Error launching CloudMapper reports" &; disown
+    fi
+}
+
 ###
 ### Lazy boy
 ###
@@ -223,6 +242,7 @@ awsscan() {
         return 1
     fi
 
+    a-aws-security-viz $@
     a-scout $@
     a-cloudmapper $@
 }
@@ -242,7 +262,7 @@ webscan() {
 ### Tools
 ###
 d-eth-security-toolbox() {
-    docker run -it --rm -v ${PWD}:/share trailofbits/eth-security-toolbox
+    docker run -it --rm -v $(pwd):/share trailofbits/eth-security-toolbox
 }
 
 d-myth() {
@@ -254,7 +274,7 @@ d-myth() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     WORK_DIR=$HOME/tool-output/myth/$TIMESTAMP
     mkdir -p $WORK_DIR 2>/dev/null
-    docker run -it --rm -v ${PWD}:/home/mythril/sol mythril/myth a sol/$1 --solv $2 > $WORK_DIR/${TIMESTAMP}_myth 
+    docker run -it --rm -v $(pwd):/home/mythril/sol mythril/myth a sol/$1 --solv $2 > $WORK_DIR/${TIMESTAMP}_myth 
     CONTENT="$@ completed"
     notify-dekstop "nmap - $CONTENT"
 }
@@ -265,7 +285,7 @@ d-thelounge() {
 }
 
 d-stego-toolkit() {
-    docker run --rm -it --name stego-toolkit -v ${PWD}:/data dominicbreuker/stego-toolkit /bin/bash "$@"
+    docker run --rm -it --name stego-toolkit -v $(pwd):/data dominicbreuker/stego-toolkit /bin/bash "$@"
 }
 
 d-bettercap() {
@@ -273,7 +293,7 @@ d-bettercap() {
 }
 
 d-ciphey() {
-    docker run -it --rm --name ciphey -v ${PWD}:/home/nonroot/workdir remnux/ciphey "$@"
+    docker run -it --rm --name ciphey -v $(pwd):/home/nonroot/workdir remnux/ciphey "$@"
 }
 
 d-astra() {
@@ -297,7 +317,7 @@ d-eyewitness() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     docker run --rm -it -v $PWD:/tmp/EyeWitness eyewitness -f /tmp/EyeWitness/$@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
     CONTENT="$@ completed"
-    dunst-handle "EyeWitness - $CONTENT" "file:///$PWD/eyewitness_$TIMESTAMP/report.html"
+    dunst-handle "EyeWitness - $CONTENT" "file:///$PWD/eyewitness_$TIMESTAMP/report.html" &; disown
 }
 
 d-cyberchef() {
@@ -346,16 +366,16 @@ d-impacket() {
 d-smbservehere() {
     local sharename
     [[ -z $1 ]] && sharename="SHARE" || sharename=$1
-    docker run --rm -it -p 445:445 -v "${PWD}:/tmp/serve" rflathers/impacket smbserver.py -smb2support $sharename /tmp/serve
+    docker run --rm -it -p 445:445 -v "$(pwd):/tmp/serve" rflathers/impacket smbserver.py -smb2support $sharename /tmp/serve
 }
 
 d-nginxhere() {
-    screen -S nginxhere -adm docker run --rm -it -p 1080:80 -p 443:443 -v "${PWD}:/srv/data" rflathers/nginxserve
+    screen -S nginxhere -adm docker run --rm -it -p 1080:80 -p 443:443 -v "$(pwd):/srv/data" rflathers/nginxserve
     firefox http://127.0.0.1 &; disown
 }
 
 d-webdavhere() {
-    docker run --rm -it -p 1080:80 -v "${PWD}:/srv/data/share" rflathers/webdav
+    docker run --rm -it -p 1080:80 -v "$(pwd):/srv/data/share" rflathers/webdav
 }
 
 d-metasploit() {
@@ -370,7 +390,7 @@ d-metasploitports() {
 
 d-msfvenomhere() {
     mkdir -p $HOME/.msf4
-    docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -v "${PWD}:/data" metasploitframework/metasploit-framework ./msfvenom "$@"
+    docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -v "$(pwd):/data" metasploitframework/metasploit-framework ./msfvenom "$@"
 }
 
 d-reqdump() {
@@ -378,7 +398,7 @@ d-reqdump() {
 }
 
 d-postfiledumphere() {
-    docker run --rm -it -p 1080:3000 -v "${PWD}:/data" rflathers/postfiledump
+    docker run --rm -it -p 1080:3000 -v "$(pwd):/data" rflathers/postfiledump
 }
 
 d-kali() {
