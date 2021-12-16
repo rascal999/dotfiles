@@ -94,6 +94,16 @@ a-ngrok-filebrowser() {
     docker stop ngrok-filebrowser
 }
 
+a-cloudmapper() {
+    if [[ "$#" -ne "2" ]]; then
+        echo "a-cloudmapper <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    docker run --rm -e AWS_ACCESS_KEY_ID=$1 -e AWS_SECRET_ACCESS_KEY=$2 -d -p 8000:8000 cloudmapper
+    firefox http://127.11.0.1:8000 &; disown
+}
+
 ###
 ### Lazy boy
 ###
