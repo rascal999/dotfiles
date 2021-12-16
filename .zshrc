@@ -191,9 +191,12 @@ a-scout-serve() {
         return 1
     fi
 
-    docker run --rm -v "${1}-scout:/var/lib/nginx/html" -d -p 8100:80 \
-        dceoy/nginx-autoindex && \
-    dunst-handle "Scout report ready" "http://localhost:8100/?t=`date +%s`" &; disown
+    if docker run --rm -v "${1}-scout:/var/lib/nginx/html" -d -p 8100:80 \
+        dceoy/nginx-autoindex; then
+        dunst-handle "Scout report ready" "http://localhost:8100/?t=`date +%s`" &; disown
+    else
+        dunst-handle "Error launching scout reports" &; disown
+    fi
 }
 
 a-scout() {
@@ -229,8 +232,21 @@ a-aws-security-viz(){
         -a $2 -s $3 --renderer navigator --serve 8102; then
         dunst-handle "aws-security-viz report ready" "http://localhost:8102/navigator.html#aws-security-viz.png" &; disown
     else
-        dunst-handle "Error launching CloudMapper reports" &; disown
+        dunst-handle "Error launching aws-security-viz reports" &; disown
     fi
+}
+
+a-cartography(){
+    echo "Cartography uses ~/.aws, make sure this is set correctly."
+    echo "Press enter to continue."
+    read
+
+    cd $HOME/git/nixos-bootstrap/resources/docker/cartography
+    docker-compose up -d neo4j
+    sleep 3
+    docker-compose up -d cartography
+    sleep 3
+    dunst-handle "Cartography started" "http://localhost:7474" &; disown
 }
 
 ###
@@ -242,6 +258,7 @@ awsscan() {
         return 1
     fi
 
+    a-cartography
     a-aws-security-viz $@
     a-scout $@
     a-cloudmapper $@
