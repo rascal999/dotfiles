@@ -95,13 +95,20 @@ a-ngrok-filebrowser() {
 }
 
 a-cloudmapper() {
-    if [[ "$#" -ne "2" ]]; then
-        echo "a-cloudmapper <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-cloudmapper <OUTPUT_DIR> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
         return 1
     fi
 
-    docker run --rm -e AWS_ACCESS_KEY_ID=$1 -e AWS_SECRET_ACCESS_KEY=$2 -d -p 8000:8000 cloudmapper
-    firefox http://127.11.0.1:8000 &; disown
+    echo "http://127.0.0.1:8000"
+    docker run --rm -v ${1}:/opt/cloudmapper/account-data -e AWS_ACCESS_KEY_ID=$2 -e AWS_SECRET_ACCESS_KEY=$3 -p 8000:8000 -it cloudmapper /bin/bash -c \
+    "ACCOUNT_ID=\`/usr/bin/aws sts get-caller-identity | jq -r '.Account'\` && \
+    python cloudmapper.py configure add-account --config-file config.json --name client --id \$ACCOUNT_ID && \
+    python cloudmapper.py collect --account client && \
+    python cloudmapper.py report --account client && \
+    python cloudmapper.py prepare --account client && \
+    python cloudmapper.py webserver --public & \
+    /bin/bash"
 }
 
 ###
@@ -109,13 +116,13 @@ a-cloudmapper() {
 ###
 webscan() {
     d-sniper -c "sniper -t \"$@\""
-    d-nikto "$@"
-    d-feroxbuster-slow "$@"
-    # arjun
-    # spiderfoot
-    # crawlab
-    CONTENT="$@ completed"
-    twmnc -t webscan -c $CONTENT
+        d-nikto "$@"
+        d-feroxbuster-slow "$@"
+        # arjun
+        # spiderfoot
+        # crawlab
+        CONTENT="$@ completed"
+        notify-desktop "webscan" "$CONTENT"
 }
 
 ###
@@ -136,7 +143,7 @@ d-myth() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run -it --rm -v ${PWD}:/home/mythril/sol mythril/myth a sol/$1 --solv $2 > $WORK_DIR/${TIMESTAMP}_myth 
     CONTENT="$@ completed"
-    twmnc -t nmap -c $CONTENT
+    notify-dekstop "nmap" "$CONTENT"
 }
 
 d-thelounge() {
@@ -177,7 +184,7 @@ d-eyewitness() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     docker run --rm -it -v $PWD:/tmp/EyeWitness eyewitness -f /tmp/EyeWitness/$@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
     CONTENT="$@ completed"
-    twmnc -t EyeWitness -c $CONTENT
+    notify-desktop "EyeWitness" "$CONTENT"
     firefox file:///$PWD/eyewitness_$TIMESTAMP/report.html &; disown
 }
 
@@ -194,13 +201,13 @@ d-feroxbuster() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run --rm -v $WORK_DIR:$LOOT_DIR --net=host --init -it epi052/feroxbuster --auto-tune -k -r -u "$@" -x js,html -o $LOOT_FILE
     CONTENT="$@ completed"
-    twmnc -t feroxbuster -c $CONTENT
+    notify-desktop "feroxbuster" "$CONTENT"
 }
 
 d-feroxbuster-slow() {
     d-feroxbuster "$@" -L 2 -t 2
     CONTENT="$@ completed"
-    twmnc -t feroxbuster-slow -c $CONTENT
+    notify-desktop "feroxbuster-slow" "$CONTENT"
 }
 
 d-hetty() {
@@ -214,7 +221,7 @@ d-sniper() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run --rm -v $WORK_DIR:$LOOT_DIR -it xerosecurity/sn1per /bin/bash "$@"
     CONTENT="$@ completed"
-    twmnc -t sniper -c $CONTENT
+    notify-desktop "sniper" "$CONTENT"
 }
 
 d-impacket() {
@@ -289,7 +296,7 @@ d-nikto() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run -it --rm --net=host -w $LOOT_DIR -v $WORK_DIR:$LOOT_DIR booyaabes/kali-linux-full nikto -h "$@" -o $LOOT_DIR/nikto.txt
     CONTENT="$@ completed"
-    twmnc -t nikto -c $CONTENT
+    notify-desktop "nikto" "$CONTENT"
 }
 
 d-nmap() {
@@ -299,7 +306,7 @@ d-nmap() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run --rm -v $WORK_DIR:/mnt --net=host --privileged booyaabes/kali-linux-full nmap -oA /mnt/$TIMESTAMP "$@"
     CONTENT="$@ completed"
-    twmnc -t nmap -c $CONTENT
+    notify-desktop "nmap" "$CONTENT"
 }
 
 d-searchsploit() {
