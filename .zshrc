@@ -25,6 +25,18 @@ alias a-ytmp3='youtube-dl --extract-audio --audio-format mp3 '
 alias ff='firefox '
 
 ###
+### Dunst
+###
+dunst-handle() {
+    ACTION=$(dunstify --action="default,Open" "$1")
+    case "$ACTION" in
+    "default")
+        firefox "$2"
+        ;;
+    esac
+}
+
+###
 ### Misc
 ###
 a-gg() {
@@ -94,26 +106,125 @@ a-ngrok-filebrowser() {
     docker stop ngrok-filebrowser
 }
 
-a-cloudmapper() {
+a-cloudmapper-gather() {
     if [[ "$#" -ne "3" ]]; then
-        echo "a-cloudmapper <OUTPUT_DIR> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        echo "a-cloudmapper-gather <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
         return 1
     fi
 
-    echo "http://127.0.0.1:8000"
-    docker run --rm -v ${1}:/opt/cloudmapper/account-data -e AWS_ACCESS_KEY_ID=$2 -e AWS_SECRET_ACCESS_KEY=$3 -p 8000:8000 -it cloudmapper /bin/bash -c \
-    "ACCOUNT_ID=\`/usr/bin/aws sts get-caller-identity | jq -r '.Account'\` && \
-    python cloudmapper.py configure add-account --config-file config.json --name client --id \$ACCOUNT_ID && \
-    python cloudmapper.py collect --account client && \
-    python cloudmapper.py report --account client && \
-    python cloudmapper.py prepare --account client && \
-    python cloudmapper.py webserver --public & \
-    /bin/bash"
+    docker run --rm -v ${1}-cloudmapper-account-data:/opt/cloudmapper/account-data \
+        -v ${1}-cloudmapper-web:/opt/cloudmapper/web \
+        -e AWS_ACCESS_KEY_ID=$2 -e AWS_SECRET_ACCESS_KEY=$3 \
+        -p 8000:8000 -it cloudmapper /bin/bash -c \
+            "ACCOUNT_ID=\`/usr/bin/aws sts get-caller-identity | jq -r '.Account'\`;  \
+            python cloudmapper.py configure add-account --config-file config.json --name client --id \$ACCOUNT_ID ; \
+            python cloudmapper.py collect --account client ; \
+            python cloudmapper.py report --account client ; \
+            python cloudmapper.py prepare --account client ; \
+            python cloudmapper.py webserver --public & \
+            /bin/bash"
+}
+
+a-cloudmapper-serve() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-cloudmapper-serve <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    docker run --rm -v ${1}-cloudmapper-account-data:/opt/cloudmapper/account-data \
+        -v ${1}-cloudmapper-web:/opt/cloudmapper/web \
+        -e AWS_ACCESS_KEY_ID=$2 -e AWS_SECRET_ACCESS_KEY=$3 \
+        -p 8000:8000 -it cloudmapper /bin/bash -c \
+            "ACCOUNT_ID=\`/usr/bin/aws sts get-caller-identity | jq -r '.Account'\`;  \
+            python cloudmapper.py configure add-account --config-file config.json --name client --id \$ACCOUNT_ID ; \
+            python cloudmapper.py report --account client ; \
+            python cloudmapper.py prepare --account client ;"
+
+    # Serve results
+    docker run --rm -v "${1}-cloudmapper-web:/var/lib/nginx/html" -d \
+        -p 8101:80 dceoy/nginx-autoindex && \
+    dunst-handle "CloudMapper report ready" "http://localhost:8101/?t=`date +%s`"
+}
+
+a-cloudmapper() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-cloudmapper <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    if docker volume inspect ${1}-cloudmapper-account-data; then
+        while true; do
+            echo -n "${1}-cloudmapper-account-data docker volume exists, just serve? [Yn] "
+            read yn
+            case $yn in
+                [Yy]* ) a-cloudmapper-serve $@; break;;
+                [Nn]* ) a-cloudmapper-gather $@; a-cloudmapper-serve $@; break;;
+                * ) break;;
+            esac
+        done
+    else
+         a-cloudmapper-gather $@
+    fi
+}
+
+a-scout-gather() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-scout-gather <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    docker run --rm -v "${1}-scout:/scoutsuite-report" \
+        -e AWS_ACCESS_KEY_ID=$2 -e AWS_SECRET_ACCESS_KEY=$3 \
+        -it rossja/ncc-scoutsuite /bin/bash -c \
+            "/root/scoutsuite/bin/scout aws --access-keys --access-key-id $2 \
+            --secret-access-key $3"
+}
+
+a-scout-serve() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-scout-serve <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    docker run --rm -v "${1}-scout:/var/lib/nginx/html" -d -p 8100:80 \
+        dceoy/nginx-autoindex && \
+    dunst-handle "Scout report ready" "http://localhost:8100/?t=`date +%s`"
+}
+
+a-scout() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-scout <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    if docker volume inspect ${1}-scout; then
+        while true; do
+            echo -n "${1}-scout docker volume exists, just serve? [Yn] "
+            read yn
+            case $yn in
+                [Yy]* ) a-scout-serve $@; break;;
+                [Nn]* ) a-scout-gather $@; a-scout-serve $@; break;;
+                * ) a-scout-serve $@; break;;
+            esac
+        done
+    else
+         a-scout-gather $@
+    fi
 }
 
 ###
 ### Lazy boy
 ###
+awsscan() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "awsscan <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    a-scout $@
+    a-cloudmapper $@
+}
+
 webscan() {
     d-sniper -c "sniper -t \"$@\""
         d-nikto "$@"
@@ -122,7 +233,7 @@ webscan() {
         # spiderfoot
         # crawlab
         CONTENT="$@ completed"
-        notify-desktop "webscan" "$CONTENT"
+        notify-desktop "webscan - $CONTENT"
 }
 
 ###
@@ -143,7 +254,7 @@ d-myth() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run -it --rm -v ${PWD}:/home/mythril/sol mythril/myth a sol/$1 --solv $2 > $WORK_DIR/${TIMESTAMP}_myth 
     CONTENT="$@ completed"
-    notify-dekstop "nmap" "$CONTENT"
+    notify-dekstop "nmap - $CONTENT"
 }
 
 d-thelounge() {
@@ -184,8 +295,7 @@ d-eyewitness() {
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     docker run --rm -it -v $PWD:/tmp/EyeWitness eyewitness -f /tmp/EyeWitness/$@ -d /tmp/EyeWitness/eyewitness_$TIMESTAMP
     CONTENT="$@ completed"
-    notify-desktop "EyeWitness" "$CONTENT"
-    firefox file:///$PWD/eyewitness_$TIMESTAMP/report.html &; disown
+    dunst-handle "EyeWitness - $CONTENT" "file:///$PWD/eyewitness_$TIMESTAMP/report.html"
 }
 
 d-cyberchef() {
@@ -201,13 +311,13 @@ d-feroxbuster() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run --rm -v $WORK_DIR:$LOOT_DIR --net=host --init -it epi052/feroxbuster --auto-tune -k -r -u "$@" -x js,html -o $LOOT_FILE
     CONTENT="$@ completed"
-    notify-desktop "feroxbuster" "$CONTENT"
+    notify-desktop "feroxbuster - $CONTENT"
 }
 
 d-feroxbuster-slow() {
     d-feroxbuster "$@" -L 2 -t 2
     CONTENT="$@ completed"
-    notify-desktop "feroxbuster-slow" "$CONTENT"
+    notify-desktop "feroxbuster-slow - $CONTENT"
 }
 
 d-hetty() {
@@ -221,7 +331,7 @@ d-sniper() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run --rm -v $WORK_DIR:$LOOT_DIR -it xerosecurity/sn1per /bin/bash "$@"
     CONTENT="$@ completed"
-    notify-desktop "sniper" "$CONTENT"
+    notify-desktop "sniper - $CONTENT"
 }
 
 d-impacket() {
@@ -296,7 +406,7 @@ d-nikto() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run -it --rm --net=host -w $LOOT_DIR -v $WORK_DIR:$LOOT_DIR booyaabes/kali-linux-full nikto -h "$@" -o $LOOT_DIR/nikto.txt
     CONTENT="$@ completed"
-    notify-desktop "nikto" "$CONTENT"
+    notify-desktop "nikto - $CONTENT"
 }
 
 d-nmap() {
@@ -306,7 +416,7 @@ d-nmap() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run --rm -v $WORK_DIR:/mnt --net=host --privileged booyaabes/kali-linux-full nmap -oA /mnt/$TIMESTAMP "$@"
     CONTENT="$@ completed"
-    notify-desktop "nmap" "$CONTENT"
+    notify-desktop "nmap - $CONTENT"
 }
 
 d-searchsploit() {
