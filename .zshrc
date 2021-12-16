@@ -163,7 +163,8 @@ a-cloudmapper() {
             esac
         done
     else
-         a-cloudmapper-gather $@
+        a-cloudmapper-gather $@
+        a-cloudmapper-serve $@
     fi
 }
 
@@ -208,7 +209,8 @@ a-scout() {
             esac
         done
     else
-         a-scout-gather $@
+        a-scout-gather $@
+        a-scout-serve $@
     fi
 }
 
