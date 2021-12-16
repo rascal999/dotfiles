@@ -249,6 +249,65 @@ a-cartography(){
     dunst-handle "Cartography started" "http://localhost:7474" &; disown
 }
 
+a-prowler-gather() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-prowler-gather <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    # Permissions fix
+    docker volume create ${1}-prowler
+    VOL_PATH=`docker inspect ${1}-prowler | jq -r '.[].Mountpoint'`
+    if [[ "${VOL_PATH: -6}" == "/_data" ]]; then
+        echo "chmod 777 $VOL_PATH"
+        sudo chmod 777 $VOL_PATH
+    else
+        echo "Error with prowler volume"
+        read
+    fi
+
+    docker run -it --rm --name prowler -v ${1}-prowler:/prowler/output \
+        --env AWS_ACCESS_KEY_ID="${2}" --env AWS_SECRET_ACCESS_KEY="${3}" \
+        toniblyx/prowler:latest -M csv,json,json-asff,html
+}
+
+a-prowler-serve() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-prowler-serve <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    if docker run --rm -v "${1}-prowler:/var/lib/nginx/html/prowler" -d -p 8103:80 \
+        dceoy/nginx-autoindex; then
+        dunst-handle "prowler report ready" "http://localhost:8103/prowler?t=`date +%s`" &; disown
+    else
+        dunst-handle "Error launching prowler reports" &; disown
+    fi
+}
+
+a-prowler() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-prowler <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    if docker volume inspect ${1}-prowler; then
+        while true; do
+            echo -n "${1}-prowler docker volume exists, just serve? [Yn] "
+            read yn
+            case $yn in
+                [Yy]* ) a-prowler-serve $@; break;;
+                [Nn]* ) a-prowler-gather $@; a-prowler-serve $@; break;;
+                * ) a-prowler-serve $@; break;;
+            esac
+        done
+    else
+        a-prowler-gather $@
+        a-prowler-serve $@
+    fi
+}
+
+
 ###
 ### Lazy boy
 ###
@@ -262,6 +321,7 @@ awsscan() {
     a-aws-security-viz $@
     a-scout $@
     a-cloudmapper $@
+    a-prowler $@
 }
 
 webscan() {
