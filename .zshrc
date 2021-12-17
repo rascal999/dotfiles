@@ -96,18 +96,18 @@ d-filebrowserhere() {
     firefox http://127.0.0.1:1080/ &; disown
 }
 
-a-ngrok-nginx() {
-    docker run --rm --name ngrok-nginx -d -p 1080:80 -p 8443:443 -v "$(pwd):/srv/data" rflathers/nginxserve
-    ngrok http 1080
+a-localhostrun-nginx() {
+    docker run --rm --name localhostrun-nginx -d -p 1080:80 -p 8443:443 -v "$(pwd):/srv/data" rflathers/nginxserve
+    ssh -R 80:localhost:1080 nokey@localhost.run
     echo "Stopping nginx docker instance.."
-    docker stop ngrok-nginx
+    docker stop localhostrun-nginx
 }
 
-a-ngrok-filebrowser() {
-    docker run --rm --name ngrok-filebrowser -d -p 1080:80 -v $(pwd):/srv filebrowser/filebrowser
-    ngrok http 1080
+a-localhostrun-filebrowser() {
+    docker run --rm --name localhostrun-filebrowser -d -p 1080:80 -v $(pwd):/srv filebrowser/filebrowser
+    ssh -R 80:localhost:1080 nokey@localhost.run
     echo "Stopping filebrowser docker instance.."
-    docker stop ngrok-filebrowser
+    docker stop localhostrun-filebrowser
 }
 
 a-cloudmapper-gather() {
@@ -240,6 +240,7 @@ a-cartography(){
     docker-compose up -d cartography
     sleep 3
     dunst-handle "Cartography started" "http://localhost:7474" &; disown
+    cd -
 }
 
 a-prowler-gather() {
@@ -301,19 +302,19 @@ a-prowler() {
 }
 
 a-aws-public-ips() {
-    if [[ "$#" -ne "3" ]]; then
-        echo "a-aws-public-ips <REGION> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+    if [[ "$#" -ne "4" ]]; then
+        echo "a-aws-public-ips <REGION> <CLIENT> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
         return 1
     fi
 
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
-    WORK_DIR=$HOME/tool-output/a-aws-public-ips/$TIMESTAMP
+    WORK_DIR=$HOME/tool-output/aws-public-ips/${TIMESTAMP}_${2}
     mkdir -p $WORK_DIR 2>/dev/null
 
     RESULTS="`date "+%Y%m%d_%H%M%S"`_${1}_aws_public_ips.txt"
     if docker run --rm \
-        -e AWS_REGION="$1" -e AWS_ACCESS_KEY_ID="$2" \
-        -e AWS_SECRET_ACCESS_KEY="$3" arkadiyt/aws_public_ips \
+        -e AWS_REGION="$1" -e AWS_ACCESS_KEY_ID="$3" \
+        -e AWS_SECRET_ACCESS_KEY="$4" arkadiyt/aws_public_ips \
         > "$WORK_DIR/$RESULTS"; then
         dunst-handle "aws-public-ips report ready" "file:///$WORK_DIR/$RESULTS" &; disown
     else
@@ -331,6 +332,26 @@ a-aws-public-ips() {
     done
 }
 
+a-cloudsploit() {
+    if [[ "$#" -ne "4" ]]; then
+        echo "a-cloudsploit <COMPLIANCE_TYPE> <CLIENT> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    WORK_DIR=$HOME/tool-output/cloudsploit/${TIMESTAMP}_${2}
+    mkdir -p $WORK_DIR 2>/dev/null
+
+    RESULTS="`date "+%Y%m%d_%H%M%S"`_${1}_cloudsploit.txt"
+    if docker run --rm -e AWS_ACCESS_KEY_ID=$3 -e AWS_SECRET_ACCESS_KEY=$4 \
+        --entrypoint="/var/scan/node_modules/.bin/cloudsploitscan" cloudsploit:0.0.1 \
+        --compliance=$1 > "$WORK_DIR/$RESULTS"; then
+        dunst-handle "cloudsploit (${1}) report ready" "file:///$WORK_DIR/$RESULTS" &; disown
+    else
+        dunst-handle "Error launching cloudsploit report"
+    fi
+}
+
 ###
 ### Lazy boy
 ###
@@ -340,12 +361,90 @@ awsscan() {
         return 1
     fi
 
+    echo "Starting scans.."
+    echo "###"
+    echo "### Cartography"
+    echo "###"
     a-cartography
+    echo "###"
+    echo "### cloudsploit"
+    echo "###"
+    a-cloudsploit cis $2 $3 $4
+    a-cloudsploit pci $2 $3 $4
+    echo "###"
+    echo "### aws-security-viz"
+    echo "###"
     a-aws-security-viz $2 $3 $4
+    echo "###"
+    echo "### Scout"
+    echo "###"
     a-scout $2 $3 $4
+    echo "###"
+    echo "### CloudMapper"
+    echo "###"
     a-cloudmapper $2 $3 $4
+    echo "###"
+    echo "### Prowler"
+    echo "###"
     a-prowler $2 $3 $4
-    a-aws-public-ips $1 $3 $4
+    echo "###"
+    echo "### aws-public-ips" 
+    echo "###"
+    a-aws-public-ips $1 $2 $3 $4
+}
+
+awsscan-collate() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "awsscan-collate <CLIENT>"
+        return 1
+    fi
+
+    PATH_AWS_VIZ=`docker inspect ${1}-aws-viz | jq -r '.[].Mountpoint'`
+    PATH_CLOUDMAPPER_ACCOUNT_DATA=`docker inspect ${1}-cloudmapper-account-data | jq -r '.[].Mountpoint'`
+    PATH_CLOUDMAPPER_WEB=`docker inspect ${1}-cloudmapper-web | jq -r '.[].Mountpoint'`
+    PATH_PROWLER=`docker inspect ${1}-prowler | jq -r '.[].Mountpoint'`
+    PATH_SCOUT=`docker inspect ${1}-scout | jq -r '.[].Mountpoint'`
+
+    if [[ ${PATH_AWS_VIZ: -6} != "/_data" || \
+          ${PATH_CLOUDMAPPER_ACCOUNT_DATA: -6} != "/_data" || \
+          ${PATH_CLOUDMAPPER_WEB: -6} != "/_data" || \
+          ${PATH_PROWLER: -6} != "/_data" || \
+          ${PATH_SCOUT: -6} != "/_data" ]]; then
+        echo "Issue assigning docker volume mountpoint variables, check them"
+        return 1
+    fi
+
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    mkdir ${TIMESTAMP}_${1}_data
+    mkdir ${TIMESTAMP}_${1}_data/aws_viz
+    mkdir ${TIMESTAMP}_${1}_data/cloudmapper-account-data
+    mkdir ${TIMESTAMP}_${1}_data/cloudmapper-web
+    mkdir ${TIMESTAMP}_${1}_data/prowler
+    mkdir ${TIMESTAMP}_${1}_data/scout
+    mkdir ${TIMESTAMP}_${1}_data/cloudsploit
+    mkdir ${TIMESTAMP}_${1}_data/aws-pbulic-ips
+
+    sudo cp -rf $PATH_AWS_VIZ ${TIMESTAMP}_${1}_data/aws_viz
+    sudo cp -rf $PATH_CLOUDMAPPER_ACCOUNT_DATA ${TIMESTAMP}_${1}_data/cloudmapper-account-data
+    sudo cp -rf $PATH_CLOUDMAPPER_WEB ${TIMESTAMP}_${1}_data/cloudmapper-web
+    # So people can find account-data
+    sudo mv ${TIMESTAMP}_${1}_data/cloudmapper-web/_data/index.html ${TIMESTAMP}_${1}_data/cloudmapper-web/_data/viz.html
+    sudo cp -rf $PATH_PROWLER ${TIMESTAMP}_${1}_data/prowler
+    sudo cp -rf $PATH_SCOUT ${TIMESTAMP}_${1}_data/scout
+    sudo cp -rf ${HOME}/tool-output/aws-public-ips/*${1} ${TIMESTAMP}_${1}_data/aws-pbulic-ips
+    sudo cp -rf ${HOME}/tool-output/cloudsploit/*${1} ${TIMESTAMP}_${1}_data/cloudsploit
+
+    AWS_COLLATE_PASSWORD=`pwgen 20`
+    sudo zip -q -r -P $AWS_COLLATE_PASSWORD ${TIMESTAMP}-${1}.zip ${TIMESTAMP}_${1}_data
+    echo "Password for ${TIMESTAMP}-${1}.zip is $AWS_COLLATE_PASSWORD"
+
+    sudo rm -rf ./${TIMESTAMP}_${1}_data
+
+    #echo $PATH_AWS_VIZ
+    #echo $PATH_CLOUDMAPPER_ACCOUNT_DATA
+    #echo $PATH_CLOUDMAPPER_WEB
+    #echo $PATH_PROWLER
+    #echo $PATH_SCOUT
 }
 
 webscan() {
