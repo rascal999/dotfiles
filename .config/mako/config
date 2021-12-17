@@ -1,1 +1,30 @@
 on-notify=exec /run/current-system/sw/bin/mpv /home/user/sounds/WAV_Calm.wav
+sort=-time
+layer=overlay
+background-color=#ff6633
+width=500
+height=300
+border-size=2
+border-color=#000000
+border-radius=10
+icons=1
+max-icon-size=64
+default-timeout=0
+ignore-timeout=1
+font=monospace 18
+
+[urgency=low]
+background-color=#298c58
+ignore-timeout=1
+
+[urgency=normal]
+background-color=#297b8c
+ignore-timeout=1
+
+[urgency=high]
+background-color=#b50513
+ignore-timeout=1
+
+[category=mpd]
+group-by=category
+ignore-timeout=1
