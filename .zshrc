@@ -230,6 +230,16 @@ a-aws-security-viz(){
 }
 
 a-cartography(){
+    while true; do
+        echo -n "Launch cartography? [yN] "
+        read yn
+        case $yn in
+            [Yy]* ) break;;
+            [Nn]* ) return 1; break;;
+            * ) return 1; break;;
+        esac
+    done
+
     echo "Cartography uses ~/.aws, make sure this is set correctly."
     echo "Press enter to continue."
     read
@@ -273,7 +283,7 @@ a-prowler-serve() {
 
     if docker run --rm -v "${1}-prowler:/var/lib/nginx/html/prowler" -d -p 8104:80 \
         dceoy/nginx-autoindex; then
-        dunst-handle "prowler report ready" "http://localhost:8104/prowler?t=`date +%s`" &; disown
+        dunst-handle "prowler report ready" "http://localhost:8104/prowler/?t=`date +%s`" &; disown
     else
         dunst-handle "Error launching prowler reports"
     fi
