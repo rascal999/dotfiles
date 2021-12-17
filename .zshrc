@@ -122,7 +122,9 @@ a-cloudmapper-gather() {
         -p 8000:8000 -it cloudmapper /bin/bash -c \
             "ACCOUNT_ID=\`/usr/bin/aws sts get-caller-identity | jq -r '.Account'\`;  \
             python cloudmapper.py configure add-account --config-file config.json --name client --id \$ACCOUNT_ID ; \
-            python cloudmapper.py collect --account client"
+            python cloudmapper.py collect --account client ; \
+            python cloudmapper.py report --account client ; \
+            python cloudmapper.py prepare --account client ;"
 }
 
 a-cloudmapper-serve() {
@@ -131,22 +133,13 @@ a-cloudmapper-serve() {
         return 1
     fi
 
-    docker run --rm -v ${1}-cloudmapper-account-data:/opt/cloudmapper/account-data \
-        -v ${1}-cloudmapper-web:/opt/cloudmapper/web \
-        -e AWS_ACCESS_KEY_ID=$2 -e AWS_SECRET_ACCESS_KEY=$3 \
-        -p 8000:8000 -it cloudmapper /bin/bash -c \
-            "ACCOUNT_ID=\`/usr/bin/aws sts get-caller-identity | jq -r '.Account'\`;  \
-            python cloudmapper.py configure add-account --config-file config.json --name client --id \$ACCOUNT_ID ; \
-            python cloudmapper.py report --account client ; \
-            python cloudmapper.py prepare --account client ;"
-
     # Serve results
     if docker run --rm -v "${1}-cloudmapper-web:/var/lib/nginx/html" -d \
         -p 8101:80 dceoy/nginx-autoindex; then
         dunst-handle "CloudMapper report ready" "http://localhost:8101/account-data/report.html?t=`date +%s`" &; disown
         dunst-handle "CloudMapper prepare ready" "http://localhost:8101/?t=`date +%s`" &; disown
     else
-        dunst-handle "Error launching CloudMapper reports" &; disown
+        dunst-handle "Error launching CloudMapper reports"
     fi
 }
 
@@ -195,7 +188,7 @@ a-scout-serve() {
         dceoy/nginx-autoindex; then
         dunst-handle "Scout report ready" "http://localhost:8100/?t=`date +%s`" &; disown
     else
-        dunst-handle "Error launching scout reports" &; disown
+        dunst-handle "Error launching scout reports"
     fi
 }
 
@@ -232,7 +225,7 @@ a-aws-security-viz(){
         -a $2 -s $3 --renderer navigator --serve 8102; then
         dunst-handle "aws-security-viz report ready" "http://localhost:8102/navigator.html#aws-security-viz.png" &; disown
     else
-        dunst-handle "Error launching aws-security-viz reports" &; disown
+        dunst-handle "Error launching aws-security-viz reports"
     fi
 }
 
@@ -277,11 +270,11 @@ a-prowler-serve() {
         return 1
     fi
 
-    if docker run --rm -v "${1}-prowler:/var/lib/nginx/html/prowler" -d -p 8103:80 \
+    if docker run --rm -v "${1}-prowler:/var/lib/nginx/html/prowler" -d -p 8104:80 \
         dceoy/nginx-autoindex; then
-        dunst-handle "prowler report ready" "http://localhost:8103/prowler?t=`date +%s`" &; disown
+        dunst-handle "prowler report ready" "http://localhost:8104/prowler?t=`date +%s`" &; disown
     else
-        dunst-handle "Error launching prowler reports" &; disown
+        dunst-handle "Error launching prowler reports"
     fi
 }
 
@@ -307,21 +300,52 @@ a-prowler() {
     fi
 }
 
+a-aws-public-ips() {
+    if [[ "$#" -ne "3" ]]; then
+        echo "a-aws-public-ips <REGION> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+        return 1
+    fi
+
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    WORK_DIR=$HOME/tool-output/a-aws-public-ips/$TIMESTAMP
+    mkdir -p $WORK_DIR 2>/dev/null
+
+    RESULTS="`date "+%Y%m%d_%H%M%S"`_${1}_aws_public_ips.txt"
+    if docker run --rm \
+        -e AWS_REGION="$1" -e AWS_ACCESS_KEY_ID="$2" \
+        -e AWS_SECRET_ACCESS_KEY="$3" arkadiyt/aws_public_ips \
+        > "$WORK_DIR/$RESULTS"; then
+        dunst-handle "aws-public-ips report ready" "file:///$WORK_DIR/$RESULTS" &; disown
+    else
+        dunst-handle "Error launching aws-public-ips report"
+    fi
+
+    while true; do
+        echo -n "nmap scan aws-public-ips? [Yn] "
+        read yn
+        case $yn in
+            [Yy]* ) d-nmap -p - `cat $WORK_DIR/$RESULTS`; break;;
+            [Nn]* ) break;;
+            * ) d-nmap -p - `cat $WORK_DIR/$RESULTS`; break;;
+        esac
+    done
+}
 
 ###
 ### Lazy boy
 ###
 awsscan() {
-    if [[ "$#" -ne "3" ]]; then
-        echo "awsscan <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
+    if [[ "$#" -ne "4" ]]; then
+        echo "awsscan <REGION> <DOCKER_VOLUME> <ACCESS_KEY_ID> <SECRET_ACCESS_KEY>"
         return 1
     fi
 
     a-cartography
-    a-aws-security-viz $@
-    a-scout $@
-    a-cloudmapper $@
-    a-prowler $@
+    a-aws-security-viz $2 $3 $4
+    a-scout $2 $3 $4
+    a-cloudmapper $2 $3 $4
+    a-prowler $2 $3 $4
+    a-aws-public-ips $1 $3 $4
 }
 
 webscan() {
@@ -513,9 +537,11 @@ d-nmap() {
     WORK_DIR=$HOME/tool-output/nmap/$TIMESTAMP
     LOOT_DIR="/mnt"
     mkdir -p $WORK_DIR 2>/dev/null
-    docker run --rm -v $WORK_DIR:/mnt --net=host --privileged booyaabes/kali-linux-full nmap -oA /mnt/$TIMESTAMP "$@"
-    CONTENT="$@ completed"
-    notify-desktop "nmap - $CONTENT"
+    if docker run --rm -v $WORK_DIR:/mnt --net=host --privileged booyaabes/kali-linux-full nmap -oA /mnt/$TIMESTAMP "$@"; then
+        dunst-handle "nmap report ready" "file:///$WORK_DIR" &; disown
+    else
+        dunst-handle "Error launching nmap reports"
+    fi
 }
 
 d-searchsploit() {
