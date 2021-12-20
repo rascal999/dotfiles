@@ -13,7 +13,8 @@
 exec /run/current-system/sw/bin/mako &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
 exec /run/current-system/sw/bin/mako &
-exec /run/current-system/sw/bin/wayvnc &
+exec /run/current-system/sw/bin/swaymsg create_output
+exec /run/current-system/sw/bin/wayvnc --output=HEADLESS-1 &
 
 input * {
    xkb_layout dvorak
