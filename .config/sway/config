@@ -12,6 +12,8 @@
 # Exec custom things
 exec /run/current-system/sw/bin/mako &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
+exec /run/current-system/sw/bin/mako &
+exec /run/current-system/sw/bin/wayvnc &
 
 input * {
    xkb_layout dvorak
