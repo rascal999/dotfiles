@@ -19,6 +19,10 @@ input * {
    xkb_layout dvorak
 }
 
+workspace 1 output HDMI-A-1
+workspace 2 output DP-1
+workspace 3 output eDP-1
+
 # At home
 set $mod Mod1
 
