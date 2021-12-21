@@ -12,10 +12,11 @@
 # Exec custom things
 exec /run/current-system/sw/bin/mako &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
-exec /run/current-system/sw/bin/mako &
-exec /run/current-system/sw/bin/swaymsg create_output
-exec /run/current-system/sw/bin/swaymsg output HEADLESS-1 pos 0 0 res 2560x1440
-exec /run/current-system/sw/bin/wayvnc --output=HEADLESS-1 -f 60 &
+if [[ "$HOST" == "nixos-zalman" ]]; then
+    exec /run/current-system/sw/bin/swaymsg create_output
+    exec /run/current-system/sw/bin/swaymsg output HEADLESS-1 pos 0 0 res 2560x1440
+    exec /run/current-system/sw/bin/wayvnc --output=HEADLESS-1 -f 60 &
+fi
 
 input * {
    xkb_layout dvorak
