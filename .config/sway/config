@@ -12,11 +12,7 @@
 # Exec custom things
 exec /run/current-system/sw/bin/mako &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
-if [[ "$HOST" == "nixos-zalman" ]]; then
-    exec /run/current-system/sw/bin/swaymsg create_output
-    exec /run/current-system/sw/bin/swaymsg output HEADLESS-1 pos 0 0 res 2560x1440
-    exec /run/current-system/sw/bin/wayvnc --output=HEADLESS-1 -f 60 &
-fi
+exec /home/user/git/nixos-bootstrap/scripts/wayvnc.sh &
 
 input * {
    xkb_layout dvorak
