@@ -13,6 +13,7 @@
 exec /run/current-system/sw/bin/mako &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
 exec /home/user/git/nixos-bootstrap/scripts/wayvnc.sh &
+exec /home/user/git/nixos-bootstrap/scripts/monitors.sh &
 
 input * {
    xkb_layout dvorak
