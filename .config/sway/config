@@ -23,9 +23,9 @@ workspace 1 output HDMI-A-1
 workspace 2 output DP-1
 workspace 3 output eDP-1
 workspace number 2
-exec /run/current-system/sw/bin/obsidian
-workspace number 1
 exec /run/current-system/sw/bin/firefox -P "Default User"
+workspace number 1
+exec /run/current-system/sw/bin/obsidian
 workspace number 3
 
 # At home
