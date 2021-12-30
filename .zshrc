@@ -47,12 +47,16 @@ a-gg() {
     googler --np "$@"
 }
 
+d-saws() {
+    docker run --rm -it -v ${HOME}/.aws/:/root/.aws:ro saws
+}
+
 d-shell() {
-    docker run --rm -i -t --entrypoint=/bin/bash "$@"
+    docker run --rm -it --entrypoint=/bin/bash "$@"
 }
 
 d-shellsh() {
-    docker run --rm -i -t --entrypoint=/bin/sh "$@"
+    docker run --rm -it --entrypoint=/bin/sh "$@"
 }
 
 d-shellhere() {
