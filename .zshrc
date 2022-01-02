@@ -472,7 +472,7 @@ webscan() {
 ### Tools
 ###
 d-nuclei() {
-    docker run --rm -v $(pwd):/mnt projectdiscovery/nuclei
+    docker run --rm -v $(pwd):/mnt projectdiscovery/nuclei $@
 }
 
 d-eth-security-toolbox() {
