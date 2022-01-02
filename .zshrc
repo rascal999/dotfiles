@@ -48,11 +48,11 @@ a-gg() {
 }
 
 d-shell() {
-    docker run --rm -i -t --entrypoint=/bin/bash "$@"
+    docker run --rm -it --entrypoint=/bin/bash "$@"
 }
 
 d-shellsh() {
-    docker run --rm -i -t --entrypoint=/bin/sh "$@"
+    docker run --rm -it --entrypoint=/bin/sh "$@"
 }
 
 d-shellhere() {
