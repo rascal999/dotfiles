@@ -471,6 +471,10 @@ webscan() {
 ###
 ### Tools
 ###
+d-nuclei() {
+    docker run --rm -v $(pwd):/mnt projectdiscovery/nuclei
+}
+
 d-eth-security-toolbox() {
     docker run -it --rm -v $(pwd):/share trailofbits/eth-security-toolbox
 }
