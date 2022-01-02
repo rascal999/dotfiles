@@ -471,6 +471,10 @@ webscan() {
 ###
 ### Tools
 ###
+d-pcf() {
+    docker-compose -f $HOME/git/pentest-tools/pcf/docker-compose.yml up
+}
+
 d-nuclei() {
     docker run --rm -v $(pwd):/mnt projectdiscovery/nuclei $@
 }
