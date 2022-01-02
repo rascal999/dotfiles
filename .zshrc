@@ -464,6 +464,7 @@ webscan() {
         # arjun
         # spiderfoot
         # crawlab
+        # nuclei
         CONTENT="$@ completed"
         notify-desktop "webscan - $CONTENT"
 }
