@@ -10,9 +10,7 @@
 # Please see http://swaywm.org/docs/userguide.html for a complete reference!
 
 # Exec custom things
-exec /run/current-system/sw/bin/mako &
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
-exec /home/user/git/nixos-bootstrap/scripts/wayvnc.sh &
 exec /home/user/git/nixos-bootstrap/scripts/monitors.sh &
 exec /run/current-system/sw/bin/opensnitch-ui &
 
