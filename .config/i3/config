@@ -11,7 +11,7 @@
 
 # Exec custom things
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
-exec /home/user/git/nixos-bootstrap/scripts/monitors.sh &
+#exec /home/user/git/nixos-bootstrap/scripts/monitors.sh &
 exec /run/current-system/sw/bin/opensnitch-ui &
 exec /run/current-system/sw/bin/setxkbmap dvorak
 
