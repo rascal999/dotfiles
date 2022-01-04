@@ -71,7 +71,7 @@ bindsym $mod+s exec /run/current-system/sw/bin/grim
 bindsym $mod+t exec /run/current-system/sw/bin/urxvt -bg black -fg white -e /run/current-system/sw/bin/tmux
 bindsym $mod+v exec /run/current-system/sw/bin/vlc
 bindsym $mod+w exec GTK_THEME=Adwaita:light /run/current-system/sw/bin/libreoffice --writer
-bindsym $mod+x exec /run/current-system/sw/bin/swaylock -c 000000 -F -e
+bindsym $mod+x exec /run/current-system/sw/bin/xlock -mode clock
 bindsym $mod+z exec /run/current-system/sw/bin/zoom
 
 # kill focused window
