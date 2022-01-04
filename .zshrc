@@ -464,6 +464,7 @@ webscan() {
         # arjun
         # spiderfoot
         # crawlab
+        # nuclei
         CONTENT="$@ completed"
         notify-desktop "webscan - $CONTENT"
 }
@@ -471,6 +472,14 @@ webscan() {
 ###
 ### Tools
 ###
+d-pcf() {
+    docker-compose -f $HOME/git/pentest-tools/pcf/docker-compose.yml up
+}
+
+d-nuclei() {
+    docker run --rm -v $(pwd):/mnt projectdiscovery/nuclei $@
+}
+
 d-eth-security-toolbox() {
     docker run -it --rm -v $(pwd):/share trailofbits/eth-security-toolbox
 }
