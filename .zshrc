@@ -459,14 +459,14 @@ awsscan-collate() {
 
 webscan() {
     d-sniper -c "sniper -t \"$@\""
-        d-nikto "$@"
-        d-feroxbuster-slow "$@"
-        # arjun
-        # spiderfoot
-        # crawlab
-        # nuclei
-        CONTENT="$@ completed"
-        notify-desktop "webscan - $CONTENT"
+    d-nikto "$@"
+    d-feroxbuster-slow "$@"
+    d-arjun "$@"
+    # spiderfoot
+    # crawlab
+    # nuclei
+    CONTENT="$@ completed"
+    notify-desktop "webscan - $CONTENT"
 }
 
 ###
@@ -563,6 +563,16 @@ d-feroxbuster-slow() {
 
 d-hetty() {
     docker run --rm -v $HOME/.hetty:/root/.hetty -p 8080:8080 dstotijn/hetty
+}
+
+d-arjun(){
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    WORK_DIR=$HOME/tool-output/arjun/$TIMESTAMP
+    LOOT_DIR="/mnt"
+    mkdir -p $WORK_DIR 2>/dev/null
+    docker run --rm -v $WORK_DIR:$LOOT_DIR arjun -u "$@" -oT $LOOT_DIR/arjun.txt -oJ $LOOT_DIR/arjun.json
+    CONTENT="$@ completed"
+    notify-desktop "arjun - $CONTENT"
 }
 
 d-sniper() {
