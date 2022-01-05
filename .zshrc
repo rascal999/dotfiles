@@ -566,6 +566,11 @@ d-hetty() {
 }
 
 d-arjun(){
+    if [[ "$#" -lt "1" ]]; then
+        echo "d-arjun <URL>"
+        return 1 
+    fi
+
     TIMESTAMP=`date +%Y%m%d_%H%M%S`
     WORK_DIR=$HOME/tool-output/arjun/$TIMESTAMP
     LOOT_DIR="/mnt"
