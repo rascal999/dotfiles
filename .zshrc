@@ -486,9 +486,9 @@ d-testssl() {
     WORK_DIR=$HOME/tool-output/testssl/$TIMESTAMP
     mkdir -p $WORK_DIR 2>/dev/null
     screen -S ${TIMESTAMP}_testssl -adm testssl.sh \
-        -oL ${WORK_DIR}/${TIMESTMAP}_testssl.txt \
-        -oj ${WORK_DIR}/${TIMESTMAP}_testssl.json \
-        -oH ${WORK_DIR}/${TIMESTMAP}_testssl.html "$1"
+        -oL ${WORK_DIR}/${TIMESTAMP}_testssl.txt \
+        -oj ${WORK_DIR}/${TIMESTAMP}_testssl.json \
+        -oH ${WORK_DIR}/${TIMESTAMP}_testssl.html "$1"
     #CONTENT="$@ completed"
     #notify-desktop "testssl - $CONTENT"
 }
