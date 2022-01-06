@@ -462,8 +462,8 @@ webscan() {
     d-nikto "$@"
     d-feroxbuster-slow "$@"
     d-arjun "$@"
-    # spiderfoot
-    # crawlab
+    d-spiderfoot
+    d-testssl
     # nuclei
     CONTENT="$@ completed"
     notify-desktop "webscan - $CONTENT"
@@ -474,6 +474,23 @@ webscan() {
 ###
 d-pcf() {
     docker-compose -f $HOME/git/pentest-tools/pcf/docker-compose.yml up
+}
+
+d-testssl() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "d-testssl <url>"
+        return 1
+    fi
+
+    TIMESTAMP=`date +%Y%m%d_%H%M%S`
+    WORK_DIR=$HOME/tool-output/testssl/$TIMESTAMP
+    mkdir -p $WORK_DIR 2>/dev/null
+    screen -S ${TIMESTAMP}_testssl -adm testssl "$1" \
+        -oL $WORK_DIR/${TIMESTMAP}_testssl.txt \
+        -oj $WORK_DIR/${TIMESTMAP}_testssl.json \
+        -oH $WORK_DIR/${TIMESTMAP}_testssl.html
+    CONTENT="$@ completed"
+    notify-dekstop "testssl - $CONTENT"
 }
 
 d-nuclei() {
@@ -495,7 +512,7 @@ d-myth() {
     mkdir -p $WORK_DIR 2>/dev/null
     docker run -it --rm -v $(pwd):/home/mythril/sol mythril/myth a sol/$1 --solv $2 > $WORK_DIR/${TIMESTAMP}_myth 
     CONTENT="$@ completed"
-    notify-dekstop "nmap - $CONTENT"
+    notify-dekstop "myth - $CONTENT"
 }
 
 d-thelounge() {
@@ -563,6 +580,11 @@ d-feroxbuster-slow() {
 
 d-hetty() {
     docker run --rm -v $HOME/.hetty:/root/.hetty -p 8080:8080 dstotijn/hetty
+}
+
+d-spiderfoot(){
+    docker run --rm -p 5001:5001 spiderfoot
+    firefox http://127.0.0.1:5001 &; disown
 }
 
 d-arjun(){
