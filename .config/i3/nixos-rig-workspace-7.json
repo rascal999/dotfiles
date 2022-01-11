@@ -15,7 +15,7 @@
     "swallows": [
        {
           "class": "^Slack$",
-          "instance": "^slack$",
+          "instance": "^slack$"
        // "machine": "^nixos\\-rig$",
        // "window_role": "^browser\\-window$"
        }

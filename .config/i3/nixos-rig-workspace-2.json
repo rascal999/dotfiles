@@ -15,7 +15,7 @@
     "swallows": [
        {
           "class": "^Firefox$",
-          "instance": "^Navigator$",
+          "instance": "^Navigator$"
        // "machine": "^nixos\\-rig$",
        // "window_role": "^browser$"
        }
@@ -39,7 +39,7 @@
     "swallows": [
        {
           "class": "^Firefox$",
-          "instance": "^Navigator$",
+          "instance": "^Navigator$"
        // "machine": "^nixos\\-rig$",
        // "window_role": "^browser$"
        }
