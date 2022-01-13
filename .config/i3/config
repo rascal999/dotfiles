@@ -56,10 +56,9 @@ bindsym F3 exec /run/current-system/sw/bin/light -A 5
 bindsym $mod+space exec /run/current-system/sw/bin/firefox -P "Default User"
 bindsym $mod+Shift+Return exec /run/current-system/sw/bin/firefox -P "Burp"
 bindsym $mod+Shift+v exec /run/current-system/sw/bin/VirtualBox
-bindsym $mod+Shift+w exec $HOME/git/nixos-bootstrap/scripts/display-work.sh
-bindsym $mod+Shift+m exec $HOME/git/nixos-bootstrap/scripts/display-mobile.sh
+bindsym $mod+Shift+w exec /home/user/git/nixos-bootstrap/scripts/wireguard_toggle.sh
 
-bindsym $mod+b exec $HOME/burp.sh
+bindsym $mod+b exec /home/user/burp.sh
 bindsym $mod+o exec /run/current-system/sw/bin/obsidian
 #bindsym $mod+c exec /usr/bin/chromium --disable-gpu-vsync=gpu
 bindsym $mod+c exec /run/current-system/sw/bin/chromium
@@ -190,7 +189,7 @@ bindsym $mod+Shift+period exec "i3-nagbar -t warning -m 'You pressed the exit sh
 bar {
     font pango:DejaVu Sans Mono, FontAwesome 12
     position bottom
-    status_command /run/current-system/sw/bin/i3status-rs $HOME/.config/i3/theme.toml
+    status_command /run/current-system/sw/bin/i3status-rs /home/user/.config/i3/theme.toml
     colors {
         separator #666666
         statusline #dddddd
