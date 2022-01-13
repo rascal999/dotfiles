@@ -2,15 +2,20 @@ theme = "solarized-dark"
 icons = "awesome"
 
 [[block]]
+block = "battery"
+interval = 10
+format = "{percentage} {time}"
+
+[[block]]
 block = "custom"
 command = "uname -r | sed 's/-arch1.*//g'"
 interval = 600
 
 [[block]]
 block = "custom"
-command = "curl \"https://wttr.in/Edinburgh?format=3&m\""
+command = "curl \"https://wttr.in/Bournemouth?format=3&m\""
 interval = 600
-on_click = "firefox -P default http://wttr.in/Edinburgh"
+on_click = "firefox -P default http://wttr.in/Bournemouth"
 
 #[[block]]
 #block = "custom"
