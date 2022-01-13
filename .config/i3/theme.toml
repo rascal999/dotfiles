@@ -9,6 +9,12 @@ allow_missing = true
 hide_missing = true
 
 [[block]]
+block = "networkmanager"
+on_click = "alacritty -e nmtui"
+interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
+interface_name_include = []
+
+[[block]]
 block = "custom"
 command = "uname -r | sed 's/-arch1.*//g'"
 interval = 600
