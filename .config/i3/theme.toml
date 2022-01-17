@@ -16,6 +16,11 @@ interface_name_include = []
 
 [[block]]
 block = "custom"
+command = "echo -n "IP: " && curl ifconfig.me"
+interval = 300
+
+[[block]]
+block = "custom"
 command = "uname -r | sed 's/-arch1.*//g'"
 interval = 600
 
