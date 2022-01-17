@@ -16,7 +16,7 @@ interface_name_include = []
 
 [[block]]
 block = "custom"
-command = "echo -n "IP: " && curl ifconfig.me"
+command = "curl ifconfig.me"
 interval = 300
 
 [[block]]
