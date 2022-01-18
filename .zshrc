@@ -473,6 +473,53 @@ webscan() {
 ###
 ### Tools
 ###
+d-vpn() {
+    docker run -d --rm --cap-add=NET_ADMIN \
+        --volume /home/user/vpn:/etc/wireguard/:ro \
+        -p 1080:1080 \
+        kizzx2/wireguard-socks-proxy
+}
+
+d-vpn-array() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "d-vpn-array <instance-count>"
+        return 1
+    fi
+    rm -rf /home/user/vpn/tmp_*
+
+    for i in {1..$1}
+    do
+        mkdir /home/user/vpn/tmp_${i}
+        RAND_CONF=`ls /home/user/vpn/*.conf |sort -R |tail -1`
+        cp ${RAND_CONF} /home/user/vpn/tmp_${i}
+        PORT_1080=$(expr 1080 + $i)
+
+        docker run -d --rm --cap-add=NET_ADMIN \
+            --volume /home/user/vpn/tmp_${i}:/etc/wireguard/:ro \
+            -p ${PORT_1080}:1080 \
+            kizzx2/wireguard-socks-proxy
+    done
+
+    PORT_1080_FIRST=$(expr 1080 + 1)
+    PORT_1080_LAST=$(expr 1080 + $1)
+
+    echo "VPN ports"
+    echo "#########"
+    echo "First instance"
+    echo "1080 == ${PORT_1080_FIRST}"
+    echo "Last instance"
+    echo "1080 == ${PORT_1080_LAST}"
+}
+
+d-vpn-array-kill() {
+    INSTANCES=$(docker ps -q -f "ancestor=kizzx2/wireguard-socks-proxy")
+    if [[ "$INSTANCES" == "" ]]; then
+        echo "No VPN instances to stop"
+    else
+        docker ps -q -f "ancestor=kizzx2/wireguard-socks-proxy" | xargs docker stop
+    fi
+}
+
 d-tor() {
     docker run --rm -it -p 8118:8118 -p 9050:9050 -p 9051:9051 -d dperson/torproxy
 }
