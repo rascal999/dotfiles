@@ -591,6 +591,16 @@ d-testssl() {
     #notify-desktop "testssl - $CONTENT"
 }
 
+d-tlsmate() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "d-tlsmate <url>"
+        return 1
+    fi
+
+    docker run --rm -it guballa/tlsmate tlsmate scan \
+        --progress $1
+}
+
 d-nuclei() {
     docker run --rm -v $(pwd):/mnt projectdiscovery/nuclei $@
 }
