@@ -473,6 +473,49 @@ webscan() {
 ###
 ### Tools
 ###
+d-tor() {
+    docker run --rm -it -p 8118:8118 -p 9050:9050 -p 9051:9051 -d dperson/torproxy
+}
+
+d-tor-array() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "d-tor-array <instance-count>"
+        return 1
+    fi
+
+    for i in {1..$1}
+    do
+        PORT_8118=$(expr 8118 + $i)
+        PORT_9050=$(expr 9050 + $i)
+        PORT_10051=$(expr 10051 + $i)
+        docker run --rm -it -e TOR_ControlPort=0.0.0.0:9051 -p $PORT_8118:8118 -p $PORT_9050:9050 -p $PORT_10051:9051 -d dperson/torproxy -p password
+    done
+
+    PORT_8118_FIRST=$(expr 8118 + 1)
+    PORT_9050_FIRST=$(expr 9050 + 1)
+    PORT_10051_FIRST=$(expr 10051 + 1)
+
+    PORT_8118_LAST=$(expr 8118 + $1)
+    PORT_9050_LAST=$(expr 9050 + $1)
+    PORT_10051_LAST=$(expr 10051 + $1)
+
+    echo "Tor ports"
+    echo "#########"
+    echo "First instance"
+    echo "8118 == ${PORT_8118_FIRST}\t9050 == ${PORT_9050_FIRST}\t9051 == ${PORT_10051_FIRST}"
+    echo "Last instance"
+    echo "8118 == ${PORT_8118_LAST}\t9050 == ${PORT_9050_LAST}\t9051 == ${PORT_10051_LAST}"
+}
+
+d-tor-array-kill() {
+    INSTANCES=$(docker ps -q -f "ancestor=dperson/torproxy")
+    if [[ "$INSTANCES" == "" ]]; then
+        echo "No tor instances to stop"
+    else
+        docker ps -q -f "ancestor=dperson/torproxy" | xargs docker stop
+    fi
+}
+
 d-pcf() {
     docker-compose -f $HOME/git/pentest-tools/pcf/docker-compose.yml up
 }
