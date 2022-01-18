@@ -476,7 +476,7 @@ webscan() {
 d-vpn() {
     docker run -d --rm --cap-add=NET_ADMIN \
         --volume /home/user/vpn:/etc/wireguard/:ro \
-        -p 1080:1080 \
+        -p 127.0.0.1:1080:1080 \
         kizzx2/wireguard-socks-proxy
 }
 
@@ -496,7 +496,7 @@ d-vpn-array() {
 
         docker run -d --rm --cap-add=NET_ADMIN \
             --volume /home/user/vpn/tmp_${i}:/etc/wireguard/:ro \
-            -p ${PORT_1080}:1080 \
+            -p 127.0.0.1:${PORT_1080}:1080 \
             kizzx2/wireguard-socks-proxy
     done
 
@@ -521,7 +521,10 @@ d-vpn-array-kill() {
 }
 
 d-tor() {
-    docker run --rm -it -p 8118:8118 -p 9050:9050 -p 9051:9051 -d dperson/torproxy
+    docker run --rm -it -p 127.0.0.1:8118:8118 \
+        -p 127.0.0.1:9050:9050 \
+        -p 127.0.0.1:9051:9051 \
+        -d dperson/torproxy
 }
 
 d-tor-array() {
@@ -535,7 +538,11 @@ d-tor-array() {
         PORT_8118=$(expr 8118 + $i)
         PORT_9050=$(expr 9050 + $i)
         PORT_10051=$(expr 10051 + $i)
-        docker run --rm -it -e TOR_ControlPort=0.0.0.0:9051 -p $PORT_8118:8118 -p $PORT_9050:9050 -p $PORT_10051:9051 -d dperson/torproxy -p password
+        docker run --rm -it -e TOR_ControlPort=0.0.0.0:9051 \
+            -p 127.0.0.1:$PORT_8118:8118 \
+            -p 127.0.0.1:$PORT_9050:9050 \
+            -p 127.0.0.1:$PORT_10051:9051 \
+            -d dperson/torproxy -p password
     done
 
     PORT_8118_FIRST=$(expr 8118 + 1)
