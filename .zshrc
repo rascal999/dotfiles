@@ -470,6 +470,34 @@ webscan() {
     notify-desktop "webscan - $CONTENT"
 }
 
+osint() {
+    # Search engines
+    TOOLS=("https://www.ask.com/web?q=site%3A" \
+           "https://duckduckgo.com/?q=site%3A" \
+           "http://gigablast.com/search?q=" \
+           "https://search.lycos.com/web/?q=site%3A" \
+           "https://uk.search.yahoo.com/search?p=site%3A" \
+           "https://web.archive.org/web/*/")
+
+    for TOOL in $TOOLS
+        for OUTPUT in $@
+        do
+            # Only one domain at a time
+            echo firefox "${TOOL}${OUTPUT}"
+        done
+    done
+
+    for OUTPUT in $@
+    do
+        SITE_STRING="${SITE_STRING}site:${OUTPUT}%20OR%20"
+    done
+
+    GOOGLE_STRING="https://www.google.com/search?q=$SITE_STRING"
+    BING_STRING="https://www.bing.com/search?q=$SITE_STRING"
+    echo firefox $GOOGLE_STRING
+    echo firefox $BING_STRING
+}
+
 ###
 ### Tools
 ###
