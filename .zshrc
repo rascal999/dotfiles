@@ -480,6 +480,7 @@ osint() {
            "https://web.archive.org/web/*/")
 
     for TOOL in $TOOLS
+    do
         for OUTPUT in $@
         do
             # Only one domain at a time
