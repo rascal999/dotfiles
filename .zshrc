@@ -471,12 +471,24 @@ webscan() {
 }
 
 osint() {
+    # Misc
+    firefox https://www.faganfinder.com/
     # Search engines
     TOOLS=("https://www.ask.com/web?q=site%3A" \
            "https://duckduckgo.com/?q=site%3A" \
            "http://gigablast.com/search?q=" \
            "https://search.lycos.com/web/?q=site%3A" \
            "https://uk.search.yahoo.com/search?p=site%3A" \
+           "https://www.shodan.io/search?query=" \
+           "https://www.alltheinternet.com/?q=site%3A" \
+           "https://www.qwant.com/?q=site%3A" \
+           "https://swisscows.com/web?query=site%253A" \
+           "https://millionshort.com/search?keywords=" \
+           "https://buckets.grayhatwarfare.com/results/" \
+           "https://www.courtlistener.com/?q=" \
+           "http://www.freefullpdf.com/#gsc.q=tinder.com" \
+           "https://offshoreleaks.icij.org/search?q=" \
+           "https://grep.app/search?q=" \
            "https://web.archive.org/web/*/")
 
     for TOOL in $TOOLS
@@ -484,7 +496,7 @@ osint() {
         for OUTPUT in $@
         do
             # Only one domain at a time
-            echo firefox "${TOOL}${OUTPUT}"
+            firefox "${TOOL}${OUTPUT}"
         done
     done
 
@@ -495,8 +507,8 @@ osint() {
 
     GOOGLE_STRING="https://www.google.com/search?q=$SITE_STRING"
     BING_STRING="https://www.bing.com/search?q=$SITE_STRING"
-    echo firefox $GOOGLE_STRING
-    echo firefox $BING_STRING
+    firefox $GOOGLE_STRING
+    firefox $BING_STRING
 }
 
 ###
