@@ -849,7 +849,7 @@ d-nmap() {
 }
 
 d-searchsploit() {
-    docker run --rm booyaabes/kali-linux-full searchsploit
+    docker run --rm booyaabes/kali-linux-full searchsploit $@
 }
 
 ###
