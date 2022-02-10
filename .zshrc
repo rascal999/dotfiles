@@ -458,6 +458,11 @@ awsscan-collate() {
     #echo $PATH_SCOUT
 }
 
+fscan() {
+    d-nmap "$@"
+    d-nikto "$@"
+}
+
 webscan() {
     d-sniper -c "sniper -t \"$@\""
     d-nikto "$@"
@@ -811,7 +816,7 @@ d-kali() {
 }
 
 d-dirb() {
-    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full dirb
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full dirb "$@"
 }
 
 d-dnschef() {
@@ -819,11 +824,11 @@ d-dnschef() {
 }
 
 d-hping3() {
-    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full hping3
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full hping3 "$@"
 }
 
 d-responder() {
-    docker run -it --rm --net=host booyaabes/kali-linux-full responder
+    docker run -it --rm --net=host booyaabes/kali-linux-full responder "$@"
 }
 
 d-nikto() {
