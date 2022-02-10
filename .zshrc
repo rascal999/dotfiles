@@ -876,6 +876,10 @@ d-wpscan() {
     docker run --rm wpscanteam/wpscan --url $1 --api-token $2 --enumerate p,u --plugins-detection aggressive
 }
 
+d-whatweb() {
+    docker run --rm guidelacour/whatweb ./whatweb $@
+}
+
 ###
 ### Educational docker images
 ###
