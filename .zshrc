@@ -459,8 +459,7 @@ awsscan-collate() {
 }
 
 fscan() {
-    d-nmap "$@"
-    d-nikto "$@"
+    /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/fscan.sh" "$@"
 }
 
 webscan() {
