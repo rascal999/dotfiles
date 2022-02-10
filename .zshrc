@@ -459,7 +459,7 @@ awsscan-collate() {
 }
 
 fscan() {
-    /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/fscan.sh" "$@"
+    /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/fscan.sh" "$@" &
 }
 
 webscan() {
