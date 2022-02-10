@@ -859,8 +859,21 @@ d-nmap() {
     fi
 }
 
+d-rustscan() {
+    docker run --rm cmnatic/rustscan:debian-buster rustscan $@
+}
+
 d-searchsploit() {
     docker run --rm booyaabes/kali-linux-full searchsploit $@
+}
+
+d-wpscan() {
+    if [[ "$#" -ne "2" ]]; then
+        echo "d-wpscan <URL> <WPSCAN_API_TOKEN>"
+        return 1
+    fi
+
+    docker run --rm wpscanteam/wpscan --url $1 --api-token $2 --enumerate p,u --plugins-detection aggressive
 }
 
 ###
