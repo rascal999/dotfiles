@@ -822,6 +822,10 @@ d-kali() {
     docker run -it --rm booyaabes/kali-linux-full /bin/bash
 }
 
+d-kalihere() {
+    docker run -it --rm -v "$(pwd):/mnt" booyaabes/kali-linux-full /bin/bash
+}
+
 d-dirb() {
     docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full dirb "$@"
 }
