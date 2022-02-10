@@ -462,11 +462,11 @@ fscan() {
     if [[ "$#" -ne "2" ]]; then
         echo "fscan <IP> <URL>"
         echo "Example: fscan 10.0.0.1 http://10.0.0.1:1337"
-        break
+        return 1
+    else
+        /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/fscan.sh" "$@" &
+        disown
     fi
-
-    /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/fscan.sh" "$@" &
-    disown
 }
 
 webscan() {
