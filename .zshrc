@@ -823,7 +823,8 @@ d-kali() {
 }
 
 d-kalihere() {
-    docker run -it --rm -v "$(pwd):/mnt" booyaabes/kali-linux-full /bin/bash
+    dirname=${PWD##*/}
+    docker run -it --rm -v "$(pwd):/${dirname}" -w /${dirname} booyaabes/kali-linux-full /bin/bash
 }
 
 d-dirb() {
