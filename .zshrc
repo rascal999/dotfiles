@@ -24,6 +24,7 @@ alias a-pip="curl ifconfig.me"
 alias a-sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
 alias a-ytmp3='youtube-dl --extract-audio --audio-format mp3 '
 alias ff='firefox '
+alias ls="grc ls"
 
 ###
 ### Dunst
