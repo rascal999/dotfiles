@@ -459,7 +459,7 @@ awsscan-collate() {
 }
 
 fscan() {
-    if [[ "$#" -eq "2" ]]; then
+    if [[ "$#" -ne "2" ]]; then
         echo "fscan <IP> <URL>"
         echo "Example: fscan 10.0.0.1 http://10.0.0.1:1337"
         exit 1
