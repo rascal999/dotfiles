@@ -850,7 +850,7 @@ d-nikto() {
     WORK_DIR=$HOME/tool-output/nikto/$TIMESTAMP
     LOOT_DIR="/data"
     mkdir -p $WORK_DIR 2>/dev/null
-    docker run -it --rm --net=host -w $LOOT_DIR -v $WORK_DIR:$LOOT_DIR booyaabes/kali-linux-full nikto -h "$@" -o $LOOT_DIR/nikto.txt
+    docker run -it --rm --net=host -w $LOOT_DIR -v $WORK_DIR:$LOOT_DIR sullo/nikto -h "$@" -o $LOOT_DIR/nikto.txt
     CONTENT="$@ completed"
     notify-desktop "nikto - $CONTENT"
 }
