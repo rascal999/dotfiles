@@ -460,6 +460,7 @@ awsscan-collate() {
     #echo $PATH_SCOUT
 }
 
+# Fast port / web scans
 fscan() {
     if [[ "$#" -ne "2" ]]; then
         echo "fscan <IP> <URL>"
@@ -469,6 +470,20 @@ fscan() {
         /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/fscan_left.sh" "$@" &
         disown
         /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/fscan_right.sh" "$@" &
+        disown
+    fi
+}
+
+# Windows services scan (port 139 / 445)
+wscan() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "wscan <IP>"
+        echo "Example: wscan 10.0.0.1"
+        return 1
+    else
+        /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/wscan_left.sh" "$@" &
+        disown
+        /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/wscan_right.sh" "$@" &
         disown
     fi
 }
@@ -834,6 +849,14 @@ d-dirb() {
     docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full dirb "$@"
 }
 
+d-enum4linux() {
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full enum4linux -a "$@"
+}
+
+d-nbtscan() {
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full nbtscan -r "$@"
+}
+
 d-dnschef() {
     docker run -it --rm -w /data -v $(pwd):/data --net=host booyaabes/kali-linux-full dnschef
 }
@@ -842,8 +865,34 @@ d-hping3() {
     docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full hping3 "$@"
 }
 
+d-rpcclient() {
+    docker run -it --rm --net=host booyaabes/kali-linux-full rpcclient -U "" -N "$@" -c querydispinfo
+    docker run -it --rm --net=host booyaabes/kali-linux-full rpcclient -U "" -N "$@" -c enumdomusers
+}
+
 d-responder() {
     docker run -it --rm --net=host booyaabes/kali-linux-full responder "$@"
+}
+
+d-smbclient() {
+    if [[ "$#" -lt "1" ]]; then
+        echo "d-smbclient <IP>"
+        return 1 
+    fi
+
+    shares=('C$' 'D$' 'ADMIN$' 'IPC$' 'PRINT$' 'FAX$' 'SYSVOL' 'NETLOGON')
+
+    for share in ${shares[*]}; do
+        output=$(docker run -it --rm --net=host booyaabes/kali-linux-full smbclient -U '%' -N \\\\$@\\$share -c '') 
+
+        if [[ -z $output ]]; then 
+            # no output if command goes through, assuming that a session was created
+            echo "[+] creating a null session is possible for $share"
+        else
+            # echo error message
+            echo $output
+        fi
+    done
 }
 
 d-nikto() {
@@ -867,6 +916,10 @@ d-nmap() {
     else
         dunst-handle "Error launching nmap reports"
     fi
+}
+
+d-nmap-smb() {
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full nmap --script "safe or smb-enum-*" -p 445 "$@"
 }
 
 d-rustscan() {
