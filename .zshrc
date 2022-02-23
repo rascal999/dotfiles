@@ -820,7 +820,7 @@ d-metasploit() {
 
 d-metasploitports() {
     mkdir -p $HOME/.msf4
-    docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -p 8443-8500:8443-8500 metasploitframework/metasploit-framework ./msfconsole "$@"
+    docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -p 8080-8085:8080-8085 metasploitframework/metasploit-framework ./msfconsole "$@"
 }
 
 d-msfvenomhere() {
