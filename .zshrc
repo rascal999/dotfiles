@@ -18,11 +18,14 @@ alias a-k="grc kubectl"
 alias a-d="grc docker"
 alias a-kga="grc kubectl get all"
 alias a-dpa="grc docker ps -a"
+alias a-drr="docker run -it --rm"
 alias a-st="wget http://ipv4.download.thinkbroadband.com/1GB.zip -O /dev/null"
 alias a-pingg="grc ping 8.8.8.8 -c 1"
+alias a-pip="curl ifconfig.me"
 alias a-sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
 alias a-ytmp3='youtube-dl --extract-audio --audio-format mp3 '
 alias ff='firefox '
+alias ls="grc ls"
 
 ###
 ### Dunst
@@ -457,6 +460,34 @@ awsscan-collate() {
     #echo $PATH_SCOUT
 }
 
+# Fast port / web scans
+fscan() {
+    if [[ "$#" -ne "2" ]]; then
+        echo "fscan <IP> <URL>"
+        echo "Example: fscan 10.0.0.1 http://10.0.0.1:1337"
+        return 1
+    else
+        /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/fscan_left.sh" "$@" &
+        disown
+        /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/fscan_right.sh" "$@" &
+        disown
+    fi
+}
+
+# Windows services scan (port 139 / 445)
+wscan() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "wscan <IP>"
+        echo "Example: wscan 10.0.0.1"
+        return 1
+    else
+        /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/wscan_left.sh" "$@" &
+        disown
+        /run/current-system/sw/bin/urxvt -bg black -fg white -e "$HOME/git/nixos-bootstrap/scripts/wscan_right.sh" "$@" &
+        disown
+    fi
+}
+
 webscan() {
     d-sniper -c "sniper -t \"$@\""
     d-nikto "$@"
@@ -469,9 +500,147 @@ webscan() {
     notify-desktop "webscan - $CONTENT"
 }
 
+osint() {
+    # Misc
+    firefox https://www.faganfinder.com/
+    # Search engines
+    TOOLS=("https://www.ask.com/web?q=site%3A" \
+           "https://duckduckgo.com/?q=site%3A" \
+           "http://gigablast.com/search?q=" \
+           "https://search.lycos.com/web/?q=site%3A" \
+           "https://uk.search.yahoo.com/search?p=site%3A" \
+           "https://www.shodan.io/search?query=" \
+           "https://www.alltheinternet.com/?q=site%3A" \
+           "https://www.qwant.com/?q=site%3A" \
+           "https://swisscows.com/web?query=site%253A" \
+           "https://millionshort.com/search?keywords=" \
+           "https://buckets.grayhatwarfare.com/results/" \
+           "https://www.courtlistener.com/?q=" \
+           "http://www.freefullpdf.com/#gsc.q=tinder.com" \
+           "https://offshoreleaks.icij.org/search?q=" \
+           "https://grep.app/search?q=" \
+           "https://web.archive.org/web/*/")
+
+    for TOOL in $TOOLS
+    do
+        for OUTPUT in $@
+        do
+            # Only one domain at a time
+            firefox "${TOOL}${OUTPUT}"
+        done
+    done
+
+    for OUTPUT in $@
+    do
+        SITE_STRING="${SITE_STRING}site:${OUTPUT}%20OR%20"
+    done
+
+    GOOGLE_STRING="https://www.google.com/search?q=$SITE_STRING"
+    BING_STRING="https://www.bing.com/search?q=$SITE_STRING"
+    firefox $GOOGLE_STRING
+    firefox $BING_STRING
+}
+
 ###
 ### Tools
 ###
+d-vpn() {
+    docker run -d --rm --cap-add=NET_ADMIN \
+        --volume /home/user/vpn:/etc/wireguard/:ro \
+        -p 127.0.0.1:1080:1080 \
+        kizzx2/wireguard-socks-proxy
+}
+
+d-vpn-array() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "d-vpn-array <instance-count>"
+        return 1
+    fi
+    rm -rf /home/user/vpn/tmp_*
+
+    for i in {1..$1}
+    do
+        mkdir /home/user/vpn/tmp_${i}
+        RAND_CONF=`ls /home/user/vpn/*.conf |sort -R |tail -1`
+        cp ${RAND_CONF} /home/user/vpn/tmp_${i}
+        PORT_1080=$(expr 1080 + $i)
+
+        docker run -d --rm --cap-add=NET_ADMIN \
+            --volume /home/user/vpn/tmp_${i}:/etc/wireguard/:ro \
+            -p 127.0.0.1:${PORT_1080}:1080 \
+            kizzx2/wireguard-socks-proxy
+    done
+
+    PORT_1080_FIRST=$(expr 1080 + 1)
+    PORT_1080_LAST=$(expr 1080 + $1)
+
+    echo "VPN ports"
+    echo "#########"
+    echo "First instance"
+    echo "1080 == ${PORT_1080_FIRST}"
+    echo "Last instance"
+    echo "1080 == ${PORT_1080_LAST}"
+}
+
+d-vpn-array-kill() {
+    INSTANCES=$(docker ps -q -f "ancestor=kizzx2/wireguard-socks-proxy")
+    if [[ "$INSTANCES" == "" ]]; then
+        echo "No VPN instances to stop"
+    else
+        docker ps -q -f "ancestor=kizzx2/wireguard-socks-proxy" | xargs docker stop
+    fi
+}
+
+d-tor() {
+    docker run --rm -it -p 127.0.0.1:8118:8118 \
+        -p 127.0.0.1:9050:9050 \
+        -p 127.0.0.1:9051:9051 \
+        -d dperson/torproxy
+}
+
+d-tor-array() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "d-tor-array <instance-count>"
+        return 1
+    fi
+
+    for i in {1..$1}
+    do
+        PORT_8118=$(expr 8118 + $i)
+        PORT_9050=$(expr 9050 + $i)
+        PORT_10051=$(expr 10051 + $i)
+        docker run --rm -it -e TOR_ControlPort=0.0.0.0:9051 \
+            -p 127.0.0.1:$PORT_8118:8118 \
+            -p 127.0.0.1:$PORT_9050:9050 \
+            -p 127.0.0.1:$PORT_10051:9051 \
+            -d dperson/torproxy -p password
+    done
+
+    PORT_8118_FIRST=$(expr 8118 + 1)
+    PORT_9050_FIRST=$(expr 9050 + 1)
+    PORT_10051_FIRST=$(expr 10051 + 1)
+
+    PORT_8118_LAST=$(expr 8118 + $1)
+    PORT_9050_LAST=$(expr 9050 + $1)
+    PORT_10051_LAST=$(expr 10051 + $1)
+
+    echo "Tor ports"
+    echo "#########"
+    echo "First instance"
+    echo "8118 == ${PORT_8118_FIRST}\t9050 == ${PORT_9050_FIRST}\t9051 == ${PORT_10051_FIRST}"
+    echo "Last instance"
+    echo "8118 == ${PORT_8118_LAST}\t9050 == ${PORT_9050_LAST}\t9051 == ${PORT_10051_LAST}"
+}
+
+d-tor-array-kill() {
+    INSTANCES=$(docker ps -q -f "ancestor=dperson/torproxy")
+    if [[ "$INSTANCES" == "" ]]; then
+        echo "No tor instances to stop"
+    else
+        docker ps -q -f "ancestor=dperson/torproxy" | xargs docker stop
+    fi
+}
+
 d-pcf() {
     docker-compose -f $HOME/git/pentest-tools/pcf/docker-compose.yml up
 }
@@ -491,6 +660,16 @@ d-testssl() {
         -oH ${WORK_DIR}/${TIMESTAMP}_testssl.html "$1"
     #CONTENT="$@ completed"
     #notify-desktop "testssl - $CONTENT"
+}
+
+d-tlsmate() {
+    if [[ "$#" -ne "1" ]]; then
+        echo "d-tlsmate <url>"
+        return 1
+    fi
+
+    docker run --rm -it guballa/tlsmate tlsmate scan \
+        --progress $1
 }
 
 d-nuclei() {
@@ -641,7 +820,7 @@ d-metasploit() {
 
 d-metasploitports() {
     mkdir -p $HOME/.msf4
-    docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -p 8443-8500:8443-8500 metasploitframework/metasploit-framework ./msfconsole "$@"
+    docker run --rm -it -v "${HOME}/.msf4:/home/msf/.msf4" -p 8080-8085:8080-8085 metasploitframework/metasploit-framework ./msfconsole "$@"
 }
 
 d-msfvenomhere() {
@@ -661,8 +840,21 @@ d-kali() {
     docker run -it --rm booyaabes/kali-linux-full /bin/bash
 }
 
+d-kalihere() {
+    dirname=${PWD##*/}
+    docker run -it --rm -v "$(pwd):/${dirname}" -w /${dirname} booyaabes/kali-linux-full /bin/bash
+}
+
 d-dirb() {
-    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full dirb
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full dirb "$@"
+}
+
+d-enum4linux() {
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full enum4linux -a "$@"
+}
+
+d-nbtscan() {
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full nbtscan -r "$@"
 }
 
 d-dnschef() {
@@ -670,11 +862,37 @@ d-dnschef() {
 }
 
 d-hping3() {
-    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full hping3
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full hping3 "$@"
+}
+
+d-rpcclient() {
+    docker run -it --rm --net=host booyaabes/kali-linux-full rpcclient -U "" -N "$@" -c querydispinfo
+    docker run -it --rm --net=host booyaabes/kali-linux-full rpcclient -U "" -N "$@" -c enumdomusers
 }
 
 d-responder() {
-    docker run -it --rm --net=host booyaabes/kali-linux-full responder
+    docker run -it --rm --net=host booyaabes/kali-linux-full responder "$@"
+}
+
+d-smbclient() {
+    if [[ "$#" -lt "1" ]]; then
+        echo "d-smbclient <IP>"
+        return 1 
+    fi
+
+    shares=('C$' 'D$' 'ADMIN$' 'IPC$' 'PRINT$' 'FAX$' 'SYSVOL' 'NETLOGON')
+
+    for share in ${shares[*]}; do
+        output=$(docker run -it --rm --net=host booyaabes/kali-linux-full smbclient -U '%' -N \\\\$@\\$share -c '') 
+
+        if [[ -z $output ]]; then 
+            # no output if command goes through, assuming that a session was created
+            echo "[+] creating a null session is possible for $share"
+        else
+            # echo error message
+            echo $output
+        fi
+    done
 }
 
 d-nikto() {
@@ -682,7 +900,8 @@ d-nikto() {
     WORK_DIR=$HOME/tool-output/nikto/$TIMESTAMP
     LOOT_DIR="/data"
     mkdir -p $WORK_DIR 2>/dev/null
-    docker run -it --rm --net=host -w $LOOT_DIR -v $WORK_DIR:$LOOT_DIR booyaabes/kali-linux-full nikto -h "$@" -o $LOOT_DIR/nikto.txt
+    docker run -it --rm --net=host -w $LOOT_DIR -v $WORK_DIR:$LOOT_DIR sullo/nikto \
+      -ask No -nointeractive -h "$@" -o $LOOT_DIR/nikto.txt
     CONTENT="$@ completed"
     notify-desktop "nikto - $CONTENT"
 }
@@ -699,8 +918,29 @@ d-nmap() {
     fi
 }
 
+d-nmap-smb() {
+    docker run -it --rm -w /data -v $(pwd):/data booyaabes/kali-linux-full nmap --script "safe or smb-enum-*" -p 445 "$@"
+}
+
+d-rustscan() {
+    docker run --rm cmnatic/rustscan:debian-buster rustscan $@
+}
+
 d-searchsploit() {
-    docker run --rm booyaabes/kali-linux-full searchsploit
+    docker run --rm booyaabes/kali-linux-full searchsploit $@
+}
+
+d-wpscan() {
+    if [[ "$#" -ne "2" ]]; then
+        echo "d-wpscan <URL> <WPSCAN_API_TOKEN>"
+        return 1
+    fi
+
+    docker run --rm wpscanteam/wpscan --url $1 --api-token $2 --enumerate p,u --plugins-detection aggressive
+}
+
+d-whatweb() {
+    docker run --rm guidelacour/whatweb ./whatweb $@
 }
 
 ###

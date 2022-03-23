@@ -5,6 +5,19 @@ icons = "awesome"
 block = "battery"
 interval = 10
 format = "{percentage} {time}"
+allow_missing = true
+hide_missing = true
+
+[[block]]
+block = "networkmanager"
+on_click = "alacritty -e nmtui"
+interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker.*"]
+interface_name_include = []
+
+[[block]]
+block = "custom"
+command = "curl ifconfig.me"
+interval = 300
 
 [[block]]
 block = "custom"
