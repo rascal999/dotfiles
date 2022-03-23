@@ -52,6 +52,7 @@ default_border pixel 1
 #border none
 bindsym F2 exec /run/current-system/sw/bin/light -U 5
 bindsym F3 exec /run/current-system/sw/bin/light -A 5
+bindsym F5 exec /home/user/git/nixos-bootstrap/scripts/toggle_touchpad.sh
 
 bindsym $mod+space exec /run/current-system/sw/bin/firefox -P "Default User"
 bindsym $mod+Shift+Return exec /run/current-system/sw/bin/firefox -P "Burp"
