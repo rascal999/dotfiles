@@ -15,6 +15,7 @@ exec /home/user/git/nixos-bootstrap/scripts/monitors.sh &
 exec /run/current-system/sw/bin/opensnitch-ui &
 exec /run/current-system/sw/bin/twmnd &
 exec /run/current-system/sw/bin/setxkbmap dvorak
+exec /run/current-system/sw/bin/redshift -O 1900
 
 #input * {
 #   xkb_layout dvorak
