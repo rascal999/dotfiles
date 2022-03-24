@@ -24,11 +24,11 @@ block = "custom"
 command = "uname -r | sed 's/-arch1.*//g'"
 interval = 600
 
-[[block]]
-block = "custom"
-command = "curl \"https://wttr.in/Bournemouth?format=3&m\""
-interval = 600
-on_click = "firefox -P default http://wttr.in/Bournemouth"
+#[[block]]
+#block = "custom"
+#command = "curl \"https://wttr.in/Bournemouth?format=3&m\""
+#interval = 600
+#on_click = "firefox -P default http://wttr.in/Bournemouth"
 
 #[[block]]
 #block = "custom"
