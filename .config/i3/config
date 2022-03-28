@@ -15,6 +15,7 @@ exec /home/user/git/nixos-bootstrap/scripts/monitors.sh &
 exec /run/current-system/sw/bin/opensnitch-ui &
 exec /run/current-system/sw/bin/twmnd &
 exec /run/current-system/sw/bin/setxkbmap dvorak
+exec /run/current-system/sw/bin/redshift -O 1900
 
 #input * {
 #   xkb_layout dvorak
@@ -67,7 +68,7 @@ bindsym $mod+e exec /run/current-system/sw/bin/dmenu_run
 bindsym $mod+f exec /run/current-system/sw/bin/signal-desktop
 bindsym $mod+g exec /run/current-system/sw/bin/gimp
 bindsym $mod+k exec /run/current-system/sw/bin/keepassxc
-bindsym $mod+m exec /run/current-system/sw/bin/evolution
+bindsym $mod+m exec /home/user/git/nixos-bootstrap/scripts/toggle_touchpad.sh
 bindsym $mod+n exec /run/current-system/sw/bin/urxvt -bg black -fg white -e /run/current-system/sw/bin/tmux /run/current-system/sw/bin/bash
 bindsym $mod+s exec /run/current-system/sw/bin/scrot
 bindsym $mod+t exec /run/current-system/sw/bin/urxvt -bg black -fg white -e /run/current-system/sw/bin/tmux
