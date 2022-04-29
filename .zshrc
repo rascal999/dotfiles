@@ -100,6 +100,14 @@ d-filebrowserhere() {
     firefox http://127.0.0.1:1080/ &; disown
 }
 
+a-localhostrun() {
+    if [[ "$#" -ne "1" ]]; then
+      echo "Specify port number"
+    else
+      ssh -R 80:localhost:$1 nokey@localhost.run
+    fi
+}
+
 a-localhostrun-nginx() {
     docker run --rm --name localhostrun-nginx -d -p 1080:80 -p 8443:443 -v "$(pwd):/srv/data" rflathers/nginxserve
     ssh -R 80:localhost:1080 nokey@localhost.run
