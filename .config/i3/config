@@ -13,11 +13,11 @@
 exec /run/current-system/sw/bin/protonmail-bridge --noninteractive &
 exec /home/user/git/nixos-bootstrap/scripts/monitors.sh &
 exec /home/user/git/nixos-bootstrap/scripts/nvidia.sh &
-exec /home/user/git/nixos-bootstrap/scripts/custom_scripts.sh &
 exec /run/current-system/sw/bin/opensnitch-ui &
 exec /run/current-system/sw/bin/twmnd &
 exec /run/current-system/sw/bin/setxkbmap dvorak
 exec /run/current-system/sw/bin/redshift -O 1900
+exec /home/user/git/nixos-bootstrap/scripts/custom_scripts.sh &
 
 #input * {
 #   xkb_layout dvorak
